@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-09T15:22:00Z
 modDatetime: 2024-11-09T17:12:00Z
-title: LeetCode 3097 Shortest Subarray With OR at Least K II (Bit)
+title: LeetCode 3097 Shortest Subarray With OR at Least K II (bit)
 featured: true
 tags:
   - a-bit

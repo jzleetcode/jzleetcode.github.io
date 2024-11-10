@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-09T15:22:00Z
 modDatetime: 2024-11-09T17:12:00Z
-title: LeetCode 3133 Minimum Array End (Bit)
+title: LeetCode 3133 Minimum Array End (bit)
 featured: true
 tags:
   - a-bit
