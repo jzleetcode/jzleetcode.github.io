@@ -49,6 +49,7 @@ const structuredData = {
     },
   ],
 };
+
 ---
 
 <!doctype html>
@@ -86,10 +87,16 @@ const structuredData = {
     <!-- Google tag (gtag.js), google analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDSQ26TK3F"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      declare global {
+        interface Window {
+          dataLayer:Record<string, any>[];
+        }
+      }
 
+      let dataLayer = window.dataLayer;
+      window.dataLayer = window.dataLayer || [];
+      const gtag:Gtag.Gtag = function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
       gtag('config', 'G-MDSQ26TK3F');
     </script>
 
@@ -155,5 +162,6 @@ const structuredData = {
   </head>
   <body>
     <slot />
+    <script id="dsq-count-scr" src="//jzzcoding.disqus.com/count.js" async></script>
   </body>
 </html>
