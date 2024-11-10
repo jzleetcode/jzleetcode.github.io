@@ -5,10 +5,10 @@ modDatetime: 2024-11-09T09:12:47.400Z
 title: LeetCode 3133 Minimum Array End (Bit)
 featured: true
 tags:
-  - a.bit
-  - c.google
+  - a-bit
+  - c-google
 description:
-  "leetcode 3133, tags: bit"
+  "solution for leetcode 3133 Minimum Array End, tags: bit"
 ---
 
 
