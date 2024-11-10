@@ -6,7 +6,7 @@ export const SITE: Site = {
   profile: "https://satnaing.dev/",
   desc: "LeetCode",
   title: "JZLeetCode",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "jzzcoding.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 6,
