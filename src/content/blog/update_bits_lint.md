@@ -36,13 +36,15 @@ Challenge: Minimum number of operations?
 
 ## Solution
 
-### Idea
+### Idea1
 
-We can set a mark of pattern `11110000001111` where the bit is unset for bits `[i,j]`. Please note that the question is counting from `0th` bit starting from the least significant bit (rightmost). We can use this mask to clear out the bits in `[i,j]` of `n`. Next we left shift `m` `i` bits. Finally we add or perform bitwise OR with `n` and `m<<i` to get the result.
+We can set a mask of pattern `11110000001111` where the bit is unset for position (index) in  `[i,j]`. Please note that the question is counting from `0th` bit starting from the least significant bit (rightmost). We can use this mask to clear out the bits in `[i,j]` of `n`. Next we left shift `m` `i` bits. Finally, we add or perform bitwise OR with `n` and `m<<i` to get the result.
+
+Complexity: Time O(1), Space O(1).
 
 #### Rust
 
-This is an example where rust is more verbose than Java and C++ because of the strictness. We could to use `overflowing_sub` below to avoid the overflow error. Alternatively we could as all variables to `u32` and cast the result back to `i32`.
+This is an example where rust is more verbose than Java and C++ because of the strictness. We could use `overflowing_sub()` to avoid the overflow error. Alternatively we could cast all variables to `u32` and cast the result back to `i32` at the end.
 
 For example, `i32::Min - 1` would just overflow and evaluate to `i32::MAX` in Java and C++. In Rust, it will result in overflow error.
 
@@ -59,3 +61,9 @@ impl Solution {
     }
 }
 ```
+
+### Idea2
+
+For each bit in `[i,j]` unset in n. Then similar to idea 1 above, perform bitwise OR with `n` and `m<<i` to get the result.
+
+Complexity: Time O(j-i), Space O(1).
