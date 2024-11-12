@@ -1,7 +1,7 @@
 ---
 author: JZ
-pubDatetime: 2024-11-01T08:22:00Z
-modDatetime: 2024-11-01T10:12:00Z
+pubDatetime: 2024-10-01T08:22:00Z
+modDatetime: 2024-10-01T10:12:00Z
 title: Mac Tips and Great Apps 
 featured: true
 tags:

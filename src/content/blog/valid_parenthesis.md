@@ -84,9 +84,9 @@ class Solution {
                 case '(' -> stack.push(')');
                 case '[' -> stack.push(']');
                 case '{' -> stack.push('}');
-                default :
+                default -> {
                     if (stack.isEmpty() || s.charAt(i) != stack.pop()) return false;
-                
+                }
             }
         }
         return stack.isEmpty();
