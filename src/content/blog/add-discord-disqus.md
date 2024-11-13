@@ -67,26 +67,26 @@ toggle section
 
 ```html
 <div>
-      <details id="chat-details">
-        <summary><h3>Expand to chat 💬 on Discord </h3></summary>
-        <widgetbot
-          server="******"
-          channel="******"
-          width="100%"
-          height="600">
-        </widgetbot>
-      </details>
-    </div>
-    <script>
-      let chatLoaded = false;
-      const details = document.querySelector("#chat-details")! as HTMLElement;
-      details.addEventListener("toggle", event => {
-        if (details.hasAttribute('open') && !chatLoaded) {
-          const script = document.createElement('script');
-          script.src = "https://cdn.jsdelivr.net/npm/@widgetbot/html-embed";
-          document.head.appendChild(script);
-          chatLoaded = true;
-        }
-      });
-    </script>
+  <details id="chat-details">
+    <summary><h3>Expand to chat 💬 on Discord </h3></summary>
+    <widgetbot
+      server="******"
+      channel="******"
+      width="100%"
+      height="600">
+    </widgetbot>
+  </details>
+</div>
+<script>
+  let chatLoaded = false;
+  const details = document.querySelector("#chat-details")! as HTMLElement;
+  details.addEventListener("toggle", event => {
+    if (details.hasAttribute('open') && !chatLoaded) {
+      const script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/@widgetbot/html-embed";
+      document.head.appendChild(script);
+      chatLoaded = true;
+    }
+  });
+</script>
 ```
