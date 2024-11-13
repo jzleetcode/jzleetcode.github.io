@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-10T15:22:00Z
 modDatetime: 2024-11-10T17:12:00Z
 title: LintCode 179 Update Bits (bit)
-featured: true
 tags:
   - a-bit
 description:
