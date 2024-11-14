@@ -19,11 +19,11 @@ description:
 
 ## Description
 
-Given a binary tree, return the vertical order traversal of its nodes' values. (ie, from top to bottom, column by column).
+Given a binary tree, return the vertical order traversal of its nodes' values. (i.e., from top to bottom, column by column).
 
 If two nodes are in the same row and column, the order should be from left to right.
 
-For each node at position (row, col), its left and right children will be at positions (row + 1, col - 1) and (row + 1, col + 1) respectively. The root of the tree is at (0, 0).
+For each node at position (row, col), its left and right children will be at positions `(row + 1, col - 1)` and `(row + 1, col + 1)` respectively. The root of the tree is at `(0, 0)`.
 
 Example
 
@@ -66,7 +66,7 @@ Constraints:
 
 ### Idea
 
-We could use breath first search (BFS) to traverse the tree and maintain a hash map for `column -> values`. In the queue for BFS traversal, we keep track of the column index as well as the tree node. After that, we collect the values in the hash map to the result (a list of lists of `int32`).
+We could use breath-first search (BFS) to traverse the tree and maintain a hash map for `column -> values`. In the queue for BFS traversal, we keep track of the column index as well as the tree node. After that, we collect the values in the hash map to the result (a list of lists of `int32`).
 
 Complexity: Time O(n), Space O(n).
 
