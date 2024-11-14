@@ -21,11 +21,11 @@ I recently added Discord and Disqus to this site.
 
 Setting up is pretty straight forward.
 
-1. Create an free account with Disqus
+1. Create a free account with Disqus
 2. Create a site and add your website's address
-3. Get the javascript and embed it your site. Add it to all pages where you intended to have discussion or comment. I added disqus to each post's page with astro layout. Had to fix some typescript strict type check issues.
+3. Get JavaScript and embed it on your site. Add it to all pages where you intended to have discussion or comment. I added disqus to each post's page with astro layout. Had to fix some TypeScript strict type check issues.
 
-Overall it is working pretty smoothly. Safari seems to have problem loading the widget. It just does not show at all. In chrome or microsoft edge sometimes you have to reload.
+Overall, it is working pretty smoothly. Safari seems to have a problem loading the widget. It just does not show at all. In chrome or Microsoft Edge sometimes you have to reload.
 
 ```javascript
 <script>

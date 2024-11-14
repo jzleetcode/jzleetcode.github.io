@@ -73,13 +73,13 @@ Implement a function canDistribute(k), which returns true if you can distribute 
 
 ## Solution
 
-`let k = max(quantities)`, wit the constraints above, O(k)=O(n)=O(m)= 10^5
+`let k = max(quantities)`, with the constraints above, O(k)=O(n)=O(m)= 10^5
 
 ### Idea
 
-The question is similar to capacity ship packages question on LeetCode.
+The question is similar to capacity ship packages question LeetCode 1011.
 
-We could binary search with init range `[1,max(quantities)]`. We calculate the number of stores needed for each product by ceiling of `quantity/mid` (we can use `(quantity+mid-1)/ mid`). We calculate the total number of stores needed and keep shrinking the range until binary search finishes.
+We could use binary search starting with range `[1,max(quantities)]`. We calculate the number of stores needed for each product with the ceiling of `quantity/mid` (we can use `(quantity+mid-1)/ mid`). We calculate the total number of stores needed and keep shrinking the range until binary search finishes.
 
 Complexity: Time O(nlogk), Space O(1).
 
