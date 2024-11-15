@@ -57,7 +57,7 @@ We can use two pointers to iterate from the left and right end of the string. As
 
 Complexity: Time O(n), Space O(1).
 
-#### Java
+#### C++
 
 ```cpp
 class Solution {
@@ -72,3 +72,20 @@ public:
     }
 };
 ```
+
+#### Java
+
+```java
+static class Solution1 {
+    public boolean isPalindrome2P(String s) {
+        for (int l = 0, r = s.length() - 1; l < r; l++, r--) {
+            while (!Character.isLetterOrDigit(s.charAt(l)) && l < r) l++;
+            while (!Character.isLetterOrDigit(s.charAt(r)) && l < r) r--;
+            if (l < r && Character.toUpperCase(s.charAt(l)) != Character.toUpperCase(s.charAt(r)))
+                return false;
+        }
+        return true;
+    }
+}
+```
+

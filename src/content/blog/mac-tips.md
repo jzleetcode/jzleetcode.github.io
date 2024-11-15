@@ -28,5 +28,5 @@ $ brew list [package_name]
 
 ## Keyboard Shortcuts
 
-1. `ctrl + k` to delete till end of line, vim `d, $`
+1. `ctrl + k` to delete till the end of line, vim `d, $`
 2. `cmd + backspace` or `cmd + shift + left, delete` delete to the beginning of the line

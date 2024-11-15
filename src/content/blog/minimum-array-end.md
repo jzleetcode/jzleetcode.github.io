@@ -42,7 +42,8 @@ Constraints:
 
 The result should contain all the set bits in `x` otherwise the bitwise AND result would not be equal to `x`.
 
-For `4 (0b100)`, the 3rd least significant bit (LSB) needs to be set. `5 (0b101)` and `6 (0b110)` are ok, but `8 (0b1000)` is not.
+For `4 (0b100)`, the third least significant bit (LSB) needs to be set,
+and `6 (0b110)` are ok, but `8 (0b1000)` is not.
 
 For `7 (0b111)`, 1st-3rd all the least significant bits need to be set. `15 (0b1111)` is ok.
 

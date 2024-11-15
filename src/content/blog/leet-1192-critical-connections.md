@@ -52,7 +52,7 @@ There are no repeated connections.
 
 We can use Tarjan's algorithm to traverse the graph and try to find the topological order. If we encounter a cycle, the edges in the cycle are not critical. We set the rank for the vertexes in the cycle to the minimum rank.
 
-Let's use the example 1 above and go through the iterations of the `dfs`.
+Let's use example 1 above and go through the iterations of the `dfs`.
 
 | dfs(parent,vertex,rank) | ranks       | res       | explanation                       |
 |-------------------------|-------------|-----------|-----------------------------------|

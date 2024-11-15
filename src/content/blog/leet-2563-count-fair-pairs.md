@@ -49,7 +49,8 @@ nums.length == n
 
 ### Idea
 
-First of all, we can note that the number of fair pairs do not change if we sort the array. No matter index `i` and `j` elements are swapped or not swapped during sorting, they are still a fair pair.
+First, we can note that the number of fair pairs does not change if we sort the array.
+No matter index `i` and `j` elements are swapped or not swapped during sorting, they are still a fair pair.
 
 1. Sort the array.
 2. For each element in the array, we look for the first element (index `l`) greater than `upper-v` and the first element (index `r`) not less than `lower-v`. For the current element it can pair with elements in index range `[l,r)` to form a fair pair, where `[` (square bracket) is inclusive and `)` is exclusive, i.e., range `[l,r-1]`. So we increment result with `r-l`.
@@ -60,13 +61,13 @@ Note: it is probably easier to use C++ and Python for this idea since they have 
 1. find first element/index not less than the target: C++ `lower_bound()` and Python `bisect_left()`
 2. find first element/index greater than the target: C++ `upper_bound()` and Python `bisect_right()`
 
-Complexity: Time O(nlogn), Space O(logn).
+Complexity: Time O(n*log*n), Space O(*log*n).
 
 The space complexity of the sorting algorithm depends on the programming language.
 
 -   In Python, the sort method sorts a list using the Timsort algorithm which is a combination of Merge Sort and Insertion Sort and has O(n) additional space.
--   In Java, `Arrays.sort()` is implemented using a variant of the Quick Sort algorithm which has a space complexity of O(logn) for sorting two arrays.
--   In C++, the `sort()` function is implemented as a hybrid of Quick Sort, Heap Sort, and Insertion Sort, with a worse-case space complexity of O(logn).
+-   In Java, `Arrays.sort()` is implemented using a variant of the Quick Sort algorithm which has a space complexity of O(*log*n) for sorting two arrays.
+-   In C++, the `sort()` function is implemented as a hybrid of Quick Sort, Heap Sort, and Insertion Sort, with a worse-case space complexity of O(*log*n).
 
 #### C++
 

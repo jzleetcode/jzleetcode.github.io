@@ -60,9 +60,9 @@ Let `m=arr1.length, n=arr2.length, M=max(arr1), N=max(arr2), d1=log10(M), d2=log
 
 We can use a Trie to store `arr1` and for each number in `arr2` we look up the longest common prefix (LCP) and maintain the max for the final result.
 
-The benefit for this idea is
+The benefit of this idea is
 
-1. a trie can be more space saving if there is many duplicated LCP, e.g., 9898981, 9898982, 9898983, .etc.
+1. a trie can be more space-saving if there are many duplicated LCP, e.g., 9,898,981, 9,898,982, 9,898,983, .etc.
 2. trie is more efficient for search miss.
 
 Complexity: Time O(m*d1+n*d2), Space O(m*d1).
@@ -109,7 +109,9 @@ public:
 
 ### Idea2
 
-Instead of using a trie, we can use a hash set of integers. The hashing for integers is O(1) and not depending on the number of digits in the integer. However, we do have to save all the prefix of each of the integers in the set. 
+Instead of using a trie, we can use a hash set of integers.
+The hashing for integers is O(1) and not depending on the number of digits in the integer.
+However, we do have to save all the prefixes for each of the integers in the set. 
 
 The benefit of this idea is that for search hit can be faster since hashing of a long integer is O(1).
 

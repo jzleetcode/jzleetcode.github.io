@@ -81,7 +81,7 @@ The question is similar to capacity ship packages question LeetCode 1011.
 
 We could use binary search starting with range `[1,max(quantities)]`. We calculate the number of stores needed for each product with the ceiling of `quantity/mid` (we can use `(quantity+mid-1)/ mid`). We calculate the total number of stores needed and keep shrinking the range until binary search finishes.
 
-Complexity: Time O(nlogk), Space O(1).
+Complexity: Time O(n*log*k), Space O(1).
 
 #### Java
 

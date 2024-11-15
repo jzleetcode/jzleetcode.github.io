@@ -57,7 +57,10 @@ Constraints:
 
 ### Idea
 
-We can use a double ended `Deque` which are supported in most if not all programming languages (I would assume so). We use it to to remember the array indexes. The `Deque` size will remain less than k and be updated as we iterate through the array. During the iteration:
+We can use a double ended `Deque` which are supported in most if not all programming languages (I would assume so).
+We use it to remember the array indexes.
+The `Deque` size will remain less than k and be updated as we iterate through the array.
+During the iteration:
 
 1. we remove elements from the front when it is not in the sliding window (`index < i-(k-1)`) anymore.
 2. we remove elements from the back when the array element is not greater than the current element since we only need to get the maximum.
@@ -77,7 +80,7 @@ class Solution {
         int[] res = new int[n - k + 1];
         ArrayDeque<Integer> dq = new ArrayDeque<>();
         for (int i = 0; i < nums.length; i++) {
-            if (!dq.isEmpty() && dq.peek() < i - (k - 1)) dq.removeFirst(); // do not forget empty check
+            if (!dq.isEmpty() && dq.peek() < i - (k - 1)) dq.removeFirst(); // remember empty check
             while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) dq.removeLast();
             dq.add(i); // they might be the next max
             if (i >= k - 1) res[i - (k - 1)] = nums[dq.peekFirst()]; // max is at head of the deque
