@@ -33,6 +33,7 @@ Open brackets must be closed by the same type of brackets.
 Open brackets must be closed in the correct order.
 Every close bracket has a corresponding open bracket of the same type.
 
+```
 Example 1:
 
 Input: s = "()"
@@ -60,7 +61,6 @@ Output: true
 
 Constraints:
 
-```
 1 <= s.length <= 10^4
 s consists of parentheses only '()[]{}'.
 ```
@@ -69,7 +69,9 @@ s consists of parentheses only '()[]{}'.
 
 ### Idea
 
-We use a stack to memorize the open brackets seen and their order. When we see a close bracket, we pop the most recent bracket (LIFO) to match. Don't forgot to check whether there is any remaining brackets left on the stack at the end.
+We use a stack to memorize the open brackets seen and their order.
+When we see a close bracket, we pop the most recent bracket (LIFO) to match.
+Remember to check whether there are any remaining brackets left on the stack at the end.
 
 #### Java
 
@@ -96,7 +98,9 @@ class Solution {
 
 #### Rust
 
-In many cases, I found Rust tends to be verbose. But for this question, Rust is perfect. For the 4th branch, no separate emptiness check is needed because Rust's `VecDeque` returns an `Option`.
+In many cases, I found Rust tends to be verbose.
+But for this question, Rust is perfect.
+For the fourth branch, no separate emptiness check is needed because Rust's `VecDeque` returns an `Option`.
 
 ```rust
 use std::collections::VecDeque;

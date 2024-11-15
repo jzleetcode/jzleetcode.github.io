@@ -13,11 +13,14 @@ description:
 
 ## Description
 
-Given two 32-bit numbers, N and M, and two bit positions, i and j. Write a method to set all bits between i and j in N equal to M (e g , M becomes a substring of N start from i to j)
+Given two 32-bit numbers, N and M, and two bit positions, i and j.
+Write a method to set all bits between `i` and `j` in N equal to M (e.g., M becomes a substring of N start from i to j).
 
-In the function, the numbers N and M will given in decimal, you should also return a decimal number.
+In the function, the numbers N and M will be given in decimal, you should also return a decimal number.
 
-You can assume that the bits j through i have enough space to fit all of M. That is, if M=10011， you can assume that there are at least 5 bits between j and i. You would not, for example, have j=3 and i=2, because M could not fully fit between bit 3 and bit 2.
+You can assume that the bits j through i have enough space to fit all of M. That is,
+if M=10011， you can assume that there are at least five bits between j and i.
+You would not, for example, have j=3 and i=2, because M could not fully fit between bit 3 and bit 2.
 
 Example
 

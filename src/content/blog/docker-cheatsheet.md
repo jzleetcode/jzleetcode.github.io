@@ -13,7 +13,7 @@ description:
 
 ## Knowledge
 
-1. Image is immutable and container is a box started from an image
+1. A docker image is immutable, and a docker container is a box started from an image.
 
 ## Cheatsheet
 
