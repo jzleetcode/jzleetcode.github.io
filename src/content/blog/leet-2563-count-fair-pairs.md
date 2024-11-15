@@ -85,3 +85,36 @@ public:
     }
 };
 ```
+
+#### Java
+
+There is no implementation for `lower_bound()` or `upper_bound()` in standard library in Java.
+However, we can implement one fairly straight forward.
+Since we are implementing it, it makes sense to calculate the result together with the binary search.
+Because of that, this method should be faster than the C++ implementation above
+(imagine instead of binary searching `[beg+i+1,end]` in every iteration of the for loop,
+we can use a variable to remember and reduce the initial search range in the C++ implementation).
+Big O complexity is still the same.
+
+```java
+class Solution {
+    public long countFairPairs(int[] nums, int lower, int upper) {
+        Arrays.sort(nums);
+        return cntLess(nums, upper + 1) - cntLess(nums, lower); // [0,upper+1)-[0,lower): [lower,upper]
+    }
+
+    // Calculate the number of pairs with a sum less than `value`.
+    private long cntLess(int[] nums, int value) {
+        int l = 0, r = nums.length - 1;
+        long res = 0;
+        while (l < r) {
+            int sum = nums[l] + nums[r];
+            if (sum < value) {
+                res += (r - l);
+                l++;
+            } else r--;
+        }
+        return res;
+    }
+}
+```
