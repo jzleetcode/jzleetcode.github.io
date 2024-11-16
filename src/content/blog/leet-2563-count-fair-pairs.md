@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-11T08:01:00Z
 modDatetime: 2024-11-11T09:12:00Z
 title: LeetCode 2563 Count the Number of Fair Pairs
-featured: true
 tags:
   - a-array
   - a-two-pointers
