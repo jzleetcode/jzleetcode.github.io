@@ -197,22 +197,6 @@ const nextPost =
       })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <script>
-      /* add page url to copy content*/
-      const copyListener = (event) => {
-        const range = window.getSelection().getRangeAt(0),
-          rangeContents = range.cloneContents(),
-          pageLink = `Read more at: ${document.location.href}`,
-          helper = document.createElement("div");
-
-        helper.appendChild(rangeContents);
-
-        event.clipboardData.setData("text/plain", `${pageLink}\n${helper.innerText}\n${pageLink}`);
-        event.clipboardData.setData("text/html", `${pageLink}\n${helper.innerHTML}<br>${pageLink}`);
-        event.preventDefault();
-      };
-      document.addEventListener("copy", copyListener);
-    </script>
   </main>
   <Footer />
 </Layout>
@@ -289,6 +273,21 @@ const nextPost =
     }
   }
   addHeadingLinks();
+
+  /* add page url to copy content*/
+  function copyListener  (event)  {
+    const range = window.getSelection().getRangeAt(0),
+      rangeContents = range.cloneContents(),
+      pageLink = `Read more at: ${document.location.href}`,
+      helper = document.createElement("div");
+
+    helper.appendChild(rangeContents);
+
+    event.clipboardData.setData("text/plain", `${pageLink}\n${helper.innerText}\n${pageLink}`);
+    event.clipboardData.setData("text/html", `${pageLink}\n${helper.innerHTML}<br>${pageLink}`);
+    event.preventDefault();
+  };
+  document.addEventListener("copy", copyListener);
 
   /** Attaches copy buttons to code blocks in the document,
    * allowing users to copy code easily. */
