@@ -74,7 +74,7 @@ Implement a function canDistribute(k), which returns true if you can distribute 
 
 `let k = max(quantities)`, with the constraints above, O(k)=O(n)=O(m)= 10^5
 
-### Idea
+### Idea1
 
 The question is similar to capacity ship packages question LeetCode 1011.
 
@@ -95,6 +95,40 @@ class Solution2 {
             else right = mid;
         }
         return left;
+    }
+}
+```
+
+### Idea2
+
+The goal is essentially trying to evenly distribute the product to all the stores,
+such that we can minimize the variation among the quantities in each store.
+We can maintain a heap (priority queue)
+and take the product type of the max quantity/store_cnt ratio and assign one more store to that product type.
+We iterate this `n-m` times so that all the stores have products assigned.
+Finally, we return the ceiling of the max ratio.
+
+LeetCode test cases are constructed in a way that if we compare the double value of the ratio in the comparator,
+the solution will time out. 
+
+Complexity: Time O(m+(n-m)*log*m), Space O(m).
+
+```java
+class Solution1 {
+    public int minimizedMaximum(int n, int[] A) {
+        int m = A.length;
+        // [quantity, store cnt] for each product type, b0/b1<a0/a1, i.e., b0*a1<a0*b1
+        PriorityQueue<int[]> pq = new PriorityQueue<>(
+                (a, b) -> Long.compare((long) b[0] * a[1], (long) a[0] * b[1]));
+        for (int q : A) pq.add(new int[]{q, 1});
+        for (int i = 0; i < n - m; i++) {
+            int[] pair = pq.remove();
+            int q = pair[0], cnt = pair[1];
+            pq.offer(new int[]{q, cnt + 1}); // add one store for this type
+        }
+        int[] max = pq.remove(); // get the max ratio after all stores are assigned
+        int q = max[0], cnt = max[1];
+        return (q + cnt - 1) / cnt;
     }
 }
 ```
