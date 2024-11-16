@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-11T07:22:00Z
 modDatetime: 2024-11-11T10:12:00Z
 title: LeetCode 3043 Find the Length of the Longest Common Prefix
-featured: true
 tags:
   - a-string
   - a-hash

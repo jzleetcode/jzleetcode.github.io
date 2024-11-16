@@ -8,7 +8,7 @@ tags:
   - a-bit
   - c-google
 description:
-  "solution for leetcode 3133 Minimum Array End, tags: bit"
+  "Solution for leetcode 3133 Minimum Array End, tags: bit"
 ---
 
 

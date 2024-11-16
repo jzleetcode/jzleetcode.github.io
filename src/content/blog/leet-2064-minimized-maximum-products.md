@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-12T04:22:00Z
 modDatetime: 2024-11-12T05:12:00Z
 title: LeetCode 2064 Minimized Maximum of Products Distributed to Any Store
-featured: true
 tags:
   - a-array
   - a-binary-search
