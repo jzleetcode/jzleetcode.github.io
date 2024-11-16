@@ -48,6 +48,22 @@ Overall, it is working pretty smoothly. Safari seems to have a problem loading t
 
 ### Discord
 
+<div class="warning-box">
+    <strong>Warning:</strong> Widget bot has been offline, at least for the free version.
+</div>
+
+<style>
+.warning-box {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    margin: 10px 0;
+}
+</style>
+
 Found this [article](https://davidbieber.com/snippets/2022-06-20-chat-by-tag/) which is very helpful.
 
 I added a social button (an invitation to join the discord server). A floating button on the home page and an expandable section at the bottom of each post to allow chat and discussion on the discord server.
@@ -55,11 +71,11 @@ I added a social button (an invitation to join the discord server). A floating b
 ```javascript
 // floating button: replace with your server and channel
 <script src='https://cdn.jsdelivr.net/npm/@widgetbot/crate@3' async defer>
-      new Crate({
-        server: '******', // JZLeetCode
-        channel: '******' // #general
-      })
-    </script>
+  new Crate({
+    server: '******', // JZLeetCode
+    channel: '******' // #general
+  })
+</script>
 ```
 
 toggle section
