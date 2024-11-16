@@ -179,18 +179,40 @@ const nextPost =
     </div>
     <p>&nbsp;&nbsp;&nbsp;</p>
     <div id="disqus_thread"></div>
-    <p>&nbsp;&nbsp;&nbsp;</p>
-    <div>
-      <details id="chat-details">
-        <summary><b>Expand to chat 💬 on Discord</b></summary>
-        <widgetbot
-          server="1305293766898487317"
-          channel="1305293766898487322"
-          width="100%"
-          height="600">
-        </widgetbot>
-      </details>
-    </div>
+    <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+
+      var disqus_config = function (this:any) {
+        this.page.url = Astro.props.post.url;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = Astro.props.post.title; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://jzzcoding.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', String(new Date()));
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <script>
+      /* add page url to copy content*/
+      const copyListener = (event) => {
+        const range = window.getSelection().getRangeAt(0),
+          rangeContents = range.cloneContents(),
+          pageLink = `Read more at: ${document.location.href}`,
+          helper = document.createElement("div");
+
+        helper.appendChild(rangeContents);
+
+        event.clipboardData.setData("text/plain", `${pageLink}\n${helper.innerText}\n${pageLink}`);
+        event.clipboardData.setData("text/html", `${pageLink}\n${helper.innerHTML}<br>${pageLink}`);
+        event.preventDefault();
+      };
+      document.addEventListener("copy", copyListener);
+    </script>
   </main>
   <Footer />
 </Layout>
@@ -203,37 +225,6 @@ const nextPost =
     @apply text-2xl font-semibold text-skin-accent;
   }
 </style>
-
-<script> // discord
-  let chatLoaded = false;
-  const details = document.querySelector("#chat-details")! as HTMLElement;
-  details.addEventListener("toggle", event => {
-    if (details.hasAttribute('open') && !chatLoaded) {
-      const script = document.createElement('script');
-      script.src = "https://cdn.jsdelivr.net/npm/@widgetbot/html-embed";
-      document.head.appendChild(script);
-      chatLoaded = true;
-    }
-  });
-</script>
-
-<script> // disqus
-  /**
-   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-  var disqus_config = function (this:any) {
-    this.page.url = Astro.props.post.url;  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = Astro.props.post.title; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-  };
-
-  (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://jzzcoding.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', String(new Date()));
-    (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 <script is:inline data-astro-rerun>
   /** Create a progress indicator
@@ -327,7 +318,8 @@ const nextPost =
 
     async function copyCode(block, button) {
       const code = block.querySelector("code");
-      const text = code?.innerText;
+      const pageLink = `Read more at: ${document.location.href}`;
+      const text = `${pageLink}\n${code?.innerText}${pageLink}`;
 
       await navigator.clipboard.writeText(text ?? "");
 
