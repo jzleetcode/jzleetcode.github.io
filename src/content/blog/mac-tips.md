@@ -14,7 +14,7 @@ description:
 ## Apps
 
 1. Homebrew
-2. Karabiner-Elements (I am using microsoft Nano Transceiver v2.1 wireless keyboard, map `application` key to `fn` key to switch input languages)
+2. Karabiner-Elements (I am using microsoft Nano Transceiver v2.1 wireless keyboard, map `application` key (keys in pc keyboards -> application) to `fn` key (modifier keys -> fn) to switch input languages)
 3. OneMenu (window management, keyboard cleaning, external monitor brightness, and clipboard history)
 
 ### Homebrew
