@@ -29,3 +29,8 @@ db.<collection_name>.find() # scan the collection
 db.<collection_name>.find({'field':'value'}) # filter
 db.<collection_name>.findOne({'_id':'value'}) # filter
 ```
+
+## References
+
+1. multiple databases vs multiple collections: https://www.mongodb.com/community/forums/t/multiple-databases-vs-multiple-collections/211758
+2. update across multiple collections in the same database https://www.mongodb.com/community/forums/t/update-data-across-multiple-collections-within-the-same-database/118979
