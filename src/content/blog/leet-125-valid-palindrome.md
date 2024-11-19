@@ -24,17 +24,19 @@ A phrase is a **palindrome** if, after converting all uppercase letters into low
 
 Given a string `s`, return `true` _if it is a **palindrome**, or_ `false` _otherwise_.
 
-```
+```shell
 Example 1:
 
 Input: s = "A man, a plan, a canal: Panama"
 Output: true
 Explanation: "amanaplanacanalpanama" is a palindrome.
+
 Example 2:
 
 Input: s = "race a car"
 Output: false
 Explanation: "raceacar" is not a palindrome.
+
 Example 3:
 
 Input: s = " "

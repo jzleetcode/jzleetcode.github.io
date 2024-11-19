@@ -25,7 +25,7 @@ Given an integer array `nums` and an integer `k`, return _the length of the shor
 
 A **subarray** is a **contiguous** part of an array.
 
-```
+```shell
 Example 1:
 
 Input: nums = [1], k = 1
