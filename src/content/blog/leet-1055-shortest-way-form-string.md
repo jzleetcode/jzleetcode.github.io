@@ -27,11 +27,13 @@ Example 1:
 Input: source = "abc", target = "abcbc"
 Output: 2
 Explanation: The target "abcbc" can be formed by "abc" and "bc", which are subsequences of source "abc".
+
 Example 2:
 
 Input: source = "abc", target = "acdbc"
 Output: -1
 Explanation: The target string cannot be constructed from the subsequences of source string due to the character "d" in target string.
+
 Example 3:
 
 Input: source = "xyz", target = "xzyxz"
@@ -87,7 +89,7 @@ class Solution {
 
 #### Python
 
-```pycon
+```python
 class Solution:
     """
     @param s: Source string

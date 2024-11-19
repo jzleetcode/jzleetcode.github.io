@@ -26,10 +26,11 @@ Example 1:
 
 ![](https://assets.leetcode.com/uploads/2019/09/03/1537_ex1_2.png)
 
-```
+```shell
 Input: n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]
 Output: [[1,3]]
 Explanation: [[3,1]] is also accepted.
+
 Example 2:
 
 Input: n = 2, connections = [[0,1]]
