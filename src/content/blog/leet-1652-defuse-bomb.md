@@ -1,7 +1,7 @@
 ---
 author: JZ
-pubDatetime: 2024-11-10T06:12:00Z
-modDatetime: 2024-11-10T07:22:00Z
+pubDatetime: 2024-11-17T06:12:00Z
+modDatetime: 2024-11-17T07:22:00Z
 title: LeetCode 1652 Defuse the Bomb
 featured: true
 tags:
