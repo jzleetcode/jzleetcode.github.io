@@ -329,4 +329,12 @@ const nextPost =
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
+
+  // make all links to open in new tab
+  function linksNewTab() {
+    Array.from(document.links)
+      .filter(link => link.hostname != window.location.hostname)
+      .forEach(link => link.target = '_blank');
+  }
+  linksNewTab();
 </script>
