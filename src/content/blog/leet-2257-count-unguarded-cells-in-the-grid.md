@@ -120,7 +120,7 @@ We can optimize the above approach.
 1. We can use `char[][]` in Java to reduce some space. This is a 50 % saving.
 2. Instead of counting unguarded cells at the end, we can decrement the guarded cells from the total.
 
-Complexity: Time O(mn), Space O(mn).
+Complexity: Time O(mn+g(m+n)), Space O(mn).
 
 #### Java
 
