@@ -51,7 +51,8 @@ So the key to solving this problem becomes comparing the starting floor with the
 4. We reverse the first half (floors lower than the starting floor). If the first half is an empty list, no reverse will be done, and we do not have to handle the empty cases separately.
 5. We compare the distance from the starting floor to the two ends and go to the closer end first.
 
-Complexity: Time O(n*log*n), Space O(n+sort) or O(sort) not considering the result space. For space needed for sorting, see [this page](../leet-2563-count-fair-pairs#idea).
+Complexity: Time O(n*log*n), Space O(n+sort) or O(sort) not considering the result space.
+For space needed for sorting, see [this page](../leet-2563-count-fair-pairs/#idea).
 
 #### Java
 
