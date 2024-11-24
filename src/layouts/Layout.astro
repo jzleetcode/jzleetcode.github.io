@@ -165,3 +165,13 @@ const structuredData = {
     <script id="dsq-count-scr" src="//jzzcoding.disqus.com/count.js" async></script>
   </body>
 </html>
+
+<script is:inline data-astro-rerun>
+  // make all links to open in new tab
+  function linksNewTab() {
+    Array.from(document.links)
+      .filter(link => link.hostname != window.location.hostname)
+      .forEach(link => link.target = '_blank');
+  }
+  linksNewTab();
+</script>
