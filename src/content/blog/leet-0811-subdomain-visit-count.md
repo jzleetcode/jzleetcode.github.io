@@ -1,14 +1,17 @@
 ---
 author: JZ
-pubDatetime: 2024-11-10T06:23:00Z
-modDatetime: 2024-11-10T07:23:00Z
-title: LeetCode 239 Sliding Window Max
+pubDatetime: 2024-11-24T06:23:00Z
+modDatetime: 2024-11-24T06:23:00Z
+title: LeetCode 811 LintCode 1006 Subdomain Visit Count
 featured: true
-draft: true
 tags:
-  - a-sliding-window
+  - a-array
+  - a-hash
+  - a-string
+  - a-counting
+  - c-salesforce
 description:
-  "Solutions for LeetCode 239, hard, tags: array, queue, sliding window, heap, monotonic queue."
+  "Solutions for LeetCode 811 and LintCode 1006, medium, tags: array, hash, string, counting, companies: salesforce."
 ---
 
 ## Table of contents

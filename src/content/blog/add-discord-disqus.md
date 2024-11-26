@@ -4,7 +4,7 @@ pubDatetime: 2024-11-10T08:22:00Z
 modDatetime: 2024-11-10T10:12:00Z
 title: Add Discord and Disqus to your web site
 tags:
-  - blog
+  - cheatsheet-website
 description:
   "add discord and disqus to this site"
 ---
