@@ -25,9 +25,7 @@ Check the test cases below for examples.
 ### Idea
 
 1. We can build a hash map to count the unique values and how many for each value is in the array.
-2. We use a hash set to mark which value we have looked at already.
-3. We iterate through the hash map and look for two targets: `v+T` and `v-T` so that the difference between v and `look` would be `T` (target). We add the multiplication of the counts for `v` and `look` if such `look` is found.
-4. We add `v` to the `mark` hash set so we do not double count.
+2. We iterate through the hash map and look for `v+T` so that the difference between v and `look` would be `T` (target). We add the multiplication of the counts for `v` and `look` if such `look` is found. We only look for `v+T` and not `v-T` to avoid double counting.
 
 Complexity: Time O(n), Space O(n).
 
@@ -38,12 +36,11 @@ from collections import Counter
 
 
 def two_subtract(A: list[int], T: int) -> int:
-    cnt, mark, res = Counter(A), set(), 0
+    cnt, res = Counter(A), 0
     for v in cnt:
-        for look in v - T, v + T:
-            if look not in cnt or look in mark: continue
-            res += cnt[look] * cnt[v]
-        mark.add(v)
+        look = v + T
+        if look not in cnt: continue
+        res += cnt[look] * cnt[v]
     return res
 ```
 

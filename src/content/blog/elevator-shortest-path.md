@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-21T06:23:00Z
 modDatetime: 2024-11-21T07:23:00Z
-title: Elevator Closest Floors (Shortest Path)
+title: Elevator Closest Floors (Shortest Path, Related to Shortest Seek Time First Disk Seek Algorithm)
 featured: true
 tags:
   - a-array
@@ -41,6 +41,8 @@ Thank you.
 
 ### Idea
 
+This is a variant of the Traveling Salesperson Problem (TSP) but simplified for a single dimension (floors). The goal is to minimize the total distance the elevator travels while visiting all the required floors exactly once.
+
 One key discovery for this question is that we actually do not want to greedily move the elevator to the closest floor even though the title of the question and/or the method implies that as a solution. If there are multiple floors on one or both sides, the elevator can stop at the intermediate floors on its way to the min or max floor.
 
 So the key to solving this problem becomes comparing the starting floor with the two extremes.
@@ -53,6 +55,7 @@ So the key to solving this problem becomes comparing the starting floor with the
 
 Complexity: Time O(n*log*n), Space O(n+sort) or O(sort) not considering the result space.
 For space needed for sorting, see [this page](../leet-2563-count-fair-pairs/#idea).
+
 
 #### Java
 
@@ -75,3 +78,91 @@ class Solution {
     }
 }
 ```
+
+## Shortest Seek Time First (SSTS) Disk Seek Algorithm
+
+### Idea
+
+For a fun read, look for "shortest seek time first" (you can check some of the references below). The algorithm is similar to always getting to the closest floor and not minimizing the total distance traveled for the elevator problem.
+
+The straightforward solution is to keep iterating to the closest until all are visited. The time complexity is O(n^2) and the space complexity is O(1) not considering the result space, such as the GFG and ECZ solutions below.
+
+An improvement is to sort first, e.g., the Naukri solution below. However, the solution remove the closest pick from a sorted list, which is O(n) time complexity. So the overall time complexity is still O(n^2).
+
+We can improve with an ordered list (allow duplicates) or ordered set (map) data structure.
+
+Follow-Ups:
+
+1. Support adding more pending seeking positions after the seeking started. The implementation below considers that.
+2. What if all the pending seeking positions cannot fit in memory? Can consider use a message broker (message queue) service such as AWS SQS, Apache Kafka, or RabbitMQ. For real-time stream, consider AWS Kinesis, Apache Spark streaming, Apache Flink, Azure Stream Analytics. Basically distribute the data to multiple disks or machines while keep them sorted and aggregate as needed.
+
+Complexity:
+
+1. O(p) space where p is the number of pending seeking positions.
+2. `add` O(n) time, where n is the number of positions to be added.
+3. `next` O(*log*p) time.
+
+#### Python
+
+```python
+from sortedcontainers import SortedList
+
+
+class SSTFDisk:
+    def __init__(self, start: int):
+        self.s = start
+        self.pl = SortedList()
+
+    def add(self, positions: list[int]):
+        """add positions to queue"""
+        self.pl.update(positions)
+
+    def next(self) -> int:
+        """next position to seek"""
+        if not self.pl:
+            raise RuntimeError('no more positions to seek')
+        idx = self.pl.bisect_right(self.s)
+        if idx == 0:
+            self.s = self.pl[0]
+        elif idx == len(self.pl):
+            self.s = self.pl[-1]
+        else:
+            dl, dr = self.s - self.pl[idx - 1], self.pl[idx] - self.s
+            if dl == dr:  # pick the side has fewer tasks at the moment, may not be the requirement
+                nl, nr = idx, len(self.pl) - idx
+                self.s = self.pl[idx - 1] if nl < nr else self.pl[idx]
+            elif dl > dr:
+                self.s = self.pl[idx]
+            else:
+                self.s = self.pl[idx - 1]
+        self.pl.remove(self.s)
+        return self.s
+```
+
+Unit Test
+
+```python
+class TestSSTFDisk(TestCase):
+    def setUp(self):
+        self.tbt = SSTFDisk(0)
+
+    def test_next(self):
+        self.tbt.add([1, 2, 3])  # queue: [1,2,3], start: 0
+        self.assertEqual(self.tbt.next(), 1)  # [2,3], 1
+        self.assertEqual(self.tbt.next(), 2)  # [3], 2
+        self.tbt.add([1, 2, 3])  # [1,2,3,3]
+        self.assertEqual(self.tbt.next(), 2)  # [1,3,3], 2
+        self.assertEqual(self.tbt.next(), 1)  # [3,3], 1
+        self.assertEqual(self.tbt.next(), 3)  # [3], 3
+        self.assertEqual(self.tbt.next(), 3)  # [], 3
+        self.assertRaises(RuntimeError, self.tbt.next)
+        self.tbt.add([1, 6])  # [1,6], 3
+        self.assertEqual(self.tbt.next(), 1)  # [6], 1
+```
+
+### References
+
+1. [GFG, disk scheduling algorithms](https://www.geeksforgeeks.org/disk-scheduling-algorithms/)
+2. [GFG, SSTF, Multiple](https://www.geeksforgeeks.org/program-for-sstf-disk-scheduling-algorithm/)
+3. [ECZ, SSTF, C](https://www.easycodingzone.com/2021/07/c-program-of-sstf-short-seek-time-first.html)
+4. [Naukri, SSTF, Multiple](https://www.naukri.com/code360/library/sstf-disk-scheduling-algorithm)
