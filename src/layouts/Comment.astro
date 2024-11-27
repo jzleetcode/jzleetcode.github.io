@@ -8,26 +8,30 @@
   if (!window.DisqusWidget) {
     window.DisqusWidget = {
       overwriteGlobalSelectors: function () {
+        this.isLoaded= false;
         window.$disqus = document.querySelector('#disqus_thread')
       },
       init: function () {
         this.overwriteGlobalSelectors()
         this.addListeners()
-        this.initDisqus()
       },
       addListeners: function () {
+        // early escape if $disqus not exists
+        if (window.$disqus === null) return;
         // After language switched
         document.addEventListener('astro:after-swap', () => {
-          this.overwriteGlobalSelectors()
-          this.initDisqus()
-        })
+          this.overwriteGlobalSelectors();
+        });
+        document.addEventListener("scroll", () => {
+          let curScroll = document.documentElement.scrollTop;
+          if (!this.isLoaded && curScroll > window.$disqus.getBoundingClientRect().top - 300) {
+            console.log('triggered ' + curScroll);
+            this.initDisqus();
+            this.isLoaded = true;
+          }
+        });
       },
       initDisqus: () => {
-        // early escape if $disqus not exists
-        if (window.$disqus === null) {
-          return
-        }
-
         // Reset DISQUS, Rather than loading new embed.js
         if (window.DISQUS) {
           window.DISQUS.reset({
