@@ -99,7 +99,7 @@ Follow-Ups:
 Complexity:
 
 1. O(p) space where p is the number of pending seeking positions.
-2. `add` O(n) time, where n is the number of positions to be added.
+2. `add` O(n*log*p) time, where n is the number of positions to be added.
 3. `next` O(*log*p) time.
 
 #### Python
