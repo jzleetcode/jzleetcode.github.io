@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-10T06:23:00Z
-modDatetime: 2024-11-10T07:23:00Z
+modDatetime: 2024-11-10T06:23:00Z
 title: LeetCode 239 Sliding Window Max
 featured: true
 draft: true
