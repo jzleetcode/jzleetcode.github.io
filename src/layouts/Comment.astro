@@ -24,8 +24,7 @@
         });
         document.addEventListener("scroll", () => {
           let curScroll = document.documentElement.scrollTop;
-          if (!this.isLoaded && curScroll > window.$disqus.getBoundingClientRect().top - 300) {
-            console.log('triggered ' + curScroll);
+          if (!this.isLoaded && curScroll > window.$disqus.getBoundingClientRect().top - 500) {
             this.initDisqus();
             this.isLoaded = true;
           }
