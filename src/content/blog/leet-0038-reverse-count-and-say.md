@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-23T07:23:00Z
 modDatetime: 2024-11-23T08:23:00Z
-title: Reverse of LeetCode 38 LintCode 420 Count and Say
+title: Reverse of LeetCode 38 LintCode 420 Count and Say (Look and Say)
 featured: true
 tags:
   - a-math
@@ -17,7 +17,7 @@ description:
 
 ## Description
 
-See [solution for LeetCode 38](./leet-0038-count-and-say/) for more background. The question could come up as a follow up to that question.
+See [solution for LeetCode 38](./leet-0038-count-and-say/) for more background. The question could come up as a follow-up to that question.
 
 You should clarify the exact meaning of "reverse".
 

@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-23T06:23:00Z
 modDatetime: 2024-11-23T07:23:00Z
-title: LeetCode 38 LintCode 420 Count and Say
+title: LeetCode 38 LintCode 420 Count and Say (Look and Say)
 featured: true
 tags:
   - a-math
