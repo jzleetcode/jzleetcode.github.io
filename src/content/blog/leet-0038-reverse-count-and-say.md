@@ -17,13 +17,13 @@ description:
 
 ## Description
 
-See [solution for LeetCode 38](./leet-0038-count-and-say/) for more background. The question could come up as a follow-up to that question.
+See [solution for LeetCode 38](../leet-0038-count-and-say/) for more background. The question could come up as a follow-up to that question.
 
 You should clarify the exact meaning of "reverse".
 
 Possible constraints:
 
-1. The count should be less than 10, e.g., 1211 could be one 2 one 1 or 121 ones. As we mentioned in [LeetCode 38](./leet-0038-count-and-say/#background), the sequence count should be a single digit. In fact, unless the seed digit contains such a digit or a run of more than three of the same digit, no digits other than `1`, `2`, and `3` appear in the sequence.
+1. The count should be less than 10, e.g., 1211 could be one 2 one 1 or 121 ones. As we mentioned in [LeetCode 38](../leet-0038-count-and-say/#background), the sequence count should be a single digit. In fact, unless the seed digit contains such a digit or a run of more than three of the same digit, no digits other than `1`, `2`, and `3` appear in the sequence.
 
 
 ## Solution
