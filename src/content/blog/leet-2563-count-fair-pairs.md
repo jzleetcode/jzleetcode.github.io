@@ -60,7 +60,7 @@ Note: it is probably easier to use C++ and Python for this idea since they have 
 1. find first element/index not less than the target: C++ `lower_bound()` and Python `bisect_left()`
 2. find first element/index greater than the target: C++ `upper_bound()` and Python `bisect_right()`
 
-Complexity: Time O(n*log*n), Space O(*log*n).
+Complexity: Time $O(nlogn)$, Space $O(nlogn)$.
 
 The space complexity of the sorting algorithm depends on the programming language.
 
