@@ -2,21 +2,17 @@
 author: JZ
 pubDatetime: 2024-11-23T03:23:00Z
 modDatetime: 2024-11-23T03:23:00Z
-title: Tips for Building a Website
+title: How to Embed an SVG Image/Picture with the Code or File on a Website
 featured: true
 tags:
   - cheatsheet-website
 description:
-  "tips for building a website"
+  "three main ways to embed an SVG image or picture as a file or using html code on a website"
 ---
 
-## Table of contents
+## How to Embed and Where to Find Great SVG Icons
 
-## Styling
-
-### Graphics
-
-There are three main ways to embed a SVG picture file in a website.
+There are three main ways to embed an SVG picture file on a website.
 
 1. Use `img` tag in html, e.g., `<img src = "file.svg" alt="description of the picture"/>`.
 2. Use as a CSS `background-image`, e.g., `body { background-image: url(happy.svg); }`.

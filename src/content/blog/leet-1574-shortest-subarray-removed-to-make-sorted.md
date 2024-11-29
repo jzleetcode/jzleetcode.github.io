@@ -45,7 +45,6 @@ Explanation: The array is already non-decreasing. We do not need to remove any e
 Constraints:
 
 1 <= arr.length <= 10^5
-0 <= arr[i] <= 10^9
 ```
 
 Hint 1
