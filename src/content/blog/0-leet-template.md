@@ -19,6 +19,6 @@ description:
 
 ### Idea
 
-Complexity: Time O(n), Space O(n).
+Complexity: Time $O(n)$, Space $O(n)$.
 
 #### Java
