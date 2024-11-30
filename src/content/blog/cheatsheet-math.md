@@ -22,7 +22,7 @@ A **geometric series** is a series of terms where each term is a constant multip
 
 The general form of a geometric series is:
 
-$$S_n = a + ar + ar^2 + ar^3 + ⋯ + ar^n−1$$
+$$S_n = a + ar + ar^2 + ar^3 + ⋯ + ar^{n−1}$$
 
 Where:
 
@@ -61,14 +61,14 @@ An **Arithmetic Sequence** is a sequence of numbers in which the difference betw
 
 #### General Form
 
-The $n^th$ term of an arithmetic sequence can be expressed as:
+The $n^{th}$ term of an arithmetic sequence can be expressed as:
 
 $$a_n = a_1 + (n-1)\cdot d$$
 
 Where:
 
--   $a_n$ is the $n^th$ term,
--   $a_1! is the first term,
+-   $a_n$ is the $n^{th}$ term,
+-   $a_1$ is the first term,
 -   $d$ is the common difference,
 -   $n$ is the term number.
 
@@ -78,7 +78,7 @@ The sum $S_n$ of the first n terms of an arithmetic sequence is given by:
 
 $$S_n = \dfrac{n}{2}\cdot (a_1 + a_n) $$
 
-Alternatively, using the general formula for the nth term, the sum can also be written as:
+Alternatively, using the general formula for the $n^{th}$ term, the sum can also be written as:
 
 $$S_n = \dfrac{n}{2}\cdot (2a_1 + (n-1)\cdot d) $$
 
