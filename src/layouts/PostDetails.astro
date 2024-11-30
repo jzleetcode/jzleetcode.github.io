@@ -9,6 +9,7 @@ import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
 import Comment from "./Comment.astro";
+import MAd from "./MAd.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -178,6 +179,8 @@ const nextPost =
         )
       }
     </div>
+    <p>&nbsp;&nbsp;&nbsp;</p>
+    <MAd />
     <p>&nbsp;&nbsp;&nbsp;</p>
     <Comment />
   </main>
