@@ -68,12 +68,12 @@ The reverse hash is then `s[n-1]p^(n-1) + s[n-2]p^(n-2) + ... + s[0]p`.
 
 Let's look at how the forward and reverse hash changes with the above example.
 
-| i | c   | forward              | reverse              | pow        | note     |
-|---|-----|----------------------|----------------------|------------|----------|
-| 0 | `a` | 1                    | 1                    | 1->31      | match    |
-| 1 | `a` | 1*31+1               | 1+1*31               | 31->31^2   | match    |
-| 2 | `a` | 1*31^2+1*31+1        | 1+1*31+1*31^2        | 31^2->31^3 | match    |
-| 3 | `b` | 1*31^3+1*31^2+1*31+2 | 1+1*31+1*31^2+2*31^3 | 31^3->31^4 | no match |
+| i | c   | forward                 | reverse                 | pow        | note     |
+|---|-----|-------------------------|-------------------------|------------|----------|
+| 0 | `a` | 1                       | 1                       | 1->31      | match    |
+| 1 | `a` | 1*31+1                  | 1+1*31                  | 31->31^2   | match    |
+| 2 | `a` | 1\*31^2+1\*31+1         | 1+1\*31+1\*31^2         | 31^2->31^3 | match    |
+| 3 | `b` | 1\*31^3+1\*31^2+1\*31+2 | 1+1\*31+1\*31^2+2\*31^3 | 31^3->31^4 | no match |
 
 
 In the calculation below, we offset `a-z` to integers `1-26` to simplify the hash calculation.

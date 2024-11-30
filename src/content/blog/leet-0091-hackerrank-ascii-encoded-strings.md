@@ -172,6 +172,14 @@ static Collection<String> decode(String encoded) {
 }
 ```
 
+## Solution
+
+### Idea
+
+Please refer to [math geometric series knowledge](../cheatsheet-math/#sum-of-a-geometric-series) to help understanding the complexity analysis.
+
+Complexity: Time $O(2^\dfrac{n}{2})$, Space O(n).
+
 ## LeetCode 91 Decode Ways
 
 You have intercepted a secret message encoded as a string of numbers. The message is **decoded** via the following mapping:
@@ -231,6 +239,6 @@ Explanation:
 
 ## Solution
 
-Stay tuned. [](todo todo)
+Stay tuned. [](todo)
 
 ### Idea
