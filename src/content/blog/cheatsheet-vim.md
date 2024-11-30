@@ -19,7 +19,7 @@ Will label if any plugin is needed.
 
 ## Tips
 
--   jump to corresponding bracket, parenthesis: use `%` key
+-   jump to corresponding bracket or parenthesis, parenthesis: use `%` key
 -   copy to system clipboard: type "\*y or "+y, see this [stackoverflow question](https://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-in-vim), can use `pbcopy` on mac
 
 ### commenting multiple lines
