@@ -15,10 +15,8 @@ description:
 
 ## Description
 
-## Solution
-
-### Idea
+## Idea
 
 Complexity: Time $O(n)$, Space $O(n)$.
 
-#### Java
+### Java

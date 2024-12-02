@@ -203,13 +203,16 @@ Explanation:
 We can solve the question recursively. We can iterate through each character of the string.
 
 1. Each iteration, there are two possibilities.
-   1. We decode one character and decode.
+   1. We decode one character.
    2. Or We can decode two characters if it is valid.
 2. After that, we decode the remaining of the string and sum up the possibilities.
 
-Complexity: Time $O(2^\dfrac{n}{2})$, Space $O(n)$.
+Complexity: Time $O(2^n)$, Space $O(n)$.
+
 The time complexity can be analyzed with the recursion tree method.
 Check the analysis for the VMWare question [below](./#idea1-1).
+The analysis is similar.
+The difference is how much `n` is reduced in each layer of the recursion tree.
 
 This idea will run time limit exceeded on LeetCode.
 
