@@ -1,7 +1,7 @@
 ---
 author: JZ
-pubDatetime: 2024-11-10T06:23:00Z
-modDatetime: 2024-11-10T06:23:00Z
+pubDatetime: 2024-12-10T06:23:00Z
+modDatetime: 2024-12-10T06:23:00Z
 title: LeetCode 239 Sliding Window Max
 featured: true
 draft: true
@@ -18,5 +18,7 @@ description:
 ## Idea
 
 Complexity: Time $O(n)$, Space $O(n)$.
+
+![](https://drive.google.com/uc?export=view&id=<find_id_with_drive_link>)
 
 ### Java
