@@ -154,7 +154,7 @@ public:
 };
 ```
 
-## HackerRank Question
+## HackerRank Robot Walks Question
 
 HackerRank [Question](https://www.hackerrank.com/contests/projecteuler/challenges/euler208/problem).
 
@@ -229,3 +229,61 @@ If a robot moves in a series of seven $60\degree$ circular arcs, then there are 
 If a robot moves in a series of eight $90\degree$ circular arcs, then there are 18 journeys that return to the starting position:
 
 ![image](https://s3.amazonaws.com/hr-assets/0/1515415327-0e59c29aad-Example4Answers.png)
+
+## HackerRank EnCircular Question
+
+Build a computer simulation of a mobile robot.
+The robot moves on an infinite plane, starting from position (0, 0).
+Its movements are described by a command string consisting of one or more of the following three letters:
+
+- G instructs the robot to move forward one step.
+- L instructs the robot to turn left in place.
+- R instructs the robot to turn right in place.
+
+The robot performs the instructions in a command sequence in an infinite loop.
+Determine whether there exists some circle such that the robot always moves within the circle.
+Consider the commands R and G executed infinitely.
+
+A diagram of the robot's movement looks like:
+
+RG -> RG
+↑      ↓
+RG <- RG
+
+The robot will never leave the circle.
+
+Function Description
+
+Complete the function `doesCircleExist` in the editor below.
+The function must return an array of n strings either YES or NO
+based on whether the robot is bound within a circle or not, in order of test results.
+`doesCircleExist` has the following parameters:
+
+commands[commands[0]...commands[n-1]]: An array of n commands, where each represents a list of commands to test.
+
+Constraints
+
+- $1 \le commands[i] \le 2500$
+- $1 \le n \le 10$
+- Each command consists of G, L, and R only.
+
+Sample Case 0
+
+Sample Input 0
+
+`3 G L RGRG`
+
+Sample Output 0
+
+`NO YES YES`
+
+Explanation 0
+There are n = 2 commands:
+
+1. For commands[0] = "G", the robot will move forward forever (G → G - G → ..) without ever turning or being restricted to a circle. Set index O of the return array to NO.
+2. For commands[1] = "L", the robot will just turn 90 degrees left forever without ever moving forward (because there is no "G" instruction). The robot is effectively trapped at one spot, thus bound within a circle. Set index 1 of the return array to YES.
+3. For commands[2] = 'GRGR", concatenate the string to "GRGRGRGR" and it will follow the circular path in the statement example. Set index 2 of the return array to YES.
+
+### Idea
+
+The question is essentially the same with the LeetCode question and the input is a list of the strings and we can apply the same function to generate the result as a list.
