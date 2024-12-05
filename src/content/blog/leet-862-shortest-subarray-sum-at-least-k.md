@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-15T06:12:00Z
 modDatetime: 2024-11-15T07:22:00Z
 title: LeetCode 862 LintCode 1507 Shortest Subarray with Sum at Least K
-featured: true
 tags:
   - a-sliding-window
   - a-array
