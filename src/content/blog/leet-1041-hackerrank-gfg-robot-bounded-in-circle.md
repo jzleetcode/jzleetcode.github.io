@@ -20,6 +20,8 @@ description:
 
 This is a popular question seen on LeetCode, LintCode, GeeksForGeeks, and HackerRank.
 
+For a related but much harder question, see [project euler 208 and hackerrank robot walks](../hackerrank-robot-walks-project-euler-208/).
+
 ## LeetCode, GeeksForGeeks, and LintCode Question
 
 On an infinite plane, a robot initially stands at `(0, 0)` and faces north. Note that:
@@ -153,82 +155,6 @@ public:
     }
 };
 ```
-
-## HackerRank Robot Walks Question
-
-HackerRank [Question](https://www.hackerrank.com/contests/projecteuler/challenges/euler208/problem).
-
-This problem is a programming version of [Problem 208](https://projecteuler.net/problem=208) from [projecteuler.net](https://projecteuler.net/)
-
-A robot moves in a series of one-$n^{th}$ circular arcs ($\dfrac{360\degree}{n}$), with a free choice of a clockwise or an anticlockwise arc for each step, but no turning on the spot.
-
-For example, one of possible 70932 closed paths of 25 arcs with n=5 and starting northward is
-
-![image](https://s3.amazonaws.com/hr-assets/0/1513552045-1234c816d1-PE208.png)
-
-Given that the robot starts facing North, how many journeys of `m` arcs in length can it take that return it, after the final arc, to its starting position?
-
-Any arc may be traversed multiple times.
-
-Since the answer can be huge, output it modulo `K`.
-
-**Input Format**
-
-The only line of each test case contains exactly three space-separated integers: `n`, `m`, and `K`.
-
-**Constraints**
-
-- $1 \lt n \le 10$
-- $n < m$
-- $n^2 \times m \le 2 \times 10^4$
-- $10^9 \lt K \lt 2 \times 10^9$
-- $K$ is a prime number
-
-**Output Format**
-
-On a single line print the answer modulo $K$.
-
-**Sample Input 0**
-
-3 6 1000000007
-
-**Sample Output 0**
-
-8
-
-**Explanation 0**
-
-If a robot moves in a series of six $120\degree$ circular arcs, then there are only 8 journeys that return to the starting position:
-
-![image](https://s3.amazonaws.com/hr-assets/0/1515290672-2deb64feb3-Example3Answer.png)
-
-**Sample Input 1**
-
-6 7 1000000009
-
-**Sample Output 1**
-
-2
-
-**Explanation 1**
-
-If a robot moves in a series of seven $60\degree$ circular arcs, then there are only 2 journeys that return to the starting position:
-
-![image](https://s3.amazonaws.com/hr-assets/0/1515326635-190fa1f15a-Example6Answer.png)
-
-**Sample Input 2**
-
-4 8 1000000033
-
-**Sample Output 2**
-
-18
-
-**Explanation 2**
-
-If a robot moves in a series of eight $90\degree$ circular arcs, then there are 18 journeys that return to the starting position:
-
-![image](https://s3.amazonaws.com/hr-assets/0/1515415327-0e59c29aad-Example4Answers.png)
 
 ## HackerRank EnCircular Question
 

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-14T07:12:00Z
 modDatetime: 2024-11-14T07:22:00Z
 title: LeetCode 3254 Find the Power of K-Size Subarrays I
-featured: true
 tags:
   - a-sliding-window
   - a-array
