@@ -1,0 +1,26 @@
+---
+author: JZ
+pubDatetime: 2024-12-04T08:22:00Z
+modDatetime: 2024-12-04T10:12:00Z
+title: Linux Cheatsheet, tips and Commands
+featured: true
+tags:
+  - cheatsheet-apps
+description:
+  "tips for linux commands and tips"
+---
+
+## Table of contents
+
+## U
+
+### uname
+
+```shell
+uname -s # os name,e.g., GNU/Linux, Darwin(mac)
+unamr -r # kernel release, 6.10.14-linuxkit, 24.0.1
+uname -v # #1 SMP Thu Oct 24 19:28:55 UTC 2024,
+# Darwin Kernel Version 24.1.0: Thu Oct 10 21:02:45 PDT 2024; root:xnu-11215.41.3~2/RELEASE_ARM64_T8112
+
+uname -m # platform x86_64, arm64
+```
