@@ -21,7 +21,4 @@ Complexity: Time $O(n)$, Space $O(n)$.
 
 ![](https://drive.google.com/thumbnail?id=1U4eZNZz0Z8LEai5qAK8XJuRK6QsboOZt&sz=w1000)
 
-![](https://drive.google.com/uc?export=view&id=1U4eZNZz0Z8LEai5qAK8XJuRK6QsboOZt&sz=w1000)
-<!-- slower -->
-
 ### Java
