@@ -12,6 +12,32 @@ description:
 
 ## Table of contents
 
+## B
+
+### bg
+
+```shell
+# ctrl + z to suspend a foreground job
+bg %1 # resume job 1 in background
+```
+
+## F
+
+### fg
+
+```shell
+fg %4 # bring job 4 to foreground
+```
+
+## J
+
+### jobs
+
+```shell
+$ jobs # list jobs
+[1]  + suspended (tty output)  vim
+```
+
 ## U
 
 ### uname
