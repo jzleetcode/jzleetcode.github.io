@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-20T06:23:00Z
 modDatetime: 2024-11-20T07:23:00Z
 title: LeetCode 2257 Count Unguarded Cells in the Grid
-featured: true
 tags:
   - a-array
   - a-graph
