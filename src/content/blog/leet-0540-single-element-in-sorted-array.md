@@ -27,8 +27,6 @@ The short solution below takes a couple of discoveries.
 
 Complexity: Time $O(\log n)$, Space $O(1)$.
 
-![](https://drive.google.com/thumbnail?id=1U4eZNZz0Z8LEai5qAK8XJuRK6QsboOZt&sz=w1000)
-
 ### Python
 
 ```python
