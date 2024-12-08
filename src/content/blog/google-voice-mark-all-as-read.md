@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-18T08:22:00Z
 modDatetime: 2024-11-18T10:12:00Z
 title: How to Mark All as Read for Google Voice
-featured: true
 tags:
   - tool
 description:
