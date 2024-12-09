@@ -77,8 +77,8 @@ We use `dp[i][j]` to represent the max inner product if we selected `i` elements
 $$
 dp[i][j] =
 \begin{cases}
-    max(dp[i-1][j]+A[i-1]\cdot B[i+j-1]) &\text{if } selected from left \\
-    max(dp[i][j-1]+A[n-j]\cdot B[i+j+1]) &\text{if } selected from right
+    max(dp[i-1][j]+A[i-1]\cdot B[i+j-1]) &\text{if selected from left} \\
+    max(dp[i][j-1]+A[n-j]\cdot B[i+j+1]) &\text{if selected from right}
 \end{cases}
 $$
 
