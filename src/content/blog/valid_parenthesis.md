@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-08T15:22:00Z
 modDatetime: 2024-11-08T17:12:00Z
-title: LeetCode 20 Valid Parentheses (stack)
+title: LeetCode 20 LintCode 423 Valid Parentheses (stack)
 featured: true
 tags:
   - a-stack
@@ -18,7 +18,7 @@ tags:
   - c-Uber
   - c-Google
 description:
-  "solution for leetcode 3097 Shortest Subarray With OR at Least K II, tags: bit, sliding-window, array"
+  "solution for LeetCode 20 LintCode 423 valid parentheses, tags: stack, string; companies: goldman sachs, twitter, airbnb, amazon, facebook, microsoft, bloomberg, uber, google."
 ---
 
 ## Table of contents
@@ -119,4 +119,49 @@ impl Solution {
         st.is_empty();
     }
 }
+```
+
+### Python
+
+We can leverage `match case` introduced in Python 3.10.
+
+```python
+class Solution:
+    """0 ms, 17.42 mb"""
+
+    def isValid(self, s: str) -> bool:
+        st = deque()
+        for c in s:
+            match c:  # match case since 3.10
+                case '(':
+                    st.append(')')
+                case '[':
+                    st.append(']')
+                case '{':
+                    st.append('}')
+                case _:
+                    if not st or st.pop() != c:
+                        return False
+        return len(st) == 0
+```
+
+### C++
+
+C++ does not support returning the element with `pop`. So we needed one more branch in the `if else` branches.
+
+```cpp
+class Solution {
+public:
+    bool isValid(string s) {
+        deque<char> st;
+        for (char c: s) {
+            if (c == '(') st.push_back(')');
+            else if (c == '[') st.push_back(']');
+            else if (c == '{') st.push_back('}');
+            else if (!st.empty() && st.back() == c) st.pop_back();
+            else return false;
+        }
+        return st.empty();
+    }
+};
 ```
