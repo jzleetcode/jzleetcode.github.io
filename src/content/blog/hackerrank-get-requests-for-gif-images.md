@@ -1,10 +1,9 @@
 ---
 author: JZ
-pubDatetime: 2024-12-09T06:23:00Z
-modDatetime: 2024-12-09T06:23:00Z
+pubDatetime: 2024-12-08T06:23:00Z
+modDatetime: 2024-12-08T06:23:00Z
 title: HackerRank GET Requests for GIF Images
 featured: true
-draft: true
 tags:
   - a-hash
   - a-file
