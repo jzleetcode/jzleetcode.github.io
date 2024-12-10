@@ -33,7 +33,8 @@ fg %4 # bring job 4 to foreground
 
 ### Git
 
-How to check a github repo size?
+#### How to check a github repo size?
+
 See stackoverflow [reference](https://stackoverflow.com/questions/8646517/how-can-i-see-the-size-of-a-github-repository-before-cloning-it).
 
 We can check with `GET /repos/:user/:repo` with GitHub API.
@@ -41,6 +42,13 @@ We can check with `GET /repos/:user/:repo` with GitHub API.
 https://api.github.com/repos/<user_or_organization_name>/<repo_name>
 
 or use `curl`
+
+#### How to Check Summary (Changed Files) of the Last Commit?
+
+```shell
+git log -1 --stat # show basic info and all changes
+git show -1 --summary  # show basic info and created or removed files, does not include changed files
+```
 
 ## J
 
