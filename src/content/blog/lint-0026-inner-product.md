@@ -14,6 +14,8 @@ description:
 
 ## Description
 
+LintCode question [link](https://www.lintcode.com/problem/26/description)
+
 Given an array `A` with length `N` and an array `B` with length `K`.
 You can choose `K` numbers from array `A` with the following rules:
 
