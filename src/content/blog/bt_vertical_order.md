@@ -69,6 +69,8 @@ Constraints:
 
 We could use breath-first search (BFS) to traverse the tree and maintain a hash map for `column -> values`. In the queue for BFS traversal, we keep track of the column index as well as the tree node. After that, we collect the values in the hash map to the result (a list of lists of `int32`).
 
+One might be tempted to use a sorted map (e.g., Java `TreeMap`), but the time complexity would be $O(n\log n)$ with sorting.
+
 Complexity: Time O(n), Space O(n).
 
 ### C++
