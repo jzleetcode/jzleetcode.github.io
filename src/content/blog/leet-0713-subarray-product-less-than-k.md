@@ -49,19 +49,23 @@ Hint 1
 
 For each j, let opt(j) be the smallest i so that nums[i] * nums[i+1] * ... * nums[j] is less than k. `opt` is an increasing function.
 
-### HackerRank Question
+## HackerRank Question Description
 
 Returns: long int: the number of subarrays whose product is less than or equal to k.
 
 Constraints
 
-- $1 \le n \le 5 x 10^5$
-- $1 \e numbers(i] \le 100$
+- $1 \le n \le 5 \times 10^5$
+- $1 \le numbers(i] \le 100$
 - $1 \le k \le 10^6$
+
+One variation is that the product can be equal to `k`. And there is some difference in the constraints.
+
+We can solve these questions with the same algorithm.
 
 ## Idea1
 
-We could use sliding window to maintain the subarray.
+We could use a sliding window to maintain the subarray.
 
 1. We start with `left (l)` and `right (r)` both at 0. The product start at `1`.
 2. In each iteration, we multiply `nums[r]`. Product is for window `[l,r]` inclusive.
@@ -128,7 +132,7 @@ class TestSolution(TestCase):
 
 ## Idea2
 
-If `k x nums[i]` may overflow in some programming languages, the comparison `prod >= k` may run into issues. We can use the idea of a prefix sum array.
+If $k \times nums[i]$ may overflow in some programming languages, the comparison `prod >= k` may run into issues. We can use the idea of a prefix sum array.
 
 Let's use example 1 above.
 
@@ -137,6 +141,8 @@ Let's use example 1 above.
 3. To get the product between indexes `[i,j]` inclusive, we can use the log prefix product array `lps[j+1] - lps[i]`.
 4. We iterate through the array considering the subarray starting with index `cur`.
 5. We perform binary search to find the ending index `low`. Elements in `[cur,lo-2]` have a product less than `k`. The count is `lo-cur-1`.
+
+Complexity: Time $O(n \log n)$, Space $O(n)$.
 
 ### Java
 
@@ -162,4 +168,27 @@ static class Solution2 {
         return res;
     }
 }
+```
+
+### Python
+
+```python
+class Solution2:
+    """541 ms, 19.86 mb"""
+    def numSubarrayProductLessThanK(self, nums: list[int], k: int) -> int:
+        if k <= 1: return 0
+        res, lgK, n = 0, math.log(k), len(nums)
+        lps = [0]
+        for i in range(n):
+            lps.append(lps[-1] + math.log(nums[i]))
+        for i in range(n):
+            lo, hi = i + 1, n + 1
+            while lo < hi:
+                mid = lo + (hi - lo) // 2
+                if lps[mid] - lps[i] < lgK - 1e-9:
+                    lo = mid + 1
+                else:
+                    hi = mid
+            res += lo - i - 1
+        return res
 ```
