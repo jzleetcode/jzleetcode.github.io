@@ -18,7 +18,7 @@ description:
 
 ## Description
 
-Question links: [GFG](https://www.geeksforgeeks.org/minimum-replacements-in-a-string-to-make-adjacent-characters-unequal/), [LeetCode 713](https://leetcode.com/problems/subarray-product-less-than-k/description/), [LintCode 1075](https://www.lintcode.com/problem/1075/).
+Question links: [GFG](https://www.geeksforgeeks.org/number-subarrays-product-less-k/), [LeetCode 713](https://leetcode.com/problems/subarray-product-less-than-k/description/), [LintCode 1075](https://www.lintcode.com/problem/1075/).
 
 The question is on HackerRank too.
 
@@ -74,6 +74,12 @@ We could use a sliding window to maintain the subarray.
 5. We need to handle the edge case when `k<=1`. Considering the constraint that the element values are in `[1,1000]`, no valid subarrays can possibly have a product of less than 1. So we can return 0.
 
 Complexity: Time $O(n)$, Space $O(1)$.
+
+Potential bugs:
+
+1. forget edge case `k<=1`
+2. rust cast to i32
+3. if incremented r, `r-l` else `r-l+1`
 
 ### Java
 
@@ -191,4 +197,26 @@ class Solution2:
                     hi = mid
             res += lo - i - 1
         return res
+```
+
+### Rust
+
+```rust
+/// 0 ms, 2.6 mb
+impl Solution {
+    pub fn num_subarray_product_less_than_k(nums: Vec<i32>, k: i32) -> i32 {
+        if k <= 1 { return 0; }
+        let (mut res, mut prod, mut l, mut r, n) = (0, 1, 0, 0, nums.len());
+        while r < n {
+            prod *= nums[r];
+            r += 1;
+            while prod >= k {
+                prod /= nums[l];
+                l += 1;
+            }
+            res += r - l;
+        }
+        res as i32
+    }
+}
 ```
