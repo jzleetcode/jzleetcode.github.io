@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question links: [leet 2558](https://leetcode.com/problems/take-gifts-from-the-richest-pile/).
+
 You are given an integer array `gifts` denoting the number of gifts in various piles. Every second, you do the following:
 
 -   Choose the pile with the maximum number of gifts.
@@ -75,7 +77,8 @@ Can we use a priority queue or heap here?
 The most straight-forward thought is to iterate through the array and find the maximum,
 update it according to the operation instruction.
 
-We will omit the implementation considering the time complexity and the implementation is straight-forward.
+We will omit the implementation considering the time complexity
+is not optimum and that the implementation is straight-forward.
 
 Complexity: Time $O(nk)$, Space $O(1)$.
 
