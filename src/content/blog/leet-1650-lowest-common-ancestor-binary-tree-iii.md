@@ -93,7 +93,7 @@ We can use the two-pointer method. We advance the two pointers until they meet i
 
 1. The exit condition
 
-Complexity: Time $O(n)$, Space $O(n)$.
+Complexity: Time $O(n)$, Space $O(1)$.
 
 ### Java
 
