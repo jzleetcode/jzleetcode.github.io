@@ -74,9 +74,9 @@ We could use `Weak` in a doubly linked list or a tree to break the cycles.
 
 In a doubly linked list or a tree where the child node also holds a pointer to the parent, we need to use `Weak`.
 
-![](https://i.sstatic.net/L269g.png)
+![linked list image](https://media.geeksforgeeks.org/wp-content/uploads/20240809123741/Insertion-at-the-End-in-Doubly-Linked-List-copy.webp)
 
-In the linked list shown above, the pointers between node `3` and `45` may form a circle (cycle). So we will need to use `Weak`.
+In the linked list shown above, the pointers between node `1` and `2` may form a circle (cycle). So we will need to use `Weak`.
 
 ### Shared Mutability
 
@@ -96,7 +96,7 @@ fn test_rc_immut() {
 But we cannot have mutable and immutable references pointing to the same data because the immutable reference does not expect the data to change.
 
 ```rust
-[test]
+#[test]
 /// mutable Rc can no longer mutate if any other Rc exists.
 fn test_rc_mut() {
     let mut x = Rc::new(5);
@@ -120,11 +120,11 @@ To gain shared mutable pointers, we can use `Rc<RefCell<>>`.
 
 Rust [`Box`](https://doc.rust-lang.org/std/boxed/struct.Box.html) provides an exclusive mutable pointer that can be used to mutate the data.
 
-In doubly linked list or a tree, we need shared mutable pointers. For example, in the picture above, we may want to modify the value of node `3` by accessing it from node `45` or node `1`.
+In doubly linked list or a tree, we need shared mutable pointers. For example, in the picture above, we may want to modify the value of node `2` by accessing it from node `1` or node `3`.
 
 ```rust
-node45.next = new_value;
-node1.prev = new_value;
+node1.next = new_value;
+node2.prev = new_value;
 ```
 
 Similar to `Rc`, `RefCell` can be used in single threaded context to allow shared mutable pointers. The borrowing rules are checked at runtime instead and you will get a `panic!` instead of a compiler error.
@@ -172,98 +172,98 @@ Unit Test
 
 ```rust
 #[test]
-    fn test_tree_node() {
-        let n_o = Some(Node::new_ptr(0)); // wrapped in option
-        println!("{n_o:#?}");
-        // Some(
-        //     RefCell {
-        //         value: Node {
-        //             val: 0,
-        //             parent: None,
-        //             left: None,
-        //             right: None,
-        //         },
-        //     },
-        // )
-        let (left, right) = (Node::new_ptr(-1), Node::new_ptr(1)); // not wrapped
-        let n = n_o.unwrap(); // node moved to var n, n_o can no longer be used
-        n.borrow_mut().left = Some(left.clone());
-        n.borrow_mut().right = Some(right.clone());
-        left.borrow_mut().parent = Some(Rc::downgrade(&n));
-        right.borrow_mut().parent = Some(Rc::downgrade(&n));
-        println!("{n:#?}");
-        // RefCell {
-        //     value: Node {
-        //         val: 0,
-        //         parent: None,
-        //         left: Some(
-        //             RefCell {
-        //                 value: Node {
-        //                     val: -1,
-        //                     parent: Some(
-        //                         (Weak),
-        //                     ),
-        //                     left: None,
-        //                     right: None,
-        //                 },
-        //             },
-        //         ),
-        //         right: Some(
-        //             RefCell {
-        //                 value: Node {
-        //                     val: 1,
-        //                     parent: Some(
-        //                         (Weak),
-        //                     ),
-        //                     left: None,
-        //                     right: None,
-        //                 },
-        //             },
-        //         ),
-        //     },
-        // }
-        println!("{:#?}", left.borrow().parent.as_ref()
-            .expect("parent is not None").upgrade());
-        println!("{:#?}", left.borrow().parent);
-        // Some(
-        //     (Weak),
-        // )
-        // borrow left interior RefCell second time, multiple immutable borrows
-        println!("{:#?}", left.borrow().parent.as_ref()
-            .expect("parent is not None").upgrade());
-        // Some(
-        //     RefCell {
-        //         value: Node {
-        //             val: 0,
-        //             parent: None,
-        //             left: Some(
-        //                 RefCell {
-        //                     value: Node {
-        //                         val: -1,
-        //                         parent: Some(
-        //                             (Weak),
-        //                         ),
-        //                         left: None,
-        //                         right: None,
-        //                     },
-        //                 },
-        //             ),
-        //             right: Some(
-        //                 RefCell {
-        //                     value: Node {
-        //                         val: 1,
-        //                         parent: Some(
-        //                             (Weak),
-        //                         ),
-        //                         left: None,
-        //                         right: None,
-        //                     },
-        //                 },
-        //             ),
-        //         },
-        //     },
-        // )
-    }
+fn test_tree_node() {
+    let n_o = Some(Node::new_ptr(0)); // wrapped in option
+    println!("{n_o:#?}");
+    // Some(
+    //     RefCell {
+    //         value: Node {
+    //             val: 0,
+    //             parent: None,
+    //             left: None,
+    //             right: None,
+    //         },
+    //     },
+    // )
+    let (left, right) = (Node::new_ptr(-1), Node::new_ptr(1)); // not wrapped
+    let n = n_o.unwrap(); // node moved to var n, n_o can no longer be used
+    n.borrow_mut().left = Some(left.clone());
+    n.borrow_mut().right = Some(right.clone());
+    left.borrow_mut().parent = Some(Rc::downgrade(&n));
+    right.borrow_mut().parent = Some(Rc::downgrade(&n));
+    println!("{n:#?}");
+    // RefCell {
+    //     value: Node {
+    //         val: 0,
+    //         parent: None,
+    //         left: Some(
+    //             RefCell {
+    //                 value: Node {
+    //                     val: -1,
+    //                     parent: Some(
+    //                         (Weak),
+    //                     ),
+    //                     left: None,
+    //                     right: None,
+    //                 },
+    //             },
+    //         ),
+    //         right: Some(
+    //             RefCell {
+    //                 value: Node {
+    //                     val: 1,
+    //                     parent: Some(
+    //                         (Weak),
+    //                     ),
+    //                     left: None,
+    //                     right: None,
+    //                 },
+    //             },
+    //         ),
+    //     },
+    // }
+    println!("{:#?}", left.borrow().parent.as_ref()
+        .expect("parent is not None").upgrade());
+    println!("{:#?}", left.borrow().parent);
+    // Some(
+    //     (Weak),
+    // )
+    // borrow left interior RefCell second time, multiple immutable borrows
+    println!("{:#?}", left.borrow().parent.as_ref()
+        .expect("parent is not None").upgrade());
+    // Some(
+    //     RefCell {
+    //         value: Node {
+    //             val: 0,
+    //             parent: None,
+    //             left: Some(
+    //                 RefCell {
+    //                     value: Node {
+    //                         val: -1,
+    //                         parent: Some(
+    //                             (Weak),
+    //                         ),
+    //                         left: None,
+    //                         right: None,
+    //                     },
+    //                 },
+    //             ),
+    //             right: Some(
+    //                 RefCell {
+    //                     value: Node {
+    //                         val: 1,
+    //                         parent: Some(
+    //                             (Weak),
+    //                         ),
+    //                         left: None,
+    //                         right: None,
+    //                     },
+    //                 },
+    //             ),
+    //         },
+    //     },
+    // )
+}
 ```
 
 One drawback of using `Weak` is that it does not support the `PartialEq` trait to compare two nodes for equality.
