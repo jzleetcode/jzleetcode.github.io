@@ -1,2 +1,3 @@
 appnexus.com, 14163, RESELLER
 monetizenow.microsoft.com, 254193703, DIRECT
+google.com, pub-5647236369381955, DIRECT, f08c47fec0942fa0

@@ -26,6 +26,7 @@ show dbs # to show databases
 show collections # to show collections
 use <db_name>
 db.<collection_name>.find() # scan the collection
+db.<collection_name>.countDocuments() # total count in collection
 
 # scan with a filter
 db.<collection_name>.find({'field':'value'})
