@@ -102,7 +102,7 @@ impl Solution {
     pub fn max_sub_array(nums: Vec<i32>) -> i32 {
         let (mut max_here, mut res) = (0, i32::MIN);
         for n in nums {
-            max_here = max(max_here, n);
+            max_here = max(max_here + n, n);
             res = max(res, max_here);
         }
         res

@@ -39,6 +39,19 @@ Alternatively, you can use the record and repeat method below.
 :set ff=unix
 ```
 
+### jump to where you want
+
+How to quickly jump to where you want in vim?
+
+```shell
+10gg # jump to line 10
+G # jump to file end
+10w # jump forward 10 words
+10b # jump backwards 10 words
+alt + left/right arrow # jump word by word in visual mode or any other editor
+f<letter> # jump to the first letter of the word you would like to jump to
+```
+
 ### record and repeat
 
 `Esc q` followed by `a`: start recording and store in register a
@@ -46,6 +59,11 @@ Alternatively, you can use the record and repeat method below.
 `98@a` to repeat the recording 98 times
 
 ### search replace
+
+```shell
+:%s/foo/bar/g  # replace all
+:6,10s/foo/bar/g  # replace in lines [6,10] inclusive
+```
 
 See this [stackoverflow question](https://stackoverflow.com/questions/19994922/find-and-replace-strings-in-vim-on-multiple-lines)
 

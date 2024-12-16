@@ -12,6 +12,31 @@ description:
 
 ## Table of contents
 
+## A
+
+### adb
+
+```shell
+# get device mac address mac_addr mac secret mac_sec
+adb shell idme print
+# start adb shell as root
+adb shell su
+# reboot
+adb reboot
+# get properties
+adb shell get-dynconf-value <property_name>
+# sendText
+adb shell sendText <text>
+```
+
+### alias
+
+```shell
+alias sshp
+# how to set ssh to not use proxy command?
+alias sshp='ssh -o ProxyCommand=none'
+```
+
 ## B
 
 ### bg
@@ -19,6 +44,14 @@ description:
 ```shell
 # ctrl + z to suspend a foreground job
 bg %1 # resume job 1 in background
+```
+
+## C
+
+### chown
+
+```shell
+sudo chown -R <user1> ./folder # recursively change owner to user1 for folder
 ```
 
 ## F

@@ -37,6 +37,17 @@ References
 1. [country groupings](https://en.wikipedia.org/wiki/List_of_country_groupings)
 2. [ISO 3166 countries by region](https://gist.github.com/richjenks/15b75f1960bc3321e295)
 
+## Auth
+
+```shell
+# get access key, secret, and token from aws console
+export AWS_ACCESS_KEY_ID=<>
+export AWS_SECRET_ACCESS_KEY=<>
+export AWS_SESSION_TOKEN=<>
+# assume role, optional
+aws sts assume-role --role-arn "arn:aws:iam::547*****681:role/Admin" --role-session-name <session_name>
+```
+
 ## Cloudformation
 
 [How to validate a cloudformation template](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/validate-template.html)?
@@ -68,3 +79,11 @@ aws ec2 describe-images \
 ## Data Science and Machine Learning on AWS
 
 1. "Data Science on AWS" [book](https://www.datascienceonaws.com/), also has the "Generative AI on AWS" book.
+
+## S3
+
+```shell
+$ aws s3 rm s3://<path/prefix>/<key>  --profile <profile_name> --recursive # delete files and folder
+# delete files and folder
+$ aws s3 rm --profile <profile_name> s3://<path/prefix>/ --recursive
+```
