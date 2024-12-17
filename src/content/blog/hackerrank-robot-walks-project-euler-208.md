@@ -8,7 +8,7 @@ tags:
   - a-simulation
   - a-math
 description:
-  "Solutions for project euler 208 and hacker rank question robot walks, hard, tags: math, simulation."
+  "Solutions for project euler 208 and hackerrank question robot walks, hard, tags: math, simulation."
 ---
 
 ## Table of contents

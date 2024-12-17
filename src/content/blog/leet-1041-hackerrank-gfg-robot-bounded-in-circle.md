@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-30T07:23:00Z
 modDatetime: 2024-11-30T07:23:00Z
-title: LeetCode 1041 LintCode 1345 Robot Bounded in Circle (GeeksForGeeks, HackerRank EnCircular, Robot Walks, Project Euler 208)
+title: LeetCode 1041 LintCode 1345 Robot Bounded in Circle (GeeksForGeeks, HackerRank EnCircular)
 featured: true
 tags:
   - a-math
@@ -11,7 +11,7 @@ tags:
   - c-linkedin
   - c-salesforce
 description:
-  "Solutions for LeetCode 1041 LintCode 1345 GFG HackerRank Robot Walks Project Euler 208, medium, tags: math, string, simulation, companies: linkedin, salesforce."
+  "Solutions for LeetCode 1041 LintCode 1345 GFG HackerRank, medium, tags: math, string, simulation, companies: linkedin, salesforce."
 ---
 
 ## Table of contents
