@@ -14,7 +14,7 @@ description:
 
 ## Context
 
-This is a collection of useful commands for using vim. Most should work with vanilla vim.
+This is a collection of useful commands and keyboard shortcuts for using vim. Most should work with vanilla vim.
 Will label if any plugin is needed.
 
 ## Tips
@@ -32,6 +32,14 @@ see this [stackoverflow question](https://stackoverflow.com/questions/1676632/wh
 
 Alternatively, you can use the record and repeat method below.
 
+### delete
+
+How to delete word by word?
+
+```shell
+10dw # delete 10 words after the cursor
+```
+
 ### fix ^M windows line return
 
 ```
@@ -48,7 +56,7 @@ How to quickly jump to where you want in vim?
 G # jump to file end
 10w # jump forward 10 words
 10b # jump backwards 10 words
-alt + left/right arrow # jump word by word in visual mode or any other editor
+alt(mac)/ctrl(windows) + left/right arrow # jump by word in insert mode or other editors such as Notepad or TextEdit
 f<letter> # jump to the first letter of the word you would like to jump to
 ```
 

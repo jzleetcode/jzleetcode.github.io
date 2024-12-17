@@ -63,9 +63,15 @@ aws cloudformation validate-template --template-body file://sampletemplate.json
 }
 ```
 
+## Data Science and Machine Learning on AWS
+
+1. "Data Science on AWS" [book](https://www.datascienceonaws.com/), also has the "Generative AI on AWS" book.
+
 ## EC2
 
-How to find EC2 image infor by AMI id?
+How to find EC2 image information by AMI id?
+
+Check for more at this "Query for the latest Amazon Linux AMI IDs using AWS Systems Manager Parameter Store" [reference](https://aws.amazon.com/blogs/compute/query-for-the-latest-amazon-linux-ami-ids-using-aws-systems-manager-parameter-store/).
 
 ```shell
 # find ec2 image info by AMI id
@@ -74,11 +80,28 @@ aws ec2 describe-images \
   --query "Images[*].Description[]" \
   --output text \
   --region us-east-1
+
+# query list of the AMI name properties
+aws ec2 describe-images --owners amazon --filters "Name=name,Values=amzn*" \
+  --query 'sort_by(Images, &CreationDate)[].Name'
+
+# query latest AMI with ssm
+aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 \
+  --region us-east-1
+
+# use latest in cloud formation
+# Use public Systems Manager Parameter
+Parameters:
+  LatestAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+
+Resources:
+ Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: !Ref LatestAmiId
 ```
-
-## Data Science and Machine Learning on AWS
-
-1. "Data Science on AWS" [book](https://www.datascienceonaws.com/), also has the "Generative AI on AWS" book.
 
 ## S3
 
@@ -87,3 +110,13 @@ $ aws s3 rm s3://<path/prefix>/<key>  --profile <profile_name> --recursive # del
 # delete files and folder
 $ aws s3 rm --profile <profile_name> s3://<path/prefix>/ --recursive
 ```
+
+## VPC
+
+Reference: VPC quota limits [doc](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html).
+
+Each AWS account is allowed for five (5) VPCs and five (5) Elastic IPs per region.
+
+## References
+
+1. How formal methods helped AWS to design amazing services [post](https://awsmaniac.com/how-formal-methods-helped-aws-to-design-amazing-services/)
