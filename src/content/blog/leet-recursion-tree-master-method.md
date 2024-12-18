@@ -22,7 +22,7 @@ A recursion tree is a tree where each node represents the cost of a certain recu
 
 For example, you can check the time complexity analysis in the following two posts.
 
-1. [leetcode 339 nested list weight sum](../leet-0039-lint-0551-nested-list-weight-sum/)
+1. [leetcode 339 nested list weight sum](../leet-0339-lint-0551-nested-list-weight-sum/)
 2. [leetcode 91 ascii encoded strings](../leet-0091-hackerrank-ascii-encoded-strings/)
 
 ## Master Theorem

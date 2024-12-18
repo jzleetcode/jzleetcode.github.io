@@ -66,6 +66,9 @@ Complexity: Time $O(n)$, Space $O(d)$ (recursion depth).
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
+from typing import Self
+
+
 class NestedInteger:
     def __init__(self, value=None):
         """
@@ -73,7 +76,7 @@ class NestedInteger:
         Otherwise initializes a single integer equal to value.
         """
 
-    def isInteger(self):
+    def isInteger(self) -> bool:
         """
         @return True if this NestedInteger holds a single integer, rather than a nested list.
         :rtype bool
@@ -91,14 +94,14 @@ class NestedInteger:
         :rtype void
         """
 
-    def getInteger(self):
+    def getInteger(self) -> int | None:
         """
         @return the single integer that this NestedInteger holds, if it holds a single integer
         Return None if this NestedInteger holds a nested list
         :rtype int
         """
 
-    def getList(self):
+    def getList(self) -> list[Self] | None:
         """
         @return the nested list that this NestedInteger holds, if it holds a nested list
         Return None if this NestedInteger holds a single integer
@@ -107,15 +110,56 @@ class NestedInteger:
 
 
 class Solution:
-    def depthSum(self, nestedList: list[NestedInteger]) -> int:
-        def dfs(nestedList, depth):
+    """780 ms, 7.28 mb"""
+
+    def depthSum(self, nil: list[NestedInteger]) -> int:
+        # nil: nested integer list, d: depth
+        def dfs(nil: list[NestedInteger], d):
             res = 0
-            for item in nestedList:
-                if item.isInteger():
-                    res += item.getInteger() * depth
+            for i in nil:
+                if i.isInteger():
+                    res += i.getInteger() * d
                 else:
-                    res += dfs(item.getList(), depth + 1)
+                    res += dfs(i.getList(), d + 1)
             return res
 
-        return dfs(nestedList, 1)
+        return dfs(nil, 1)
+```
+
+### Java
+
+```java
+// This is the interface that allows for creating nested lists.
+// You should not implement it, or speculate about its implementation
+interface NestedInteger {
+    // @return true if this NestedInteger holds a single integer,
+    // rather than a nested list.
+    boolean isInteger();
+
+    // @return the single integer that this NestedInteger holds,
+    // if it holds a single integer
+    // Return null if this NestedInteger holds a nested list
+    Integer getInteger();
+
+    // @return the nested list that this NestedInteger holds,
+    // if it holds a nested list
+    // Return null if this NestedInteger holds a single integer
+    List<NestedInteger> getList();
+}
+
+
+static class Solution {
+    int depthSum(List<NestedInteger> nil) {
+        return dfs(nil, 1);
+    }
+
+    int dfs(List<NestedInteger> nil, int d) {
+        int res = 0;
+        for (NestedInteger i : nil) {
+            if (i.isInteger()) res += i.getInteger() * d;
+            else res += dfs(i.getList(), d + 1);
+        }
+        return res;
+    }
+}
 ```
