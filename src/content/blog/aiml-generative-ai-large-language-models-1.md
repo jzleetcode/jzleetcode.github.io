@@ -2,9 +2,8 @@
 author: JZ
 pubDatetime: 2024-12-14T08:22:00Z
 modDatetime: 2024-12-14T10:12:00Z
-title: Generative AI (Artificial Intelligence) with Large Language Models (LLM)
+title: Generative AI (Artificial Intelligence) with Large Language Models (LLM) - Part 1
 featured: true
-draft: true
 tags:
   - aiml-llm
 description:
@@ -23,8 +22,18 @@ The text that you pass to an LLM is known as a prompt. The space or memory that 
 
 ![prompt,context window,completion](https://drive.google.com/thumbnail?id=1aVPFtIYaTT2bq7586ZNYslsJLzNKHN49&sz=w1000)
 
-## Logistic Regression
+## LLM Use Cases
+
+1. LLM chatbot, next word prediction
+2. essay writer, summarize
+3. translate (natural language → natural language or code)
+4. entity extraction (information retrieval)
+5. augmenting LLM, invoking external APIs
+
+Developers have discovered that as the scale of foundation models grows from hundreds of millions of parameters to billions, even hundreds of billions, the subjective understanding of language that a model possesses also increases. This language understanding stored within the parameters of the model is what processes, reasons, and ultimately solves the tasks you give it, but it's also true that smaller models can be fine-tuned to perform well on specific focused tasks.
+
+![prompt,context window,completion](https://drive.google.com/thumbnail?id=1vHCkLwyqLWyUoOAG2rx1XZhHWIjiZZi9&sz=w1000)
 
 ## References
 
-1. google ML [crash course](https://developers.google.com/machine-learning/crash-course).
+1. [deeplearning ai course](https://www.deeplearning.ai/courses/generative-ai-with-llms/).
