@@ -72,11 +72,11 @@ See stackoverflow [reference](https://stackoverflow.com/questions/8646517/how-ca
 
 We can check with `GET /repos/:user/:repo` with GitHub API.
 
-https://api.github.com/repos/<user_or_organization_name>/<repo_name>
+You can access `https://api.github.com/repos/<user_or_organization_name>/<repo_name>` with a browser such as google chrome.
 
 or use `curl`
 
-#### How to Check Summary (Changed Files) of the Last Commit?
+#### How to Check the Summary (Changed Files) of the Last Commit?
 
 ```shell
 git log -1 --stat # show basic info and all changes

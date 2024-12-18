@@ -19,6 +19,8 @@ description:
 
 ## Description
 
+Question links: [LeetCode 1346](https://leetcode.com/problems/check-if-n-and-its-double-exist/)
+
 Given an array `arr` of integers, check if there exist two indices `i` and `j` such that :
 
 -   `i != j`
@@ -42,7 +44,7 @@ Explanation: There is no i and j that satisfy the conditions.
 **Constraints:**
 
 -   `2 <= arr.length <= 500`
--   `-103 <= arr[i] <= 103`
+-   `-10^3 <= arr[i] <= 10^3`
 
 Hint 1
 
