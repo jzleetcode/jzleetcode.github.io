@@ -66,7 +66,7 @@ Official doc for [Rc](https://doc.rust-lang.org/std/rc/struct.Rc.html).
 
 Java uses reference counting in its garbage collector. If there is still a variable holding a reference to the data then the memory for the data cannot be released. For more, read stackoverflow [question1](https://stackoverflow.com/questions/176745/circular-references-in-java), [question2](https://softwareengineering.stackexchange.com/questions/11856/whats-wrong-with-circular-references). If all objects in the circle are no longer reachable, Java's garbage collector can still [correctly collect](https://www.baeldung.com/java-gc-cyclic-references).
 
-Rust, however, does not have a garbage collector. As mentioned in the module `Rc` [doc](https://doc.rust-lang.org/std/rc/index.html#), a cycle between R pointers will never be deallocated. The doc suggested using `Weak` to break cycles.
+Rust, however, does not have a garbage collector. As mentioned in the module `Rc` [doc](https://doc.rust-lang.org/std/rc/index.html#), a cycle between `Rc` pointers will never be deallocated. The doc suggested using `Weak` to break cycles.
 
 A `Weak` pointer can be `upgrade`d to an `Rc`, but will return `None` if the data in the allocation has already been dropped.
 
