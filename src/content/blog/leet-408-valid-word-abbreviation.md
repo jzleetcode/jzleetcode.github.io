@@ -9,7 +9,7 @@ tags:
   - a-string
   - c-facebook
   - c-google
-  - leet-locked
+  - leetcode-locked
 description:
   "Solutions for LeetCode 408 LintCode 637, easy, tags: two pointers, string, companies: facebook, google."
 ---
