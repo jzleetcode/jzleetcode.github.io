@@ -63,6 +63,10 @@ aws cloudformation validate-template --template-body file://sampletemplate.json
 }
 ```
 
+[How to import existing (perhaps manually created resource) into cloudformation?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html)
+
+We can use IaC generator or manually import the resource.
+
 ## Data Science and Machine Learning on AWS
 
 1. "Data Science on AWS" [book](https://www.datascienceonaws.com/), also has the "Generative AI on AWS" book.
@@ -102,6 +106,18 @@ Resources:
     Properties:
       ImageId: !Ref LatestAmiId
 ```
+
+## ECS
+
+How to connect (ssh) to the containers with AWS ECS/Fargate/EC2?
+
+We could use aws cli `ecs execute-command` as mentioned in this blog [post](https://aws.amazon.com/blogs/containers/new-using-amazon-ecs-exec-access-your-containers-fargate-ec2/) and this stackoverflow [question](https://stackoverflow.com/questions/52310447/is-it-possible-to-ssh-into-fargate-managed-container-instances).
+
+## Redshift
+
+1. SQL [COPY](https://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html) from data files (in S3, EMR cluster, or a remote host accessed with ssh) or DynamoDB table.
+2. COPY from parquet and orc file formats blog [post](https://aws.amazon.com/about-aws/whats-new/2018/06/amazon-redshift-can-now-copy-from-parquet-and-orc-file-formats/)
+3. redshift node type details [doc](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-node-type-info)
 
 ## S3
 

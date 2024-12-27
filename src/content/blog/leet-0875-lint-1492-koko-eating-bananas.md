@@ -17,6 +17,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 875](https://leetcode.com/problems/koko-eating-bananas/description/), [LintCode 1492](https://www.lintcode.com/problem/1492/)
+
 Koko loves to eat bananas. There are `n` piles of bananas, the `ith` pile has `piles[i]` bananas. The guards have gone and will come back in `h` hours.
 
 Koko can decide her bananas-per-hour eating speed of `k`. Each hour, she chooses some pile of bananas and eats `k` bananas from that pile. If the pile has less than `k` bananas, she eats all of them instead and will not eat any more bananas during this hour.
@@ -54,7 +56,7 @@ The question is similar to many questions that is solvable with binary search wi
 
 Check out more questions in the [binary search tag](../../tags/a-binary-search/).
 
-We can binary search in the range of `[1, max]`. We could use left binary search, `bisect_left` for duplicates (keys that can satisfy the criteria).
+We can binary search in the range of `[1, max]`. We could use left binary search, `bisect_left` for duplicates (keys that can satisfy the criteria), i.e., we shrink the boundary on the left side by `+1` and right side by `=`.
 
 The criteria for the question is that Koko could eat all the bananas within `h` hours.
 
@@ -66,6 +68,8 @@ Complexity: Time $O(n \log n)$, Space $O(1)$.
 
 ```python
 class Solution:
+    """135 ms, 18.8 mb"""
+
     def minEatingSpeed(self, piles: list[int], h: int) -> int:
         def feasible(speed) -> bool:
             return sum((p - 1) // speed + 1 for p in piles) <= h
