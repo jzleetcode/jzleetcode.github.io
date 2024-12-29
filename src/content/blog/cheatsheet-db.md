@@ -54,3 +54,4 @@ see pymongo doc [logging](https://pymongo.readthedocs.io/en/latest/examples/logg
 
 1. multiple databases vs multiple collections: https://www.mongodb.com/community/forums/t/multiple-databases-vs-multiple-collections/211758
 2. update across multiple collections in the same database https://www.mongodb.com/community/forums/t/update-data-across-multiple-collections-within-the-same-database/118979
+3. how to choose a shard key [doc](https://www.mongodb.com/docs/manual/core/sharding-choose-a-shard-key/)

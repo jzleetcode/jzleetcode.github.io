@@ -25,6 +25,25 @@ list all installed packages, optionally can add the `package_name` parameter
 $ brew list [package_name]
 ```
 
+## Case Sensitive Volume
+
+Some code may depend on case-sensitive naming as permitted with linux file system. How to create a case-sensitive volume on a Mac?
+
+With Mac Sequoia (macOS 15), we could use disk utility.
+
+1. Select where you want to create the case-sensitive volume, recommend creating in the "Macintosh HD" volume container
+2. use menu, Edit > add APFS volume, type name
+3. select "APFS (Case-sensitive)" or "APFS (Case-sensitive, Encrypted)" from the format dropdown
+4. click size options and type in the reserve size (min start size) and quta size (max size)
+5. click add
+
+For older mac OS
+
+1. use menu, File > new image, blank image
+2. provide save as name "code.dmg" and select save location
+3. provide name, size, format can select "Mac OS extended (Case-sensitive, Journaled)" or "APFS (Case-sensitive)"
+4. add the image to log-in items so the image can be automatically mounted at OS startup.
+
 ## Keyboard Shortcuts
 
 1. `ctrl + k` to delete till the end of line, vim `d, $`
