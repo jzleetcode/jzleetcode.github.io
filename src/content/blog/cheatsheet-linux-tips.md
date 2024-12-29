@@ -83,6 +83,12 @@ git log -1 --stat # show basic info and all changes
 git show -1 --summary  # show basic info and created or removed files, does not include changed files
 ```
 
+## I
+
+### IO redirection
+
+1. The Linux Document Project (TLDP) [doc](https://tldp.org/LDP/abs/html/io-redirection.html)
+
 ## J
 
 ### jobs
