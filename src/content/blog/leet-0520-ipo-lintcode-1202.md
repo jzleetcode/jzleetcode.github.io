@@ -72,7 +72,7 @@ Complexity: Time $O(n \log n+k \log n)$, Space $O(n)$.
 
 ```python
 class Solution:
-    """286 ms, 42.4 mb"""
+    """247 ms, 43.00 mb"""
 
     def findMaximizedCapital(self, k: int, w: int, profits: list[int], capital: list[int]) -> int:
         pq, i = [], 0
@@ -81,6 +81,31 @@ class Solution:
             while i < len(p) and p[i][0] <= w:
                 heappush(pq, -p[i][1])
                 i += 1
-            if pq: w -= heappop(pq)
+            if pq:
+                w -= heappop(pq)
+            else:  # stuck, no more projects with capital <= w
+                break
         return w
+```
+
+### Java
+
+```java
+// 104 ms, 59.19 mb
+class Solution {
+    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
+        int n = profits.length;
+        ArrayList<int[]> p = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) p.add(new int[]{capital[i], profits[i]});
+        p.sort(Comparator.comparingInt(a -> a[0]));
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
+        int i = 0;
+        while (k-- > 0) {
+            while (i < n && p.get(i)[0] <= w) pq.add(p.get(i++)[1]);
+            if (pq.isEmpty()) break;
+            else w += pq.remove();
+        }
+        return w;
+    }
+}
 ```
