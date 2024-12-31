@@ -72,7 +72,7 @@ docker rm <container_name>  # delete a container
 docker run -v /host/directory:/container/directory -other -options image_name command_to_run
 # create a container with port mapping for jupyter notebook
 docker run -it -p 8888:8888 -p 6006:6006 -v /host/path:/container/path --name <name> <image_name>
-# using mount, config platform for apple silicon chip
+# using mount, config platform for apple silicon chip, run from the direction to be mounted
 docker run -it --platform linux/amd64 -p 8888:8888 -p 6006:6006 --mount type=bind,src=.,dst=/usr/ai2 --name ai2 condaforge/miniforge-pypy3
 ```
 
