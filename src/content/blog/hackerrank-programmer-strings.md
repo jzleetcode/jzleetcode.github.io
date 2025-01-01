@@ -1,14 +1,14 @@
 ---
 author: JZ
 pubDatetime: 2024-12-29T06:23:00Z
-modDatetime: 2024-12-10T06:23:00Z
-title: LeetCode 239 Sliding Window Max
+modDatetime: 2024-12-29T06:23:00Z
+title: HackerRank Programmer Strings
 featured: true
-draft: true
 tags:
-  - a-sliding-window
+  - a-hash
+  - a-string
 description:
-  "Solutions for LeetCode 239, hard, tags: array, queue, sliding window, heap, monotonic queue."
+  "Solutions for HackerRank Programmer Strings, hard, tags: string, hash table."
 ---
 
 ## Table of contents

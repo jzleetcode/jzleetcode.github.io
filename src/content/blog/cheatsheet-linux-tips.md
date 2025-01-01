@@ -160,7 +160,7 @@ unlimited
 256
 ```
 
-File Descriptor limit references:
+File Descriptor ([wiki](https://en.wikipedia.org/wiki/File_descriptor)) limit references:
 
 1. limits on the number of file descriptors [unix stack exchange question](https://unix.stackexchange.com/questions/84227/limits-on-the-number-of-file-descriptors)
 2. linux kernel file-max and file-nr [doc](https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html#file-max-file-nr)
