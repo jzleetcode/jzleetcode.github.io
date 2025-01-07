@@ -1,10 +1,9 @@
 ---
 author: JZ
-pubDatetime: 2024-12-10T06:23:00Z
-modDatetime: 2024-12-10T06:23:00Z
+pubDatetime: 2025-01-02T06:23:00Z
+modDatetime: 2025-01-02T06:23:00Z
 title: HackerRank and GeeksForGeeks Minimum Replacements/Substitutions to Make Adjacent Characters Unequal
 featured: true
-draft: true
 tags:
   - a-sliding-window
   - a-array
@@ -84,7 +83,7 @@ The return array is [0, 1, 1, 0, 1].
 
 ## Idea
 
-A key discovery for this question is that for any streak of repeating characters, the number of replacements needed is the repeat count divide by two.
+A key discovery for this question is that for any streak of repeating characters, the number of replacements needed is the repeat streak count divided by two.
 
 So we count the streak of repeating characters and accumulate the result.
 
