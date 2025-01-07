@@ -48,5 +48,5 @@ For older mac OS
 
 1. `ctrl + k` to delete till the end of line, vim `d, $`
 2. `cmd + backspace` or `cmd + shift + left, delete` delete to the beginning of the line
-3. `alt + left-arrow` to move cursor word by word, `b` in vim
+3. `alt + left-arrow` to move cursor word by word, `b` in vim, `ctrl + left-arrow` in windows.
 4. `cmd + left-arrow` to move to the beginning of the line, `home` key in windows
