@@ -73,6 +73,11 @@ One might be tempted to use a sorted map (e.g., Java `TreeMap`), but the time co
 
 Complexity: Time O(n), Space O(n).
 
+### Notes
+
+1. root can be `null`: constraint `n` can be `0`
+2. expected output is not flattened
+
 ### C++
 
 ```cpp
