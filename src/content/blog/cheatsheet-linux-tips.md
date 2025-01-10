@@ -62,6 +62,13 @@ sudo chown -R <user1> ./folder # recursively change owner to user1 for folder
 fg %4 # bring job 4 to foreground
 ```
 
+### find
+
+```shell
+# search text in gz zipped log
+find . -name "*.gz" -exec zgrep -nI "text to search" {} +
+```
+
 ## G
 
 ### Git
@@ -83,6 +90,74 @@ git log -1 --stat # show basic info and all changes
 git show -1 --summary  # show basic info and created or removed files, does not include changed files
 ```
 
+#### other commands
+
+```shell
+# rename branch
+git branch -m <new_branch_name>
+
+# cherry pick remote commit
+git fetch origin
+git cherry-pick <commit hash>
+
+# stash change for later
+git stash save <useful message>
+git stash show -p stash@{1}
+
+git push <remote-name> <local-branch-name>:<remote-branch-name>  # add -u to track remote branch with local branch, i.e. set as upstream
+# delete remote branch
+git push -d <remote_name> <branch_name>
+git push origin --delete <branch_name>
+
+# show last three tags
+git tag -l | tail -3
+
+# github ssh setup
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+```
+
+```shell
+git log --all  --oneline --graph
+# --decorate only applies to the head, --decorate=full example: commit 6b51db131e32e8fcaaa075e7d1134dbf9f7359ee (HEAD -> refs/heads/main, refs/remotes/origin/main)
+# --oneline shows the commit hash and commit message
+# --graph add a * (star symbol) and try to draw a graph, each commit may take more than one line
+# oneline graph for blame
+git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+# two line graph for blame
+git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+```
+
+#### How view and config git at system/global/local(repo) levels?
+
+```shell
+# to show config
+% git config --list --system
+# on mac
+fatal: unable to read config file '/etc/gitconfig': No such file or directory
+# global config file for unix based OS (linux, macOS) is at ~/.gitconfig, for windows c:\\Users\<username>\.gitconfig
+% git config --list --global
+user.name=<your_name>
+user.email=<your_email>
+# local config file location: <repo_path>/.git/config
+% git config --list --local
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+core.precomposeunicode=true
+user.name=<your_name>
+user.email=<your_email>
+remote.origin.url=git@github.com:<org_or_username>/<repo_name>.git # for ssh connected
+# remote.origin.url=https://github.com/<org_or_unsername>/<repo_name>.git # for https connected
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+branch.main.remote=origin
+branch.main.merge=refs/heads/main
+```
+
+1. git configuration [doc](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
+2. where is global config data [betterstack](https://betterstack.com/community/questions/where-is-the-global-config-data-stored/)
+3. git config file locations [theserverside](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Where-system-global-and-local-Windows-Git-config-files-are-saved)
+
 ## I
 
 ### id
@@ -96,7 +171,26 @@ uid=0(root) gid=0(root) groups=0(root)
 
 ### IO redirection
 
+```shell
+<command> > /dev/null # redirect standard output to be discarded
+<command> > /dev/null 2>&1 # reroute stdout and stderr to be drscarded
+nohup myscript.sh >myscript.log 2>&1 </dev/null &
+#\__/             \___________/ \__/ \________/ ^
+# |                    |          |      |      |
+# |                    |          |      |  run in background
+# |                    |          |      |
+# |                    |          |   don't expect input
+# |                    |          |
+# |                    |        redirect stderr to stdout
+# |                    |
+# |                    redirect stdout to myscript.log
+# |
+# keep the command running
+# no matter whether the connection is lost or you logout
+```
+
 1. The Linux Document Project (TLDP) [doc](https://tldp.org/LDP/abs/html/io-redirection.html)
+2. stackoverflow [question](https://stackoverflow.com/questions/19955260/what-is-dev-null-in-bash) about `< /dev/null`
 
 ## J
 
@@ -202,6 +296,42 @@ Sometimes you may have different versions of the executable from different sourc
 ```shell
 $ which whoami
 /usr/bin/whoami
+```
+
+## X
+
+### xclip
+
+```shell
+# copy current dir to xclip
+pwd | xclip
+# copy to clipboard, can be pasted in gui, e.g., in firefox
+pwd | xclip -sel clip
+# paste from xclip
+xclip -o
+```
+
+### xrdp
+
+```shell
+sudo yum update
+sudo yum install xrdp x11rdp xorgxrdp
+sudo /etc/init.d/xrdp status
+# result should be
+xrdp is stopped
+xrdp-sesman is stopped
+```
+
+update cert when cert auto-renew
+
+```shell
+MY_CERT_MS=com.<domain>.certificates.<username>.aka.corp.<domain>.com-STANDARD_SSL_SERVER_INTERNAL_ENDPOINT-RSA
+# retrieve the certificate the private key
+<command1> -t Certificate $MY_CERT_MS | openssl x509 -inform DER | sudo tee /etc/xrdp/cert.pem > /dev/null
+<command1> -t PrivateKey $MY_CERT_MS | openssl pkcs8 -nocrypt -inform DER -outform PEM | sudo tee /etc/xrdp/key.pem > /dev/null
+sudo chmod 400 /etc/xrdp/key.pem /etc/xrdp/cert.pem
+sudo /etc/init.d/xrdp restart
+sudo /etc/init.d/xrdp status
 ```
 
 ## References
