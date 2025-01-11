@@ -48,7 +48,7 @@ Output: ["apple","google","leetcode"]
 
 ## Idea
 
-This is another question that uses counting/counter. For other similar questions, see the [counting tag](./../tags/a-counting).
+This is another question that uses counting/counter. For other similar questions, see the [counting tag](../../tags/a-counting).
 
 We could union all the counters (hashmaps) for all the words in `words2`. Let's call this counter `cnt`.
 

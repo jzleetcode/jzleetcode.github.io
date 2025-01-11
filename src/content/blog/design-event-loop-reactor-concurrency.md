@@ -17,6 +17,12 @@ description:
 
 Applications/frameworks that use event loop include Node.js, Netty, and Jetty.
 
+```javascript
+console.log('first')
+fs.readFile(__filename, ()=> {console.log('second')}) // async, callback executed last
+console.log('third')
+```
+
 ## Event Loop
 
 The event loop is a key concept in asynchronous programming and is used to handle and manage events and tasks in a program. Its origins trace back to systems programming and were popularized by the need for efficient input/output operations in software.
@@ -35,6 +41,10 @@ Programming Paradigms:
 
 - Event loops gained prominence in event-driven programming, especially in the design of GUIs and networked applications.
 - In Node.js, the event loop is a core part of its runtime, enabling it to perform non-blocking I/O operations. This implementation is based on the `libuv` library.
+
+Multiple queues:
+
+![nodejs queues](https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2Facadb0ce7d6240639e448d55136c04a6?format=webp&width=1600)
 
 Language-Specific Implementations:
 
@@ -58,7 +68,7 @@ end function
 The `get_next_message()` routine is typically provided by the operating system and blocks until a message is available.
 The loop is only entered when there is something to process.
 
-Under Unix, the "everything is a file" paradigm naturally leads to a file-based event loop. Reading from and writing to files, inter-process communication, network communication, and device control are all achieved using file I/O, with the target identified by a file descriptor. The select and poll system calls allow a set of file descriptors to be monitored for a change of state, e.g. when data becomes available to be read.
+Under Unix, the "everything is a file" paradigm naturally leads to a file-based event loop. Reading from and writing to files, inter-process communication, network communication, and device control are all achieved using file I/O, with the target identified by a file descriptor. The select and poll system calls allow a set of file descriptors to be monitored for a change of state, e.g., when data becomes available to be read.
 
 ## Actor Model vs. Reactor Pattern
 
@@ -74,7 +84,7 @@ An actor is a computational entity that, in response to a message it receives, c
 2. create a finite number of new actors;
 3. designate the behavior to be used for the next message it receives.
 
-There is no assumed sequence to the above actions and they could be carried out in parallel.
+There is no assumed sequence to the above actions, and they could be carried out in parallel.
 
 Erlang, Ruby, Scala, and Swift employ the actor model.
 
@@ -82,7 +92,7 @@ Libraries and frameworks include Actix (Rust), Actor (Java), Vert.x (Java), and 
 
 Difference between the two discussions on [stackoverflow](https://stackoverflow.com/questions/19352040/whats-the-difference-betwee-actor-model-and-reactor-pattern-in-python).
 
->In pulsar each actor (think of a specialized thread or process) has its own event loop. In this way any actor can run its own asynchronous server for example.
+>In pulsar, each actor (think of a specialized thread or process) has its own event loop. In this way, any actor can run its own asynchronous server.
 
 The reactor pattern is used in many web servers, application servers, and networking frameworks
 include Netty, Nginx, Node.js, Twisted, and Vert.x.
@@ -92,3 +102,6 @@ include Netty, Nginx, Node.js, Twisted, and Vert.x.
 1. reactor pattern [wiki](https://en.wikipedia.org/wiki/Reactor_pattern)
 2. event loop [wiki](https://en.wikipedia.org/wiki/Event_loop)
 3. nodejs event loop builder.io [post](https://www.builder.io/blog/visual-guide-to-nodejs-event-loop)
+4. reddit [thread](https://www.reddit.com/r/learnjavascript/comments/1b5jdl3/what_helped_you_truly_understand_the_event_loop/)
+5. Python asyncio event loop [doc](https://docs.python.org/3/library/asyncio-eventloop.html)
+6. understanding the event loop [stackoverflow](https://stackoverflow.com/questions/21607692/understanding-the-event-loop)
