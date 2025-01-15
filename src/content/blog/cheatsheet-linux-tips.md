@@ -48,10 +48,77 @@ bg %1 # resume job 1 in background
 
 ## C
 
+### chmod
+
+```shell
+chmod 777 -R <dir> # set read write executable for directory by user, group, others
+chmod a+rwx -R <dir> # same as above
+chmod +x <file> # make file executable by anyone, +x, a+x, same as ugo+x
+```
+
 ### chown
 
 ```shell
 sudo chown -R <user1> ./folder # recursively change owner to user1 for folder
+```
+
+## D
+
+### date
+
+```shell
+date +%F # today's date 2018-04-21
+date # Sat Apr 21 16:43:16 PDT 2018
+date -r <epoch seconds> # example 1547927682
+> date +%s           # Current time seconds, mac
+1544081888
+> date -v -15M +%s   # 15 minutes ago in seconds, mac
+1544081034
+> date -r 1544081034 # seconds to readable, mac
+Thu Dec  6 09:23:54 IST 2018
+> date +%s                  # Current time seconds, linux
+1544082214
+> date -d "15 mins ago" +%s # 15 minutes ago in seconds, linux
+1544081345
+> date -d @1544081345       # seconds to readable, linux
+Thu Dec  6 07:29:05 UTC 2018
+today=$(date +%Y/%m/%d) # today's date in format 2020/02/22
+today=$(date) # Sat Feb 22 06:15:12 UTC 2020
+date -d $today +%Y/%m/%d # reformat date
+```
+
+### df
+
+How to check disk space on the command line?
+
+```shell
+% df -h
+# mac result
+Filesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on
+/dev/disk3s1s1   460Gi    10Gi   343Gi     3%    412k  3.6G    0%   /
+devfs            204Ki   204Ki     0Bi   100%     706     0  100%   /dev
+/dev/disk3s6     460Gi    20Ki   343Gi     1%       0  3.6G    0%   /System/Volumes/VM
+/dev/disk3s2     460Gi   6.4Gi   343Gi     2%    1.2k  3.6G    0%   /System/Volumes/Preboot
+/dev/disk3s4     460Gi   3.0Mi   343Gi     1%      53  3.6G    0%   /System/Volumes/Update
+/dev/disk1s2     500Mi   6.0Mi   483Mi     2%       1  4.9M    0%   /System/Volumes/xarts
+/dev/disk1s1     500Mi   5.6Mi   483Mi     2%      32  4.9M    0%   /System/Volumes/iSCPreboot
+/dev/disk1s3     500Mi   824Ki   483Mi     1%      74  4.9M    0%   /System/Volumes/Hardware
+/dev/disk3s5     460Gi    99Gi   343Gi    23%    1.4M  3.6G    0%   /System/Volumes/Data
+map auto_home      0Bi     0Bi     0Bi   100%       0     0     -   /System/Volumes/Data/home
+/dev/disk3s3     460Gi   986Mi   343Gi     1%      41  3.6G    0%   /Volumes/Recovery
+/dev/disk4s2     167Gi   2.7Gi   165Gi     2%    108k  4.3G    0%   /Volumes/code
+```
+
+### du
+
+How to check disk space usage on the command line?
+
+```shell
+du -b <file> | cut -f1 # get file size in bytes
+# list file and folder sizes in current directory
+sudo du -sh * | sort -h -r
+du -ahx . | sort -rh | head -5
+du -hd 1 . # mac
 ```
 
 ## F
