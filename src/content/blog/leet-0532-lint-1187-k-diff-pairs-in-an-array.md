@@ -2,12 +2,19 @@
 author: JZ
 pubDatetime: 2025-01-17T06:23:00Z
 modDatetime: 2025-01-17T06:23:00Z
-title: LeetCode 532 LintCode 1187
+title: LeetCode 532 LintCode 1187 K-diff Pairs in An Array
 featured: true
 tags:
-  - a-sliding-window
+  - a-hash
+  - a-counting
+  - a-two-pointers
+  - a-binary-search
+  - a-array
+  - a-sorting
+  - c-nvidia
+  - c-amazon
 description:
-  "Solutions for LeetCode 239, hard, tags: array, queue, sliding window, heap, monotonic queue."
+  "Solutions for LeetCode 532 LintCode 1187, medium, tags: array, hash table, counting, two-pointers, binary-search; companies: nvidia, amazon."
 ---
 
 ## Table of contents
