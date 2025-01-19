@@ -4,7 +4,6 @@ pubDatetime: 2025-01-06T06:23:00Z
 modDatetime: 2025-01-06T06:23:00Z
 title: System Design - Event Loop for Concurrent Applications
 featured: true
-draft: true
 tags:
   - design-concurrency
 description:
@@ -70,6 +69,15 @@ The loop is only entered when there is something to process.
 
 Under Unix, the "everything is a file" paradigm naturally leads to a file-based event loop. Reading from and writing to files, inter-process communication, network communication, and device control are all achieved using file I/O, with the target identified by a file descriptor. The select and poll system calls allow a set of file descriptors to be monitored for a change of state, e.g., when data becomes available to be read.
 
+NodeJs event loop has six phases (see nodejs doc link in references):
+
+1. timers: this phase executes callbacks scheduled by `setTimeout()` and `setInterval()`.
+2. pending callbacks: executes I/O callbacks deferred to the next loop iteration.
+3. idle, prepare: only used internally.
+4. poll: retrieve new I/O events; execute I/O related callbacks (almost all with the exception of close callbacks, the ones scheduled by timers, and `setImmediate()`); node will block here when appropriate.
+5. check: `setImmediate()` callbacks are invoked here.
+6. close callbacks: some close callbacks, e.g. `socket.on('close', ...)`.
+
 ## Actor Model vs. Reactor Pattern
 
 They both use event loops.
@@ -105,3 +113,4 @@ include Netty, Nginx, Node.js, Twisted, and Vert.x.
 4. reddit [thread](https://www.reddit.com/r/learnjavascript/comments/1b5jdl3/what_helped_you_truly_understand_the_event_loop/)
 5. Python asyncio event loop [doc](https://docs.python.org/3/library/asyncio-eventloop.html)
 6. understanding the event loop [stackoverflow](https://stackoverflow.com/questions/21607692/understanding-the-event-loop)
+7. nodejs [doc](https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick)
