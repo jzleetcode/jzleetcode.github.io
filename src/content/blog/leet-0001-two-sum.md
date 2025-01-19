@@ -7,6 +7,7 @@ featured: true
 tags:
   - a-array
   - a-hash
+  - c-salesforce
 description:
   "Solutions for  LeetCode 1 LintCode 56, easy, tags: array, hash table."
 ---
@@ -14,6 +15,9 @@ description:
 ## Table of contents
 
 ## Description
+
+Question Links: [LeetCode 1](https://leetcode.com/problems/two-sum/description/), [LintCode 56](https://www.lintcode.com/problem/56/)
+
 Given an array of integers `nums` and an integer `target`, return _indices of the two numbers such that they add up to `target`_.
 
 You may assume that each input would have **_exactly_ one solution**, and you may not use the _same_ element twice.
@@ -86,6 +90,22 @@ impl Solution {
 }
 ```
 
+### Python
+
+```python
+class Solution:
+    """3ms, 19.13mb"""
+
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        val_ind = dict()
+        for i, n in enumerate(nums):
+            v = target - n
+            if v in val_ind:
+                return [val_ind[v], i]
+            else:
+                val_ind[n] = i
+```
+
 ## Variation 1
 
 One variation is to print out the value for all such pairs.
@@ -95,20 +115,19 @@ One variation is to print out the value for all such pairs.
 1. We could remember the count of the element values in the hashmap.
 2. As we iterate, we look for the number that could sum to the target. If such an element value is found, we print out the pairs repeating with the count of the found element value
 
+Complexity: Time $O(n)$, Space $O(n)$.
+
 ### Rust
 
 ```rust
 pub fn two_sum_print(nums: Vec<i32>, target: i32) {
-    let mut val_id = HashMap::new();
+    let mut cnt = HashMap::new();
     for v in nums.iter() {
         let look = target - v;
-        match val_id.get(&look) {
-            Some(c) => {
-                for _ in 0..*c { println!("{} {}", v, look) }
-                *val_id.entry(v).or_insert(0) += 1;
-            }
-            None => *val_id.entry(v).or_insert(0) += 1,
-        };
+        if let Some(c) = cnt.get(&look) {
+            for _ in 0..*c { println!("{v} {look}") };
+        }
+        *cnt.entry(v).or_insert(0) += 1;
     }
 }
 ```
@@ -133,4 +152,16 @@ fn test_two_sum_print() {
 2 -2
 2 -2
 2 -2
+```
+
+### Python
+
+```python
+def two_sum_print(nums, target):
+    cnt = defaultdict(int)
+    for n in nums:
+        look = target - n
+        if look in cnt:
+            for i in range(cnt[look]): print(look, n)
+        cnt[n] += 1
 ```
