@@ -17,6 +17,8 @@ description:
 
 ## Description
 
+Link to Question: [LeetCode 2017](https://leetcode.com/problems/grid-game/description/)
+
 You are given a **0-indexed** 2D array `grid` of size `2 x n`, where `grid[r][c]` represents the number of points at position `(r, c)` on the matrix. Two robots are playing a game on this matrix.
 
 Both robots initially start at `(0, 0)` and want to reach `(1, n-1)`. Each robot may only move to the **right** (`(r, c)` to `(r, c + 1)`) or **down** (`(r, c)` to `(r + 1, c)`).
@@ -99,8 +101,7 @@ class Solution:
     """85 ms, 29.8 mb"""
 
     def gridGame(self, grid: list[list[int]]) -> int:
-        first, second = sum(grid[0]), 0
-        res = float('inf')
+        first, second, res = sum(grid[0]), 0, float('inf')
         for i in range(len(grid[0])):
             first -= grid[0][i]
             res = min(res, max(first, second))
