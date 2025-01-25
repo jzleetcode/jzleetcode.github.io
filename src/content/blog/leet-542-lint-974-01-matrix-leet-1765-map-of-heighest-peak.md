@@ -52,7 +52,7 @@ Output: [[0,0,0],[0,1,0],[1,2,1]]
 
 **Note:** This question is the same as 1765: https://leetcode.com/problems/map-of-highest-peak/description/
 
-## Description (01 Matrix)
+## Description (Map of Highest Peak)
 
 
 Lint to Question: [LeetCode 1765](https://leetcode.com/problems/map-of-highest-peak/description/?envType=daily-question&envId=2025-01-22)
