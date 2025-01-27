@@ -38,7 +38,7 @@ These follow-up questions can be asking details like what exactly happened, when
 
 1. Have you delivered under a very tight timeline? You could ask follow-up questions to find out whether the candidate will blindly follow the manager's order or follow his/her own belief.
 2. Have you had conflict with your coworker and what was the result? You could ask follow-up question to find out whether the candidate believes in thriving by positively helping each other to achieve a win-win on both sides or competing/attacking to prioritize self-survival or self-interest.
-3. What are some of your beliefs either come from religion or your own value system. You can ask follow-up questions for examples how the candidate live by these beliefs. For example, the Boy Scouts of America (Scouting USA)'s scout law includes trustworthy, loyal, helpful, and friendly. A scout can often talk about what happened during a hiking or camping event that demonstrates these scout laws.
+3. What are some of your beliefs either come from religion or your own value system? You can ask follow-up questions for examples how the candidate live by these beliefs. For example, the Boy Scouts of America (Scouting USA)'s scout law includes trustworthy, loyal, helpful, and friendly. A scout can often talk about what happened during a hiking or camping event that demonstrates these scout laws.
 
 ## Summary
 
