@@ -45,8 +45,8 @@ Output: [[0,0,0],[0,1,0],[1,2,1]]
 
 -   `m == mat.length`
 -   `n == mat[i].length`
--   `1 <= m, n <= 104`
--   `1 <= m * n <= 104`
+-   `1 <= m, n <= 10^4`
+-   `1 <= m * n <= 10^4`
 -   `mat[i][j]` is either `0` or `1`.
 -   There is at least one `0` in `mat`.
 
@@ -55,7 +55,7 @@ Output: [[0,0,0],[0,1,0],[1,2,1]]
 ## Description (Map of Highest Peak)
 
 
-Lint to Question: [LeetCode 1765](https://leetcode.com/problems/map-of-highest-peak/description/?envType=daily-question&envId=2025-01-22)
+Link to Question: [LeetCode 1765](https://leetcode.com/problems/map-of-highest-peak/description/?envType=daily-question&envId=2025-01-22)
 
 You are given an integer matrix `isWater` of size `m x n` that represents a map of **land** and **water** cells.
 
@@ -114,13 +114,13 @@ Perform a multi-source BFS with all the water cells as sources.
 
 ## Idea1
 
-The two questions are essentially the same. We could use one line to set the value from 1 to 0 and 0 to 1 for the graph.
+The two questions are essentially the same. We could use one line of code to set the value from 1 to 0 and 0 to 1 for the graph.
 
 We could use dynamic programming to solve the question.
 
-We could process the cells from top left to bottom right. This way all the cells on the top and left of the current cell have been processed already. We set the cell value to 1 plus the minimum of the two (top, left).
+We could process the cells from top-left to bottom-right. This way all the cells on the top and left of the current cell have been processed already. We set the cell value to 1 plus the minimum of the two (top, left).
 
-We could then process from bottom right to top left. This time we look at cells on the bottom and right of the current cell.
+We could then process from bottom-right to top-left. This time we look at cells on the bottom and right of the current cell.
 
 Complexity: Time $O(n)$, Space $O(1)$.
 
@@ -154,7 +154,7 @@ class Solution1:
 
 ## Idea2
 
-We could start from the 0 cells and use breadth-first-search (bfs) to explore the graph. Each step, we process all the cells in the queue, increment the step value and set all the cells explored in this step to that value.
+We could start from the `0` cells and use breadth-first-search (bfs) to explore the graph. Each step, we process all the cells in the queue, increment the step value and set all the cells explored in this step to that value.
 
 Complexity: Time $O(n)$, Space $O(n)$.
 
