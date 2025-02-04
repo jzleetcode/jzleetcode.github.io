@@ -56,7 +56,7 @@ Output: []
 
 We could solve this iteratively. For linked list, it is easier to write code as you draw the action on a piece of paper or whiteboard, or imagine in your head. Please check the image below for the steps to reverse the link.
 
-![reverse.link](https://drive.google.com/thumbnail?id=1CfQhxmNYn2r1AFcdtq3A6UX7E5eIZg7n&sz=w1000)
+![reverse.linkedlist.iterative](https://drive.google.com/thumbnail?id=1CfQhxmNYn2r1AFcdtq3A6UX7E5eIZg7n&sz=w1000)
 
 Complexity: Time $O(n)$, Space $O(1)$.
 
@@ -78,9 +78,13 @@ class Solution1:
 
 ## Idea2
 
-We could also solve this question recursively.
+We could also solve this question recursively. Please check the image below for the steps.
 
-Complexity: Time $O(n)$, Space $O(1)$.
+![reverse.linkedlist.recursive](https://drive.google.com/thumbnail?id=1rvLDT4XG-Tjz_IyOeCtGI89OlLFQBeUP&sz=w1000)
+
+Complexity: Time $O(n)$, Space $O(n)$.
+
+The space is linear $O(n)$ considering the stack space used for the recursive calls. The function cannot be made tail recursive.
 
 ### Python
 

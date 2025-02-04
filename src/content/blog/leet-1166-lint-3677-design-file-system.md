@@ -86,6 +86,17 @@ let n = path.len();
 
 Complexity: Time $O(n)$, Space $O(n)$.
 
+The main advantage of this method versus the method to save all the paths in a hash table is the space saving. Imagine the following paths.
+
+```shell
+/path
+/path/patha
+/path/patha/pathaa
+/path/patha/pathab
+```
+
+The trie only saves `/path` one time, whereas the naive hash table method will save the `/path` four times.
+
 ### Python
 
 ```python
