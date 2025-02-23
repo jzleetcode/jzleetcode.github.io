@@ -11,6 +11,12 @@ description:
 
 ## Table of contents
 
+## Tools
+
+1. DBeaver https://dbeaver.io/
+2. PGAdmin for PostgreSQL https://www.pgadmin.org/
+3. Jetbrains Datagrip https://www.jetbrains.com/datagrip/, IntelliJ Idea community edition with plugin https://www.logicbig.com/how-to/intellij/intellij-community-edition-connecting-database.html, and IntelliJ Idea ultimate edition https://www.jetbrains.com/help/idea/connecting-to-a-database.html.
+
 ## Microsoft SQL Server
 
 Use Microsoft SQL Server Management Studio in a Windows machine (virtual or actual Windows).
