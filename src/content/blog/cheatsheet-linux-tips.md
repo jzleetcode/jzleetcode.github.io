@@ -163,6 +163,12 @@ git show -1 --summary  # show basic info and created or removed files, does not 
 # rename branch
 git branch -m <new_branch_name>
 
+# view branch detailed info
+git branch -vv
+
+# set upstream
+git branch -u <remote>/<branch_name>
+
 # cherry pick remote commit
 git fetch origin
 git cherry-pick <commit hash>
