@@ -32,11 +32,124 @@ Find `C:\Users\<user_name>\path...\Source\path..\Application1\Page1.aspx`. Right
 
 On the standard toolbar right below the menu bar, in the drop-down selectors select "Debug", "Mixed Platforms", "<Application_name>", click "IIS Express (Microsoft Edge)" button with the green run button. (There is another green button on the right says "start without debugging".) This should start a page in Microsoft edge loading http://localhost:1721/Promotion.aspx. The right Solution Explorer window should now show "Diagnostic Tools" displaying Events, process memory, and cpu %. The page should load after a couple of minutes. Alternatively, you could try chrome if it is supported.
 
+### Check VB.Net Code
+
+Visual basic ASP.NET uses the Model View Controller (MVC) architecture. To find the corresponding VB code for an aspx web page, you can right-click anywhere in the aspx file and select view code.
+
+### Text Editor Configuration
+
+Menu -> Tools -> Options, search for Visual Basic.
+
+Text Editor -> "All Languages" or "Visual Basic" -> Tabs.
+
+Set tab size and indent size as desired. Choose "insert spaces" or "keep tabs" as desired.
+
+### Configure Windows Registry
+
+VB.Net application may use Windows Registry configuration. For example, the key might be `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\<company>\<Application1>`.
+
+You could open the Windows registry editor by searching for that in the Windows search bar or run (win key + R), then type `regedit`. Each folder in the left side explorer is a key and a sub folder is a sub key. Right click on a folder, you could export that key as a file , create a sub key under that key, or create a value (string, binary, DWORD, .etc). Each value has a "value name" and "value data" (a key value pair). The registry editor shows three columns for each value: name, type, and data.
+
+Check registry values are configured correctly.
+
+```
+Value Name: <DB1>Sql3Connect
+Value Data (String):
+    Data Source=<name>-aws.<domain>.net;Initial Catalog=<DB1>_Dev;Integrated Security=SSPI;MultiSubnetFailover=True;
+```
+
 ### Configure Microsoft Edge to use Internet Explorer Mode
 
 If your project requires Microsoft Internet Explorer, then you will have to use IE. If you are on Windows 11, you would have to use Microsoft Edge with IE compatible mode.
 
+1. Visit `edge://compat/enterprise` and ensure the enterprise site list is up to date. This is the site list for Internet Explorer mode defined by your organization. You could click the "Force update" button to update the list. Location could be `file://us.<org>.com/path/.../IESites.xml`.
+2. Go to edge settings (three dots button) -> Default Browser -> Select "Allow" for the dropdown for "Allow sites to be reloaded in Internet Explorer Mode (IE Mode)".
+3. Go to cookies and site permissions and allow Javascript, Images, and "Pop-ups and redirects".
+4. Visit a URL, click the three-dots button -> "Reload in Internet Explorer Mode". You should see the IE icon next to the URL search bar. You can reload to turn IE mode off as well.
 
+### Install Windows Services
+
+For Microsoft Visual Basic dot net (VB.Net) projects. You may have to install the executable files (exe) as Windows services to test.
+
+In Windows search bar, search for "Developer Command Prompt for VS 2022". Right-click and start the CMD as admin.
+
+```shell
+**********************************************************************
+** Visual Studio 2022 Developer Command Prompt v17.12.4
+** Copyright (c) 2022 Microsoft Corporation
+**********************************************************************
+
+C:\Windows\System32>installutil.exe C:\Users\<user>\<path>\Source\...\bin\Service1.exe
+Microsoft (R) .NET Framework Installation utility Version 4.8.9032.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the C:\Users\<user>\<path>\Source\...\bin\Service1.exe assembly's progress.
+The file is located at C:\Users\<user>\<path>\Source\...\bin\Service1.exe.InstallLog.
+Installing assembly 'C:\Users\<user>\<path>\Source\...\bin\Service1.exe'.
+Affected parameters are:
+   logtoconsole =
+   logfile = C:\Users\<user>\<path>\Source\...\bin\Service1.InstallLog
+   assemblypath = C:\Users\<user>\<path>\Source\...\bin\Service1.exe
+Installing service Service1...
+Creating EventLog source Service1 in log Application...
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The account name is invalid or does not exist, or the password is invalid for the account name specified
+
+The Rollback phase of the installation is beginning.
+...
+Restoring event log to previous state for source Service1.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+The installation failed, and the rollback has been performed.
+```
+
+You may see transient error like
+
+```shell
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The trust relationship between this workstation and the primary domain failed
+```
+
+Try to log in with `user@domain.net` and password.
+
+```shell
+C:\Windows\System32>installutil.exe C:\Users\<user>\<path>\Source\...\bin\Service2.exe
+Microsoft (R) .NET Framework Installation utility Version 4.8.9032.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the C:\Users\<user>\<path>\Source\...\bin\Service1.exe assembly's progress.
+The file is located at C:\Users\<user>\<path>\Source\...\bin\Service2.InstallLog.
+Installing assembly 'C:\Users\<user>\<path>\Source\...\bin\Service2.exe'.
+Affected parameters are:
+logtoconsole =
+logfile = C:\Users\<user>\<path>\Source\...\bin\Service2.InstallLog
+assemblypath = C:\Users\<user>\<path>\Source\...\bin\Service2.exe
+Installing service RmDTGRateEngineConsumer1...
+Service RmDTGRateEngineConsumer1 has been successfully installed.
+Creating EventLog source RmDTGRateEngineConsumer1 in log Application...
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the C:\Users\<user>\<path>\Source\...\bin\Service2.exe assembly's progress.
+The file is located at C:\Users\<user>\<path>\Source\...\bin\Service2.InstallLog.
+Committing assembly 'C:\Users\<user>\<path>\Source\...\bin\Service2.exe'.
+Affected parameters are:
+logtoconsole =
+logfile = C:\Users\<user>\<path>\Source\...\bin\Service2.InstallLog
+assemblypath = C:\Users\<user>\<path>\Source\...\bin\Service2.exe
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+```
 
 ## Microsoft SQL Server Database
 
@@ -71,48 +184,29 @@ Alternatively, you could connect using the SQL server Authentication mechanism w
 
 Use menu bar: File, New, Database Engine Query to start a new SQL script text file where you can run SQL queries. You could select the query and click the Execute button on the "SQL Editor" toolbar to run the query (or F5 hotkey). So it would be easier if you can keep the query on one line then you can select it by double click that line.
 
+### Stored Procedures
 
-## MongoDB
+In the "Object Explorer", expand "Programmability" -> "Stored Procedures". Right click on a stored procedure (e.g., dbo.sp<Table1>_Insert) then "view dependencies", you can check "Obects on which [sp<Table1>_Insert] depends".
 
-For MongoDB 8.0.1 installed with HomeBrew.
+To view the script for the stored procedure, you could right-click -> "Script Stored Procedure as" -> "CREATE To" -> "New Query Editor Window". Or run sql script `exec sp_helptext '<procedure_name>''` (much faster).
 
-### `mongosh` commands
-
-```shell
-brew services start mongodb-community@8.0
-brew services stop mongodb-community@8.0
-
-mongosh
-show dbs # to show databases
-show collections # to show collections
-use <db_name>
-db.<collection_name>.find() # scan the collection
-db.<collection_name>.countDocuments() # total count in collection
-
-# scan with a filter
-db.<collection_name>.find({'field':'value'})
-db.<collection_name>.findOne({'_id':'value'})
-
-# delete with a filter
-db.<collection_name>.deleteMany({'field':'value'})
-{ acknowledged: true, deletedCount: 2 }
+```sql
+select * from dbo.TableDefinition where TableName ='<table_name>'
 ```
 
-### Pymongo
+To check all stored procedures.
 
-How to set log levels for `pymongo` python mongodb client?
-
-By default, the client log level is `DEBUG`. You can change the log level as below. This line changes for the whole client.
-
-```python
-logging.getLogger('pymongo').setLevel(logging.ERROR)
+```sql
+select distinct ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_DEFINITION LIKE '%<SEARCH_STRING>%' AND ROUTINE_TYPE = 'PROCEDURE'
 ```
 
-For more control at the module level,
-see pymongo doc [logging](https://pymongo.readthedocs.io/en/latest/examples/logging.html).
+### Triggers
+
+In the "Object Explorer",
+
+1. expand "Programmability" -> "Database Triggers"
+2. expand "Server Objects" -> "Triggers"
 
 ### References
 
-1. multiple databases vs multiple collections: https://www.mongodb.com/community/forums/t/multiple-databases-vs-multiple-collections/211758
-2. update across multiple collections in the same database https://www.mongodb.com/community/forums/t/update-data-across-multiple-collections-within-the-same-database/118979
-3. how to choose a shard key [doc](https://www.mongodb.com/docs/manual/core/sharding-choose-a-shard-key/)
+1. VB.Net Sub Statement [doc](https://learn.microsoft.com/en-us/dotnet/visual-basic/language-reference/statements/sub-statement)
