@@ -1,10 +1,9 @@
 ---
 author: JZ
-pubDatetime: 2024-12-10T06:23:00Z
-modDatetime: 2024-12-10T06:23:00Z
+pubDatetime: 2025-03-21T06:23:00Z
+modDatetime: 2025-03-21T06:23:00Z
 title: LeetCode 2539 LintCode 3855 Count the Number of Good Subsequences
 featured: true
-draft: true
 tags:
   - leetcode-locked
   - a-hash
@@ -71,7 +70,23 @@ Let's consider example 1, the string "aabb".
 
 We could precompute the results for calculating the combination function (n choose k).
 
+$\dbinom{n}{k} = \frac{n!}{k!\times(n-k)!}$
+
 Complexity: Time $O(n)$, Space $O(n)$.
+
+Explanation for calculation of the modular multiplicative inverse for $k!$ ($k$'s factorial).
+
+let $ x = \frac{1}{k!}, M = 10^9+7 $
+
+$ kx \equiv 1 \quad mod \quad M $
+
+$ kx \equiv k^{M-1} \quad mod \quad M $ with Fermat's little theorem.
+
+Multiple both sides by $k^{-1}$,
+
+$x \equiv k^{M-2} \quad mod \quad M$
+
+In python, that is `pow(k, M-2, M)`.
 
 ### Python
 
@@ -81,7 +96,7 @@ from collections import Counter
 N = 10001
 MOD = 10**9 + 7
 f = [1] * N
-g = [1] * N
+g = [1] * N  # g[i] represents (i! % MOD)^(-1)
 for i in range(1, N):
     f[i] = f[i - 1] * i % MOD
     g[i] = pow(f[i], MOD - 2, MOD)
@@ -113,3 +128,4 @@ class Solution:
 1. modular multiplicative inverse [wiki](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
 2. modular multiplicative inverse chinese [OI wiki](https://oi-wiki.org/math/number-theory/inverse/)
 3. [algo monster](https://algo.monster/liteproblems/2539)
+4. MMI [CP algo](https://cp-algorithms.com/algebra/module-inverse.html)
