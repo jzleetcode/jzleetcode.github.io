@@ -10,8 +10,9 @@ tags:
   - a-hash
   - a-two-pointers
   - c-microsoft
+  - leetcode-locked
 description:
-  "Solutions for LeetCode 1650, medium, tags: binary tree, hash table, two pointers; companies: microsoft."
+  "Solutions for LeetCode 1650 LintCode 474, medium, tags: binary tree, hash table, two pointers; companies: microsoft."
 ---
 
 ## Table of contents
@@ -91,7 +92,8 @@ Output: 1
 
 We can use the two-pointer method. We advance the two pointers until they meet in the tree.
 
-1. The exit condition
+1. The exit condition is when the two pointers point to the lowest common ancestor, i.e., `a == b`
+2. What to do when one of the pointers could not go up anymore? We switch the pointer to point to the other node. This way both pointers will travel the path for each and meet at the lowest common ancestor. For example, for example 1 above, pointer 1 will point to 3,4,5,7,4 and pointer 2 will point to 5,7,4,3,4. Finally, they meet at LCA (4).
 
 Complexity: Time $O(n)$, Space $O(1)$.
 
