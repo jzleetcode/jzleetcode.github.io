@@ -103,6 +103,7 @@ Complexity: Time O(1.3^n), Space O(1.3^n) or O(1) not considering result space.
 class Solution:
     """7 ms, 16.67 mb"""
 
+    @cache
     def countAndSay(self, n: int) -> str:
         res = "1"
         while n > 1:
