@@ -116,7 +116,7 @@ An exception occurred during the Install phase.
 System.ComponentModel.Win32Exception: The trust relationship between this workstation and the primary domain failed
 ```
 
-Try to log in with `user@domain.net` and password.
+You may need to log in with `user@domain.net` and password for Auth and remember to connect to VPN.
 
 ```shell
 C:\Windows\System32>installutil.exe C:\Users\<user>\<path>\Source\...\bin\Service2.exe
@@ -150,6 +150,25 @@ The Commit phase completed successfully.
 
 The transacted install has completed.
 ```
+
+To test the service locally, you can start the Microsoft Visual Studio with admin (Run as administrator).
+Start the Windows Services app.
+Find the service you installed above and start it.
+Choose to Debug with the Microsoft Visual Studio just in time debugger
+and choose the existing running Visual Studio application already open.
+Proceed with adding break points or `Debug.Print()` statements.
+
+### Build/Compile Configuration
+
+You may run into "incorrect format" error during the installation. `System.BadImageFormatException: Could not load file or assembly 'service.exe' or one of its dependencies. An attempt was made to load a program with an incorrect format..`
+
+Check the version for the Visual Studio, e.g.,
+Microsoft Visual Studio Community 2022 (64-bit) - Current Version 17.12.4.
+You can check build and compile configuration with Build → Configuration Manager.
+In the row for your application/service and in the column "Platform" change the dropdown from `x64` to `Any CPU`.
+Then Build or Rebuild the solution.
+Clean Solution if needed.
+Then try installation again.
 
 ## Microsoft SQL Server Database
 

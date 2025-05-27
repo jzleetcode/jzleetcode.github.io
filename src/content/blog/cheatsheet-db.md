@@ -25,7 +25,9 @@ Use Microsoft SQL Server Management Studio in a Windows machine (virtual or actu
 2. In the popup, put in server name (sql server name)
 3. Authentication dropdown, use "Windows Authentication"
 4. User name and password section is grayed out. User name is <Domain>\<user_name>
-5. Change Encryption dropdown to optional
+5. Change Encryption dropdown to optional or required for Production stage
+6. Check the box to "Trust server certificate" if applicable.
+7. For production stage, in the "Additional Connection Parameters" tab, you may also need to add "ApplicationIntent=ReadOnly"
 
 See active directory [overview doc](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview), [domain account doc](https://learn.microsoft.com/en-us/windows/win32/ad/domain-user-accounts)
 
