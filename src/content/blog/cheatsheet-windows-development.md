@@ -170,6 +170,27 @@ Then Build or Rebuild the solution.
 Clean Solution if needed.
 Then try installation again.
 
+### Create New Data Model and Table
+
+Assuming that you are using Microsoft SQL Server as the database and wanted to create a new table or data model,
+you could create a new dataset item in the data management project in the solution.
+You could go to menu Project → Add new item, or right-click on the data management project → Add → New Item
+(click show-all-files button in the solution explorer to see all files).
+On the left side of the pop out window, choose Data in "Common Items"
+in "Installed" then choose "DataSet" in the middle.
+Rename the file to typically the table or data model name.
+Click Add and wait for the new file to show.
+In the new xsd file (GUI), right click and Add → DataTable.
+Then rename the DataTable and right click to Add Columns one by one.
+In the solution explorer, find the new `<DataModel>.xsd` file and expand.
+You could see three auto-generated files: `<DataModel>.Designer.vb`, `<DataModel>.xsc`, and `<DataModel>.xss`.
+
+In the xsd file, add all the columns except the ones that the database will auto increment,
+for example `UniqueIdentity` column.
+You may also need to add the `TransactionTypeCode` column to indicate insert, update,
+and delete if you are using that convention with VB.net development structure.
+That column does not actually exist in the table.
+
 ## Microsoft SQL Server Database
 
 Use Microsoft SQL Server Management Studio in a Windows machine (virtual or actual Windows). This article is based on version 20.2.
@@ -201,7 +222,22 @@ In the SQL Editor toolbar, you could open a previously saved SQL query script fi
 
 Alternatively, you could connect using the SQL server Authentication mechanism with login and password.
 
-Use menu bar: File, New, Database Engine Query to start a new SQL script text file where you can run SQL queries. You could select the query and click the Execute button on the "SQL Editor" toolbar to run the query (or F5 hotkey). So it would be easier if you can keep the query on one line then you can select it by double click that line.
+Use menu bar: File, New, Database Engine Query to start a new SQL script text file where you can run SQL queries. You could select the query and click the Execute button on the "SQL Editor" toolbar to run the query (or F5 hotkey). So it would be easier if you can keep the query on one line, then you can select it by double click that line.
+
+### Copy Data between Databases
+
+In Microsoft SQL Server Management Studio,
+
+1. right-click on the destination database server, select Tasks → Import Data
+2. next, for the data source, choose "Microsoft OLE DB Provider for SQL Server" and Use Windows Authentication, type in server name
+3. choose the appropriate source database in the server, next
+4. for destination, choose the same as step 2 above, database dropdown should be automatically selected to be the one in step 1
+5. select the option: "write a query to specify the data to transfer". The other option is to "copy data from one or more tables or views".
+6. next, change the destination to the table you want to import the data into
+7. click preview button to preview the data, close
+8. click edit mappings (remove UniqueIdentity column if needed (auto increment index)), choose the destination column for that row and change the dropdown to ignore
+9. next, finish
+
 
 ### Stored Procedures
 
