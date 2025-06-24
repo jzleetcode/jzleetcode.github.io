@@ -1,10 +1,9 @@
 ---
 author: JZ
-pubDatetime: 2025-05-20T06:23:00Z
-modDatetime: 2025-05-20T06:23:00Z
+pubDatetime: 2025-06-21T06:23:00Z
+modDatetime: 2025-06-21T06:23:00Z
 title: LeetCode 23 LintCode 104 Merge K Sorted Lists
 featured: true
-draft: true
 tags:
   - a-heap
   - a-divide-and-conquer
@@ -84,6 +83,36 @@ class Solution {
         return dummy.next;
     }
 }
+```
+
+### Python
+
+Typically, when using heap in Python, we push the `(priority, task)` tuple.
+When the priority is equal, heap compares task.
+Because the `task` in this question is `ListNode` and is not comparable,
+we can either implement `__eq__` and `__lt__` to allow comparison or use another field to break the tie.
+In the implementation below, I used `id()` of the node to break the tie.
+
+See this python [doc](https://docs.python.org/3/library/heapq.html#priority-queue-implementation-notes) for more.
+
+```python
+class Solution:
+    """7 ms, 20.4 mb"""
+
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        pq, dummy = list(), ListNode()
+        cur = dummy
+        for l in lists:
+            if l:
+                heappush(pq, (l.val, id(l), l))
+        while pq:
+            _, _, n = heappop(pq)
+            cur.next = n
+            n = n.next
+            if n:
+                heappush(pq, (n.val, id(n), n))
+            cur = cur.next
+        return dummy.next
 ```
 
 ## Idea2
