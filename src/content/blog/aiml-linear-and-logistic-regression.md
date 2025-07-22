@@ -13,9 +13,21 @@ description:
 
 ## Table of contents
 
+## Glossary
+
+1. Feature: inputs to the model; the `x` variables in the math equation.
+2. Label: the output of the model; what we are trying to predict; they `y` variable in the math equation.
+
 ## Linear Regression
 
-[todo]
+![straight line](https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/car-data-points-with-model.png)
+
+In linear regression, we are trying to fit the model with a linear math equation.
+In the simplest form, we can visualize the model with a straight line in the figure above.
+
+The math equation is $y = mx + b$ or $y = b + w_1 \cdot x_1$.
+
+The slope `m` or `w` of the line is the weight for the features of the model. The intercept `b` is the bias of the model.
 
 ## Logistic Regression
 
