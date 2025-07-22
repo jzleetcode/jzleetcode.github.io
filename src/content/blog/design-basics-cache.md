@@ -91,10 +91,10 @@ description:
     - Con
         - Risk of data loss in case of system disruptions.
 
-With the 2 popular cache implementations are Redis and Memcached:
+With the two popular cache implementations are Redis and Memcached:
 
 1. Read heavy workload: use cache aside or read through strategies
-2. Consistency vs throughput: use write-through or write-back strategies
+2. Consistency vs. throughput: use write-through or write-back strategies
 3. Avoid caching one-off writes: use write-around strategy
 
 ## Cache eviction policies
