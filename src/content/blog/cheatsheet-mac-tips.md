@@ -50,3 +50,10 @@ For older mac OS
 2. `cmd + backspace` or `cmd + shift + left, delete` delete to the beginning of the line
 3. `alt + left-arrow` to move cursor word by word, `b` in vim, `ctrl + left-arrow` in windows.
 4. `cmd + left-arrow` to move to the beginning of the line, `home` key in windows
+
+## Shell Commands
+
+```shell
+id -un # check ldap user name, display username instead of a number
+basename "$HOME" # check home directory
+```

@@ -7,7 +7,7 @@ featured: true
 tags:
   - design-basics-web-sockets
 description:
-  "How do websockets work comparing to http?"
+  "How do websockets work comparing to http? System Design Basics, websockets"
 ---
 
 ## Table of contents
