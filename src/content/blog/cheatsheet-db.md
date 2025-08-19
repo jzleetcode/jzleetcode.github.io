@@ -46,6 +46,13 @@ select name, database_id, create_date from sys.databases; go
 -- list databses in this server: master, msdb, model, tempdb, .etc
 ```
 
+## MySQL
+
+```shell
+# check how many databases per replica set
+$ mysql_cli -r admin <replica_set_name> -e 'SHOW DATABASES' | grep -c pbdata
+```
+
 ## MongoDB
 
 For MongoDB 8.0.1 installed with HomeBrew.

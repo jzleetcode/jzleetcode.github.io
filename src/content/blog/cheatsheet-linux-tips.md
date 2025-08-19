@@ -231,6 +231,18 @@ branch.main.merge=refs/heads/main
 2. where is global config data [betterstack](https://betterstack.com/community/questions/where-is-the-global-config-data-stored/)
 3. git config file locations [theserverside](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Where-system-global-and-local-Windows-Git-config-files-are-saved)
 
+### grep
+
+```shell
+$ grep -c # count of the number of lines
+% echo "line 1\nline 2\nline 3"
+line 1
+line 2
+line 3
+% echo "line 1\nline 2\nline 3" | grep -c line
+3
+```
+
 ## I
 
 ### id

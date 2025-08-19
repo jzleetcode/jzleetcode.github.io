@@ -17,6 +17,19 @@ description:
 
 ## Cheatsheet
 
+### Python
+
+```shell
+# how to create virtual env with python 3
+python3 -m venv test1
+cd test1
+source bin/activate
+which python
+which pip
+pip install requests
+pip list
+```
+
 ### Conda
 
 ```shell
