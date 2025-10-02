@@ -37,11 +37,11 @@ The Xero rubber sole is pretty rigid and can shield the feet very well from smal
 
 But the sole is too rigid for running. I ran in the sandals and then compared them with Shamma Elite Warrior sandals. Please check the comparison pictures below.
 
-![xero.vs.shamma](https://drive.google.com/thumbnail?id=1r8E73y55GttGKoPX1h278vNFuSZlC-DI&sz=w1000)
+![xero.vs.shamma](https://drive.google.com/thumbnail?id=1am7SKIuxvyLcDhrqPExsSnFouMnFatFh&sz=w1000)
 
 From the picture above, one could see the sizes of the sandals are similar.
 
-![xero.vs.shamma.side](https://drive.google.com/thumbnail?id=1r8E73y55GttGKoPX1h278vNFuSZlC-DI&sz=w1000)
+![xero.vs.shamma.side](https://drive.google.com/thumbnail?id=1QMXTgJ4URtzWlydkYW8eWtV731Hpv0L6&sz=w1000)
 
 From the side-view picture above, one could see that the Shamma sole is softer and curved up. The Xero sole is more rigid/hard and stays flat after use.
 
