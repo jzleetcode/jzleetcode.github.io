@@ -6,7 +6,7 @@ title: Database (MongoDB, Microsoft SQL Server) CheatSheet
 tags:
   - cheatsheet-db
 description:
-  "tips for using mongodb"
+  "tips for using databases including mongodb, microsoft sql server, mysql"
 ---
 
 ## Table of contents
@@ -48,10 +48,19 @@ select name, database_id, create_date from sys.databases; go
 
 ## MySQL
 
-```shell
-# check how many databases per replica set
-$ mysql_cli -r admin <replica_set_name> -e 'SHOW DATABASES' | grep -c pbdata
-```
+### Read Write Splitting
+
+MySQL read/write splitting is a database architecture strategy
+designed to improve performance and scalability by directing reads to replica servers and writes to the primary server.
+
+MySQL router is a lightweight middleware that sits between the application and the MySQL servers.
+It intelligently routes queries based on whether they are read or write operations.
+Version 8.2 and later versions offer transparent read/write splitting.
+
+ProxySQL and HAProxy (database proxies) can be configured to route queries based on rules,
+often using separate ports for read and write connections.
+
+
 
 ## MongoDB
 
