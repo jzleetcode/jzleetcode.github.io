@@ -285,6 +285,19 @@ nohup myscript.sh >myscript.log 2>&1 </dev/null &
 $ jobs # list jobs
 [1]  + suspended (tty output)  vim
 ```
+## L
+
+### lsb
+
+```shell
+# check ubuntu version
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description: Ubuntu 24.04.2 LTS
+Release: 24.04
+Codename: noble
+```
 
 ## S
 
