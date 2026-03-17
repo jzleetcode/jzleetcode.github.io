@@ -8,7 +8,7 @@ export const SITE: Site = {
   title: "JZLeetCode",
   ogImage: "jzzcoding.jpg",
   lightAndDarkMode: true,
-  postPerIndex: 4,
+  postPerIndex: 8,
   postPerPage: 6,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
   showArchives: true,

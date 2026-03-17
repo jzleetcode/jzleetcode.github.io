@@ -4,6 +4,7 @@ pubDatetime: 2025-02-01T06:23:00Z
 modDatetime: 2025-02-01T06:23:00Z
 title: LeetCode 239 Sliding Window Max
 draft: true
+featured: true
 tags:
   - a-sliding-window
 description:
