@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-23T03:23:00Z
 modDatetime: 2024-11-23T03:23:00Z
 title: How to Embed an SVG Image/Picture with the Code or File on a Website
-featured: true
 tags:
   - cheatsheet-website
 description:

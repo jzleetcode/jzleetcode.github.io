@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-18T06:23:00Z
 modDatetime: 2024-12-18T06:23:00Z
 title: LintCode 2503 Thread Safe Counter (Concurrency)
-featured: true
 tags:
   - concurrent-mutex
   - concurrent-lock

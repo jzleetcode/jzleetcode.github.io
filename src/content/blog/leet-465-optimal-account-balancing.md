@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-22T06:23:00Z
 modDatetime: 2024-11-22T07:24:00Z
 title: LeetCode 465 LintCode 707 Optimal Account Balancing
-featured: true
 tags:
   - a-bit
   - a-array

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-30T06:23:00Z
 modDatetime: 2024-11-30T06:23:00Z
 title: LintCode 3127 How Many Times is Two Squared?
-featured: true
 tags:
   - a-math
   - a-bit

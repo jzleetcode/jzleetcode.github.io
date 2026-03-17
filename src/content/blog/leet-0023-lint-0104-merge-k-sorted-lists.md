@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-06-21T06:23:00Z
 modDatetime: 2025-06-21T06:23:00Z
 title: LeetCode 23 LintCode 104 Merge K Sorted Lists
-featured: true
 tags:
   - a-heap
   - a-divide-and-conquer

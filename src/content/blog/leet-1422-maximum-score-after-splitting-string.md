@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-30T06:23:00Z
 modDatetime: 2024-12-30T06:23:00Z
 title: LeetCode 1422 Maximum Score After Splitting a String
-featured: true
 tags:
   - a-string
   - a-prefix-sum

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-19T06:23:00Z
 modDatetime: 2025-01-19T06:23:00Z
 title: LeetCode 542 LintCode 974 01 Matrix and LeetCode 1765 Map of Highest Peak
-featured: true
 tags:
   - a-dp
   - a-graph

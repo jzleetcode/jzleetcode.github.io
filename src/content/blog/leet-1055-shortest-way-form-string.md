@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-17T05:23:00Z
 modDatetime: 2024-11-17T05:23:00Z
 title: LeetCode 1055 LintCode 3652 Shortest Way to Form String
-featured: true
 tags:
   - a-two-pointers
   - a-greedy

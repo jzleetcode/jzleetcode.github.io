@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-26T06:23:00Z
 modDatetime: 2024-11-26T06:23:00Z
 title: LeetCode 214 LintCode 678 Shortest Palindrome (GeeksForGeeks Minimum Insertion to Form Shortest Palindrome)
-featured: true
 tags:
   - a-rolling-hash
   - a-string

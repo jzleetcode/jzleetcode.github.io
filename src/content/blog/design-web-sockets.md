@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-03-15T06:23:00Z
 modDatetime: 2025-03-15T06:23:00Z
 title: System Design - How do Websockets Work
-featured: true
 tags:
   - design-basics-web-sockets
 description:

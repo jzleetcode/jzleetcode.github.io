@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-06T06:23:00Z
 modDatetime: 2024-12-06T06:23:00Z
 title: LintCode 26 Inner Product
-featured: true
 tags:
   - a-dp
 description:

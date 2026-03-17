@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-05T08:22:00Z
 modDatetime: 2024-12-05T10:12:00Z
 title: How to Draw Circles and Arcs with Python Library Matplotlib
-featured: true
 tags:
   - cheatsheet-ai
 description:

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-08T06:23:00Z
 modDatetime: 2025-01-08T06:23:00Z
 title: LeetCode 916 LintCode 1726 Word Subsets
-featured: true
 tags:
   - a-hash
   - a-counting

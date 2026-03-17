@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-12T06:23:00Z
 modDatetime: 2024-12-12T06:23:00Z
 title: LeetCode 520 LintCode 1202 IPO
-featured: true
 tags:
   - a-sorting
   - a-heap

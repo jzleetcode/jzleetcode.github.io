@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-09T07:23:00Z
 modDatetime: 2024-12-09T07:23:00Z
 title: LeetCode 1650 LintCode 474 Lowest Common Ancestor of a Binary Tree III
-featured: true
 tags:
   - a-binary-tree
   - a-tree

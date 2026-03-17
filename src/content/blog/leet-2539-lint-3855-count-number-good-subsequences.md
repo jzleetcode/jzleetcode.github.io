@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-03-21T06:23:00Z
 modDatetime: 2025-03-21T06:23:00Z
 title: LeetCode 2539 LintCode 3855 Count the Number of Good Subsequences
-featured: true
 tags:
   - leetcode-locked
   - a-hash

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-23T08:23:00Z
 modDatetime: 2024-11-23T09:23:00Z
 title: LeetCode 1804 LintCode 3729 Implement Trie II
-featured: true
 tags:
   - a-design
   - a-trie
