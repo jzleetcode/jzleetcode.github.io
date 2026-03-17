@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-13T07:22:00Z
 modDatetime: 2024-11-13T08:12:00Z
 title: LeetCode 125 LintCode 415 Valid Palindrome
-featured: true
 tags:
   - a-string
   - a-two-pointers

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-30T07:23:00Z
 modDatetime: 2024-11-30T07:23:00Z
 title: LeetCode 1041 LintCode 1345 Robot Bounded in Circle (GeeksForGeeks, HackerRank EnCircular)
-featured: true
 tags:
   - a-math
   - a-string

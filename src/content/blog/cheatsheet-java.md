@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-26T08:22:00Z
 modDatetime: 2024-12-26T10:12:00Z
 title: Java CheatSheet
-featured: true
 tags:
   - cheatsheet-java
 description:

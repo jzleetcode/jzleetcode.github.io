@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-24T07:23:00Z
 modDatetime: 2024-11-24T07:23:00Z
 title: LeetCode 1 Similar Two Subtract Count
-featured: true
 tags:
   - a-array
   - a-hash

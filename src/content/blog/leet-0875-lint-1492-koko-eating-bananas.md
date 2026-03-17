@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-24T06:23:00Z
 modDatetime: 2024-12-24T06:23:00Z
 title: LeetCode 875 LintCode 1492 Koko Eating Bananas
-featured: true
 tags:
   - a-binary-search
   - a-array

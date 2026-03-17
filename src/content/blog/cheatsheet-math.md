@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-28T06:23:00Z
 modDatetime: 2024-11-28T06:23:00Z
 title: Cheatsheet for Math Knowledge Needed for LeetCode Algorithm Questions (Geometric Series and Arithmetic Progression Sum)
-featured: true
 tags:
   - a-math
 description:

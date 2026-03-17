@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-01T08:23:00Z
 modDatetime: 2024-12-01T08:23:00Z
 title: LeetCode 53 LintCode 41 Maximum Subarray
-featured: true
 tags:
   - a-array
   - a-divide-conquer

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-19T06:23:00Z
 modDatetime: 2024-12-19T06:23:00Z
 title: LeetCode 423 LintCode 1247 Reconstruct Original Digits from English
-featured: true
 tags:
   - a-hash
   - a-simulation

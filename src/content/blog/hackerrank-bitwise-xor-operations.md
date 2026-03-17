@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-27T08:23:00Z
 modDatetime: 2024-11-27T08:23:00Z
 title: HackerRank Bitwise Xor Operations
-featured: true
 tags:
   - a-bit
   - a-sliding-window

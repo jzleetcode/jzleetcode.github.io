@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-22T08:22:00Z
 modDatetime: 2024-11-22T10:12:00Z
 title: Vim CheatSheet
-featured: true
 tags:
   - cheatsheet-vim
 description:

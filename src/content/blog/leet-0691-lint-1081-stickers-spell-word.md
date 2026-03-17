@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-17T06:23:00Z
 modDatetime: 2024-12-17T06:23:00Z
 title: LeetCode 691 LintCode 1081 Stickers to Spell Word
-featured: true
 tags:
   - a-dp
   - a-memoization

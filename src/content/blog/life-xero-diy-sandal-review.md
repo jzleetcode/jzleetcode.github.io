@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-10-01T06:23:00Z
 modDatetime: 2025-10-01T06:23:00Z
 title: Xero DIY Sandal Review
-featured: true
 tags:
   - l-barefoot
   - l-running

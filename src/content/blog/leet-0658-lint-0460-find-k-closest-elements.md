@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-03-24T06:23:00Z
 modDatetime: 2025-03-24T06:23:00Z
 title: LeetCode 658 LintCode 460 Find K Closest Elements
-featured: true
 tags:
   - a-array
   - a-binary-search

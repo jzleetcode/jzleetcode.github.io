@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-31T06:23:00Z
 modDatetime: 2024-12-31T06:23:00Z
 title: LeetCode 2559 Count Vowel Strings in Ranges
-featured: true
 tags:
   - a-array
   - a-string

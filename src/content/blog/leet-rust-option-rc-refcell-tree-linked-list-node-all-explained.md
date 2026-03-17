@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-11T07:23:00Z
 modDatetime: 2024-12-11T07:23:00Z
 title: Rust Option, Rc, and RefCell Explained - LeetCode Tree Node and LinkedList Node
-featured: true
 tags:
   - a-tree
   - a-list

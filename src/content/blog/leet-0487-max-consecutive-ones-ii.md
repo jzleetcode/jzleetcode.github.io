@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-24T08:23:00Z
 modDatetime: 2024-11-24T08:23:00Z
 title: LeetCode 487 LintCode 883 Max Consecutive Ones II
-featured: true
 tags:
   - a-dp
   - a-two-pointers

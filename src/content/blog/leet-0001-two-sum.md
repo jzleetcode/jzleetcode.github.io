@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-04T06:23:00Z
 modDatetime: 2024-12-04T06:23:00Z
 title: LeetCode 1 LintCode 56 Two Sum
-featured: true
 tags:
   - a-array
   - a-hash

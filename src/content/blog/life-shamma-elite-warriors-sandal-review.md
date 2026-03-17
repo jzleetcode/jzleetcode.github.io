@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-10-09T06:23:00Z
 modDatetime: 2025-10-09T06:23:00Z
 title: Shamma Elite Warrios Sandals Review
-featured: true
 tags:
   - l-barefoot
   - l-running

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-03T06:23:00Z
 modDatetime: 2024-12-03T06:23:00Z
 title: HackerRank Robot Walks and Project Euler 208 Solutions
-featured: true
 tags:
   - a-simulation
   - a-math

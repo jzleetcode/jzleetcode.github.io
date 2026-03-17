@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-05T06:23:00Z
 modDatetime: 2025-01-05T06:23:00Z
 title: LeetCode 1930 Unique Length-3 Palindromic Subsequences
-featured: true
 tags:
   - a-hash
   - a-bit
