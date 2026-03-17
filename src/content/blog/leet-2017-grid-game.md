@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-20T06:23:00Z
 modDatetime: 2025-01-20T06:23:00Z
 title: LeetCode 2017 Grid Game
-featured: true
 tags:
   - a-array
   - a-matrix

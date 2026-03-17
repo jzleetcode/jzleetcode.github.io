@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-10T06:23:00Z
 modDatetime: 2025-01-10T06:23:00Z
 title: LeetCode Meeting Rooms Derivative Question
-featured: true
 tags:
   - a-line-sweep
   - a-heap

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-28T06:23:00Z
 modDatetime: 2024-12-28T06:23:00Z
 title: LeetCode 2466 LintCode 3854 Count Ways to Build Good Strings (Number of Good Binary Strings)
-featured: true
 tags:
   - a-dp
 description:

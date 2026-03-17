@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-08T15:22:00Z
 modDatetime: 2024-11-08T17:12:00Z
 title: LeetCode 20 LintCode 423 Valid Parentheses (stack)
-featured: true
 tags:
   - a-stack
   - a-string

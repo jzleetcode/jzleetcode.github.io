@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-26T10:23:00Z
 modDatetime: 2024-11-26T10:23:00Z
 title: Fun Bit Tricks (Manipulations)
-featured: true
 tags:
   - a-bit
 description:

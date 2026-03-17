@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-09T06:23:00Z
 modDatetime: 2024-12-09T06:23:00Z
 title: LeetCode 408 LintCode 637 Valid Word Abbreviation
-featured: true
 tags:
   - a-two-pointers
   - a-string

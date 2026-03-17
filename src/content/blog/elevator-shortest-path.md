@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-21T06:23:00Z
 modDatetime: 2024-11-21T07:23:00Z
 title: Elevator Closest Floors (Shortest Path, Related to Shortest Seek Time First Disk Seek Algorithm)
-featured: true
 tags:
   - a-array
   - a-binary-search

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-02-20T06:23:00Z
 modDatetime: 2025-02-22T06:23:00Z
 title: LeetCode 2450 LintCode 3841 Number of Distinct Binary Strings After Applying Operations
-featured: true
 tags:
   - a-math
   - a-string

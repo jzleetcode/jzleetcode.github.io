@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-06-05T06:23:00Z
 modDatetime: 2025-06-05T06:23:00Z
 title: LeetCode 21 LintCode 165 Merge Two Sorted Lists
-featured: true
 tags:
   - a-heap
   - a-divide-and-conquer

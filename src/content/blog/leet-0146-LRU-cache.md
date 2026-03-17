@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-24T09:23:00Z
 modDatetime: 2024-11-24T09:23:00Z
 title: LeetCode 146 LintCode 134 LRU Cache
-featured: true
 tags:
   - a-hash
   - a-list

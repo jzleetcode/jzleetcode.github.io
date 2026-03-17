@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-28T06:23:00Z
 modDatetime: 2025-01-28T06:23:00Z
 title: LeetCode 1166 LintCode 3677 Design File System
-featured: true
 tags:
   - a-hash
   - a-trie

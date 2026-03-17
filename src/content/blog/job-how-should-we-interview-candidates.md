@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-23T08:22:00Z
 modDatetime: 2025-01-23T10:12:00Z
 title: How could we interview job candidates to find the right teammates? Why should we care?
-featured: true
 tags:
   - job-interview
 description:

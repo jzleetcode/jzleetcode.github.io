@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-14T08:22:00Z
 modDatetime: 2024-12-14T10:12:00Z
 title: Generative AI (Artificial Intelligence) with Large Language Models (LLM) - Part 1
-featured: true
 tags:
   - aiml-llm
 description:

@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-04T08:22:00Z
 modDatetime: 2024-12-04T10:12:00Z
 title: Linux Cheatsheet, tips and Commands
-featured: true
 tags:
   - cheatsheet-apps
 description:

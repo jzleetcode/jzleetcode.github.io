@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-30T06:23:00Z
 modDatetime: 2025-01-30T06:23:00Z
 title: LeetCode 206 LintCode 35 Reverse Linked List
-featured: true
 tags:
   - a-linkedlist
   - a-recursion

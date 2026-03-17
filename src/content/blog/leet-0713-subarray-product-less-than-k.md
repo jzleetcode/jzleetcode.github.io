@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-10T06:23:00Z
 modDatetime: 2024-12-10T06:23:00Z
 title: LeetCode 713 LintCode 1075 Subarray Product Less Than K
-featured: true
 tags:
   - a-sliding-window
   - a-two-pointers

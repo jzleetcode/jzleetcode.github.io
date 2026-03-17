@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-05T06:23:00Z
 modDatetime: 2024-12-05T06:23:00Z
 title: LeetCode 540 LintCode 1183 Single Element in a Sorted Array
-featured: true
 tags:
   - a-array
   - a-binary-search

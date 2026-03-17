@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-09T06:23:00Z
 modDatetime: 2025-01-09T06:23:00Z
 title: LeetCode 1400 Construct K Palindrome Strings
-featured: true
 tags:
   - a-counting
   - a-hash

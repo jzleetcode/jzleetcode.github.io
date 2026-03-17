@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-11-29T06:23:00Z
 modDatetime: 2024-11-29T06:23:00Z
 title: LeetCode 1346 Check If N and Its Double Exist
-featured: true
 tags:
   - a-array
   - a-hash

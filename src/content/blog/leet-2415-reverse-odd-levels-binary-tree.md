@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-18T06:23:00Z
 modDatetime: 2024-12-18T06:23:00Z
 title: LeetCode 2415 Reverse Odd Levels of Binary Tree
-featured: true
 tags:
   - a-binary-tree
   - a-tree

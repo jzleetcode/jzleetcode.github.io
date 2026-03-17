@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-01-17T06:23:00Z
 modDatetime: 2025-01-17T06:23:00Z
 title: LeetCode 532 LintCode 1187 K-diff Pairs in An Array
-featured: true
 tags:
   - a-hash
   - a-counting

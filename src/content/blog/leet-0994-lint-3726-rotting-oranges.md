@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2024-12-13T06:23:00Z
 modDatetime: 2024-12-13T06:23:00Z
 title: LeetCode 994 LintCode 3726 Rotting Oranges
-featured: true
 tags:
   - a-array
   - a-graph

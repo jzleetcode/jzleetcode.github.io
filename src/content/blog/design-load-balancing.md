@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2025-06-29T06:23:00Z
 modDatetime: 2025-06-29T06:23:00Z
 title: System Design - Load Balancing
-featured: true
 tags:
   - design-system
 description:
