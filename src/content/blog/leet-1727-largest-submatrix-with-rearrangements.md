@@ -52,6 +52,30 @@ sorted : [3,2,1,0]
 areas  : 3*1, 2*2, 1*3, 0*4
 ```
 
+```
+Why area = sorted[k] * (k+1)?
+
+After sorting descending, at index k we have height = sorted[k].
+All columns [0..k] have height ≥ sorted[k], forming width k+1.
+
+Example: sorted = [3, 2, 1, 0]
+
+   ┌───┐                                        ┌───┬───┐
+   │ 3 │                                        │ 2 │ 2 │
+   ├───┼───┐                                    ├───┼───┤
+   │ 3 │ 2 │                                    │ 2 │ 2 │
+   ├───┼───┼───┐                                └───┴───┘
+   │ 3 │ 2 │ 1 │                                 height=2
+   └───┴───┴───┴───┘                             width=2
+   col0 col1 col2 col3
+   h=3  h=2  h=1  h=0                            area = 2*2 = 4 ✓
+
+For k=0: col0 only → h=3, w=1 → area=3
+For k=1: col0,1 → h=2 (col1 limits), w=2 → area=4
+For k=2: col0,1,2 → h=1 (col2 limits), w=3 → area=3
+
+```
+
 Complexity: Time $O(m n \log n)$, Space $O(n)$.
 
 ### Java
