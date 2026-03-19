@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2024-12-01T08:22:00Z
 modDatetime: 2024-12-01T10:12:00Z
 title: How to Install SortedContainers in the Python Shell or With a Python Script
-featured: true
+featured: false
 tags:
   - cheatsheet-apps
 description:

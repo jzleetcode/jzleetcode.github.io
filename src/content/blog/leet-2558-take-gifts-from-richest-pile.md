@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2024-12-11T06:23:00Z
 modDatetime: 2024-12-11T06:23:00Z
 title: LeetCode 2558 Take Gifts From the Richest Pile
-featured: true
+featured: false
 tags:
   - a-array
   - a-heap
