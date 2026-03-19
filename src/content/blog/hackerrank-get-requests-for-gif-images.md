@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2024-12-08T06:23:00Z
 modDatetime: 2024-12-08T06:23:00Z
 title: HackerRank GET Requests for GIF Images
-featured: true
+featured: false
 tags:
   - a-hash
   - a-file
