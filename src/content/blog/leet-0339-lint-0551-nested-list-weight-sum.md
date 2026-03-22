@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2024-12-15T07:23:00Z
 modDatetime: 2024-12-15T07:23:00Z
 title: LeetCode 339 LintCode 551 Nested List Weight Sum
-featured: true
+featured: false
 tags:
   - a-dfs
   - a-bfs
