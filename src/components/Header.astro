@@ -224,38 +224,23 @@ const { activeNav } = Astro.props;
   }
 </style>
 
-<script>
-  let menuAbortController: AbortController | undefined;
+<script is:inline data-astro-rerun>
+  (function () {
+    var menuBtn = document.querySelector(".hamburger-menu");
+    var menuIcon = document.querySelector(".menu-icon");
+    var menuItems = document.querySelector("#menu-items");
 
-  function toggleNav() {
-    menuAbortController?.abort();
-    menuAbortController = new AbortController();
+    if (!menuBtn) return;
 
-    const menuBtn = document.querySelector(".hamburger-menu");
-    const menuIcon = document.querySelector(".menu-icon");
-    const menuItems = document.querySelector("#menu-items");
-
-    menuBtn?.addEventListener(
-      "click",
-      () => {
-        const menuExpanded =
-          menuBtn.getAttribute("aria-expanded") === "true";
-        menuIcon?.classList.toggle("is-active");
-        menuBtn.setAttribute(
-          "aria-expanded",
-          menuExpanded ? "false" : "true"
-        );
-        menuBtn.setAttribute(
-          "aria-label",
-          menuExpanded ? "Open Menu" : "Close Menu"
-        );
-        menuItems?.classList.toggle("display-none");
-      },
-      { signal: menuAbortController.signal }
-    );
-  }
-
-  toggleNav();
-
-  document.addEventListener("astro:after-swap", toggleNav);
+    menuBtn.addEventListener("click", function () {
+      var menuExpanded = menuBtn.getAttribute("aria-expanded") === "true";
+      menuIcon && menuIcon.classList.toggle("is-active");
+      menuBtn.setAttribute("aria-expanded", menuExpanded ? "false" : "true");
+      menuBtn.setAttribute(
+        "aria-label",
+        menuExpanded ? "Open Menu" : "Close Menu"
+      );
+      menuItems && menuItems.classList.toggle("display-none");
+    });
+  })();
 </script>
