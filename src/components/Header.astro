@@ -225,26 +225,37 @@ const { activeNav } = Astro.props;
 </style>
 
 <script>
+  let menuAbortController: AbortController | undefined;
+
   function toggleNav() {
-    // Toggle menu
+    menuAbortController?.abort();
+    menuAbortController = new AbortController();
+
     const menuBtn = document.querySelector(".hamburger-menu");
     const menuIcon = document.querySelector(".menu-icon");
     const menuItems = document.querySelector("#menu-items");
 
-    menuBtn?.addEventListener("click", () => {
-      const menuExpanded = menuBtn.getAttribute("aria-expanded") === "true";
-      menuIcon?.classList.toggle("is-active");
-      menuBtn.setAttribute("aria-expanded", menuExpanded ? "false" : "true");
-      menuBtn.setAttribute(
-        "aria-label",
-        menuExpanded ? "Open Menu" : "Close Menu"
-      );
-      menuItems?.classList.toggle("display-none");
-    });
+    menuBtn?.addEventListener(
+      "click",
+      () => {
+        const menuExpanded =
+          menuBtn.getAttribute("aria-expanded") === "true";
+        menuIcon?.classList.toggle("is-active");
+        menuBtn.setAttribute(
+          "aria-expanded",
+          menuExpanded ? "false" : "true"
+        );
+        menuBtn.setAttribute(
+          "aria-label",
+          menuExpanded ? "Open Menu" : "Close Menu"
+        );
+        menuItems?.classList.toggle("display-none");
+      },
+      { signal: menuAbortController.signal }
+    );
   }
 
   toggleNav();
 
-  // Runs on view transitions navigation
   document.addEventListener("astro:after-swap", toggleNav);
 </script>
