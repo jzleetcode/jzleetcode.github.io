@@ -4,6 +4,8 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
+import BackButton from "@/components/BackButton.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
 import { render, type CollectionEntry } from "astro:content";
 import { slugifyStr } from "@/utils/slugify";
 import ShareLinks from "@/components/ShareLinks.astro";
@@ -68,18 +70,7 @@ const nextPost =
 <Layout {...layoutProps}>
   <Header />
 
-  <div class="mx-auto flex w-full max-w-app justify-start px-2">
-    <button
-      class="mb-2 mt-8 flex outline-2 outline-offset-1 outline-accent hover:opacity-75 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-offset-1 focus-visible:outline-accent"
-      onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
-    </button>
-  </div>
+  <BackButton />
   <main id="main-content" data-pagefind-body>
     <h1 transition:name={slugifyStr(title)} class="post-title">{title}</h1>
     <Datetime
@@ -97,23 +88,9 @@ const nextPost =
       {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
     </ul>
 
-    <div
-      class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
-    >
-      <button
-        id="back-to-top"
-        class="whitespace-nowrap py-1 outline-2 outline-offset-1 outline-accent hover:opacity-75 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-offset-1 focus-visible:outline-accent"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
-          <path
-            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          ></path>
-        </svg>
-        <span>Back to Top</span>
-      </button>
+    <BackToTopButton />
 
-      <ShareLinks />
-    </div>
+    <ShareLinks />
 
     <hr class="my-6 border-dashed" />
 
@@ -325,16 +302,6 @@ const nextPost =
     }
   }
   attachCopyButtons();
-
-  /** Scrolls the document to the top when
-   * the "Back to Top" button is clicked. */
-  function backToTop() {
-    document.querySelector("#back-to-top")?.addEventListener("click", () => {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    });
-  }
-  backToTop();
 
   /* Go to page start after page swap */
   document.addEventListener("astro:after-swap", () =>

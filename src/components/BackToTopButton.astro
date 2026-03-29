@@ -1,8 +1,3 @@
----
-import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
-import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
----
-
 <div
   id="btt-btn-container"
   class:list={[
@@ -24,9 +19,39 @@ import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
       id="progress-indicator"
       class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"
     ></span>
-    <IconChevronLeft class="inline-block rotate-90 md:hidden" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="inline-block rotate-90 md:hidden"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M15 6l-6 6l6 6"></path>
+    </svg>
     <span class="sr-only text-sm group-hover:text-accent md:not-sr-only">
-      <IconArrowNarrowUp class="inline-block size-4" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="inline-block size-4"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 5l0 14"></path>
+        <path d="M16 9l-4 -4"></path>
+        <path d="M8 9l4 -4"></path>
+      </svg>
       Back To Top
     </span>
   </button>
