@@ -1,29 +1,88 @@
-declare global {
-  interface Window {
-    theme: {
-      themeValue: string;
-      getTheme: () => string;
-      setTheme: (val: string) => void;
-    };
+const THEME = "theme";
+const LIGHT = "light";
+const DARK = "dark";
+
+const initialColorScheme = "";
+
+function getPreferTheme(): string {
+  const currentTheme = localStorage.getItem(THEME);
+  if (currentTheme) return currentTheme;
+
+  if (initialColorScheme) return initialColorScheme;
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? DARK
+    : LIGHT;
+}
+
+let themeValue = window.theme?.themeValue ?? getPreferTheme();
+
+function setPreference(): void {
+  localStorage.setItem(THEME, themeValue);
+  reflectPreference();
+}
+
+function reflectPreference(): void {
+  document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+
+  const body = document.body;
+  if (body) {
+    const bgColor = window.getComputedStyle(body).backgroundColor;
+    document
+      .querySelector("meta[name='theme-color']")
+      ?.setAttribute("content", bgColor);
   }
 }
 
-export {};
-
-function setDarkMode(dark: boolean) {
-  const theme = dark ? "dark" : "light";
-  document.documentElement.setAttribute("data-theme", theme);
-  localStorage.setItem("theme", theme);
-  window.theme.setTheme(theme);
+if (window.theme) {
+  window.theme.setPreference = setPreference;
+  window.theme.reflectPreference = reflectPreference;
+} else {
+  window.theme = {
+    themeValue,
+    setPreference,
+    reflectPreference,
+    getTheme: () => themeValue,
+    setTheme: (val: string) => {
+      themeValue = val;
+    },
+  };
 }
 
-function toggleTheme() {
-  setDarkMode(window.theme.getTheme() !== "dark");
+reflectPreference();
+
+function setThemeFeature(): void {
+  reflectPreference();
+
+  document.querySelector("#theme-btn")?.addEventListener("click", () => {
+    themeValue = themeValue === LIGHT ? DARK : LIGHT;
+    window.theme?.setTheme(themeValue);
+    setPreference();
+  });
 }
 
-function initThemeButton() {
-  document.querySelector("#theme-btn")?.addEventListener("click", toggleTheme);
-}
+setThemeFeature();
 
-document.addEventListener("astro:after-swap", initThemeButton);
-initThemeButton();
+document.addEventListener("astro:after-swap", setThemeFeature);
+
+document.addEventListener("astro:before-swap", event => {
+  const bgColor = document
+    .querySelector("meta[name='theme-color']")
+    ?.getAttribute("content");
+
+  if (bgColor) {
+    (event as any).newDocument
+      .querySelector("meta[name='theme-color']")
+      ?.setAttribute("content", bgColor);
+  }
+});
+
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", ({ matches: isDark }) => {
+    themeValue = isDark ? DARK : LIGHT;
+    window.theme?.setTheme(themeValue);
+    setPreference();
+  });
