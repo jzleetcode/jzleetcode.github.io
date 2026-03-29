@@ -1,48 +1,61 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
-import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const srcDir = path.resolve(__dirname, "src");
+import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
-import sitemap from "@astrojs/sitemap";
-import { SITE } from "./src/config";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import {
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+} from "@shikijs/transformers";
+import { SITE } from "./src/config";
 
-// https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
+    sitemap({
+      filter: page => SITE.showArchives || !page.endsWith("/archives"),
     }),
-    react(),
-    sitemap(),
   ],
   markdown: {
     remarkPlugins: [
       remarkMath,
       remarkToc,
-      [
-        remarkCollapse,
-        {
-          test: "Table of contents",
-        },
-      ],
+      [remarkCollapse, { test: "Table of contents" }],
     ],
     rehypePlugins: [rehypeKatex],
     shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
-      wrap: true,
+      defaultColor: false,
+      wrap: false,
+      transformers: [
+        transformerNotationHighlight(),
+        transformerNotationWordHighlight(),
+        transformerNotationDiff({ matchAlgorithm: "v3" }),
+      ],
     },
   },
   vite: {
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        "@": srcDir,
+        "@config": path.join(srcDir, "config.ts"),
+        "@components": path.join(srcDir, "components"),
+        "@layouts": path.join(srcDir, "layouts"),
+        "@utils": path.join(srcDir, "utils"),
+        "@assets": path.join(srcDir, "assets"),
+      },
+    },
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
-  },
-  scopedStyleStrategy: "where",
-  experimental: {
-    contentLayer: true,
   },
 });
