@@ -9,6 +9,12 @@ export type SocialObjects = {
 
 export const SOCIALS: SocialObjects = [
   {
+    name: "Square",
+    href: "https://square.link/u/DckfOgZK",
+    linkTitle: "support JZLeetCode - WaterTrak",
+    active: true,
+  },
+  {
     name: "BuyMeCoffee",
     href: "https://buymeacoffee.com/jzzcoding",
     linkTitle: "Buy me a coffee",
