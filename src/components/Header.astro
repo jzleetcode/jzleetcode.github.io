@@ -1,6 +1,5 @@
 ---
-import { LOGO_IMAGE, SITE } from "@config";
-import Hr from "./Hr.astro";
+import { SITE } from "@/config";
 import LinkButton from "./LinkButton.astro";
 
 export interface Props {
@@ -8,6 +7,9 @@ export interface Props {
 }
 
 const { activeNav } = Astro.props;
+
+const focusRing =
+  "outline-2 outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-dashed";
 ---
 
 <header>
@@ -15,22 +17,11 @@ const { activeNav } = Astro.props;
   <div class="nav-container">
     <div class="top-nav-wrap">
       <a href="/" class="logo whitespace-nowrap">
-        {
-          LOGO_IMAGE.enable ? (
-            <img
-              src={`/assets/${LOGO_IMAGE.svg ? "logo.svg" : "logo.png"}`}
-              alt={SITE.title}
-              width={LOGO_IMAGE.width}
-              height={LOGO_IMAGE.height}
-            />
-          ) : (
-            SITE.title
-          )
-        }
+        {SITE.title}
       </a>
       <nav id="nav-menu">
         <button
-          class="hamburger-menu focus-outline"
+          class:list={["hamburger-menu", focusRing]}
           aria-label="Open Menu"
           aria-expanded="false"
           aria-controls="menu-items"
@@ -54,7 +45,7 @@ const { activeNav } = Astro.props;
             <line x1="6" y1="6" x2="18" y2="18" class="close"></line>
           </svg>
         </button>
-        <ul id="menu-items" class="display-none sm:flex">
+        <ul id="menu-items" class="hidden sm:flex">
           <li>
             <a href="/posts/" class={activeNav === "posts" ? "active" : ""}>
               Posts
@@ -75,7 +66,7 @@ const { activeNav } = Astro.props;
               <li>
                 <LinkButton
                   href="/archives/"
-                  className={`focus-outline flex justify-center p-3 sm:p-1`}
+                  className={`${focusRing} flex justify-center p-3 sm:p-1`}
                   ariaLabel="archives"
                   title="Archives"
                 >
@@ -83,7 +74,7 @@ const { activeNav } = Astro.props;
                     xmlns="http://www.w3.org/2000/svg"
                     class:list={[
                       "icon icon-tabler icons-tabler-outline !hidden sm:!inline-block",
-                      activeNav === "archives" && "!stroke-skin-accent",
+                      activeNav === "archives" && "!stroke-accent",
                     ]}
                   >
                     <>
@@ -108,7 +99,7 @@ const { activeNav } = Astro.props;
           <li>
             <LinkButton
               href="/search/"
-              className={`focus-outline p-3 sm:p-1 ${
+              className={`${focusRing} p-3 sm:p-1 ${
                 activeNav === "search" ? "active" : ""
               } flex`}
               ariaLabel="search"
@@ -129,7 +120,7 @@ const { activeNav } = Astro.props;
               <li>
                 <button
                   id="theme-btn"
-                  class="focus-outline"
+                  class:list={[focusRing]}
                   title="Toggles light & dark"
                   aria-label="auto"
                   aria-live="polite"
@@ -148,12 +139,13 @@ const { activeNav } = Astro.props;
       </nav>
     </div>
   </div>
-  <Hr />
+  <hr class="border-border mx-auto max-w-app px-4" />
 </header>
 
 <style>
+@reference "@/styles/global.css";
   #skip-to-content {
-    @apply absolute -top-full left-16 z-50 bg-skin-accent px-3 py-2 text-skin-inverted transition-all focus:top-4;
+    @apply absolute -top-full left-16 z-50 bg-accent px-3 py-2 text-background transition-all focus:top-4;
   }
   .nav-container {
     @apply mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row;
@@ -168,7 +160,7 @@ const { activeNav } = Astro.props;
     @apply self-end p-2 sm:hidden;
   }
   .hamburger-menu svg {
-    @apply h-6 w-6 scale-125 fill-skin-base;
+    @apply h-6 w-6 scale-125 fill-foreground;
   }
 
   nav {
@@ -181,7 +173,7 @@ const { activeNav } = Astro.props;
     @apply col-span-2 flex items-center justify-center;
   }
   nav ul li a {
-    @apply w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1;
+    @apply w-full px-4 py-3 text-center font-medium hover:text-accent sm:my-0 sm:px-2 sm:py-1;
   }
   nav ul li:nth-last-child(2) a {
     @apply w-auto;
@@ -194,14 +186,14 @@ const { activeNav } = Astro.props;
     @apply underline decoration-wavy decoration-2 underline-offset-4;
   }
   nav a.active svg {
-    @apply fill-skin-accent;
+    @apply fill-accent;
   }
 
   nav button {
     @apply p-1;
   }
   nav button svg {
-    @apply h-6 w-6 fill-skin-base hover:fill-skin-accent;
+    @apply h-6 w-6 fill-foreground hover:fill-accent;
   }
   #theme-btn {
     @apply p-3 sm:p-1;
@@ -240,7 +232,7 @@ const { activeNav } = Astro.props;
         "aria-label",
         menuExpanded ? "Open Menu" : "Close Menu"
       );
-      menuItems && menuItems.classList.toggle("display-none");
+      menuItems && menuItems.classList.toggle("hidden");
     });
   })();
 </script>

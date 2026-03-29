@@ -1,14 +1,16 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton.astro";
-import Hr from "@components/Hr.astro";
-import Card from "@components/Card";
-import Socials from "@components/Socials.astro";
-import getSortedPosts from "@utils/getSortedPosts";
-import { SITE, SOCIALS } from "@config";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import Hr from "@/components/Hr.astro";
+import Card from "@/components/Card.astro";
+import Socials from "@/components/Socials.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import IconRss from "@/assets/icons/IconRss.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { SITE, SOCIALS } from "@/config";
 
 const posts = await getCollection("blog");
 
@@ -21,55 +23,53 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 
 <Layout>
   <Header />
-  <main id="main-content">
-    <section id="hero">
-      <h1>JZLeetCode</h1>
+  <main id="main-content" data-layout="index" class="app-layout">
+    <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
+      <h1 class="my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl">
+        JZLeetCode
+      </h1>
       <a
         target="_blank"
         href="/rss.xml"
-        class="rss-link"
+        class="mb-6 inline-block sm:mb-0"
         aria-label="rss feed"
         title="RSS Feed"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
-          ><path
-            d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
-          ></path><path
-            d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
-          ></path><circle cx="6" cy="18" r="2"></circle>
-        </svg>
+        <IconRss
+          width={20}
+          height={20}
+          class="mb-2 h-6 w-6 scale-110 fill-accent sm:mb-3 sm:scale-125"
+        />
         <span class="sr-only">RSS Feed</span>
       </a>
 
-      <p>
+      <p class="my-2">
         High quality leet code solutions in Java, Python, C++, and Rust.
       </p>
-      <p>
-        Comment in the Disqus section at the bottom of every post
-        (you may have to refresh) if you have any questions. You can also
-        share the solution on social media with the buttons at the bottom
-        left of each post.
+      <p class="my-2">
+        Comment in the Disqus section at the bottom of every post (you may have
+        to refresh) if you have any questions. You can also share the solution on
+        social media with the buttons at the bottom left of each post.
       </p>
-      <p>
-        Please add a note that your reference or source is @JZLeetCode.
+      <p class="my-2">Please add a note that your reference or source is @JZLeetCode.</p>
+      <p class="my-2">
+        Social links for BuyMeCoffee and Discord server is below and at the
+        bottom right of every post. Donations and discussions are greatly
+        appreciated and welcomed.
       </p>
-      <p>
-        Social links for BuyMeCoffee and Discord server is below and at the bottom
-        right of every post. Donations and discussions are greatly appreciated and welcomed.
-      </p>
-      <p>
+      <p class="my-2">
         Read the blog posts or check
         <LinkButton
-          className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
-          href="about">
+          className="underline decoration-dashed underline-offset-4 hover:text-accent"
+          href="about"
+        >
           About
         </LinkButton> for more info.
       </p>
       {
-        // only display if at least one social link is enabled
         socialCount > 0 && (
-          <div class="social-wrapper">
-            <div class="social-links">Social Links:</div>
+          <div class="mt-4 flex max-sm:flex-col sm:items-center">
+            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
             <Socials />
           </div>
         )
@@ -81,15 +81,17 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     {
       featuredPosts.length > 0 && (
         <>
-          <section id="featured">
-            <h2>Featured</h2>
+          <section
+            id="featured"
+            class:list={[
+              "pt-12 pb-6",
+              { "border-b border-border": recentPosts.length > 0 },
+            ]}
+          >
+            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
             <ul>
-              {featuredPosts.map(({ data, slug }) => (
-                <Card
-                  href={`/posts/${slug}/`}
-                  frontmatter={data}
-                  secHeading={false}
-                />
+              {featuredPosts.map(post => (
+                <Card {...post} variant="h3" />
               ))}
             </ul>
           </section>
@@ -100,32 +102,22 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 
     {
       recentPosts.length > 0 && (
-        <section id="recent-posts">
-          <h2>Recent Posts</h2>
+        <section id="recent-posts" class="pt-12 pb-6">
+          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
           <ul>
             {recentPosts.map(
-              ({ data, slug }, index) =>
-                index < SITE.postPerIndex && (
-                  <Card
-                    href={`/posts/${slug}/`}
-                    frontmatter={data}
-                    secHeading={false}
-                  />
-                )
+              (post, index) =>
+                index < SITE.postPerIndex && <Card {...post} variant="h3" />
             )}
           </ul>
         </section>
       )
     }
 
-    <div class="all-posts-btn-wrapper">
+    <div class="my-8 text-center">
       <LinkButton href="/posts/">
         All Posts
-        <svg xmlns="http://www.w3.org/2000/svg"
-          ><path
-            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-          ></path>
-        </svg>
+        <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
     </div>
   </main>
@@ -133,40 +125,12 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <Footer />
 </Layout>
 
-<style>
-  /* ===== Hero Section ===== */
-  #hero {
-    @apply pb-6 pt-8;
-  }
-  #hero h1 {
-    @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
-  }
-  #hero .rss-link {
-    @apply mb-6;
-  }
-  #hero .rss-icon {
-    @apply mb-2 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125;
-  }
-  #hero p {
-    @apply my-2;
-  }
-  .social-wrapper {
-    @apply mt-4 flex flex-col sm:flex-row sm:items-center;
-  }
-  .social-links {
-    @apply mb-1 mr-2 whitespace-nowrap sm:mb-0;
-  }
-
-  /* ===== Featured & Recent Posts Sections ===== */
-  #featured,
-  #recent-posts {
-    @apply pb-6 pt-12;
-  }
-  #featured h2,
-  #recent-posts h2 {
-    @apply text-2xl font-semibold tracking-wide;
-  }
-  .all-posts-btn-wrapper {
-    @apply my-8 text-center;
-  }
-</style>
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+      ?.dataset?.layout;
+    if (indexLayout) {
+      sessionStorage.setItem("backUrl", "/");
+    }
+  });
+</script>

@@ -1,7 +1,29 @@
-import type { Site, SocialObjects } from "./types";
+import type socialIcons from "@/assets/socialIcons";
 
-export const SITE: Site = {
-  website: "https://jzleetcode.github.io", // replace this with your deployed domain
+export type SocialObjects = {
+  name: keyof typeof socialIcons;
+  href: string;
+  active: boolean;
+  linkTitle: string;
+}[];
+
+export const SOCIALS: SocialObjects = [
+  {
+    name: "BuyMeCoffee",
+    href: "https://buymeacoffee.com/jzzcoding",
+    linkTitle: "Buy me a coffee",
+    active: true,
+  },
+  {
+    name: "Github",
+    href: "https://github.com/jzleetcode/jzleetcode.github.io",
+    linkTitle: "JZLeetCode on GitHub",
+    active: true,
+  },
+];
+
+export const SITE = {
+  website: "https://jzleetcode.github.io",
   author: "JZLeetCode",
   profile: "https://jzleetcode.github.io/about",
   desc: "LeetCode",
@@ -10,158 +32,16 @@ export const SITE: Site = {
   lightAndDarkMode: true,
   postPerIndex: 8,
   postPerPage: 6,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+  scheduledPostMargin: 15 * 60 * 1000,
   showArchives: true,
-  // editPost: {
-  //   url: "https://github.com/satnaing/astro-paper/edit/main/src/content/blog",
-  //   text: "Suggest Changes",
-  //   appendFilePath: true,
-  // },
-};
-
-export const LOCALE = {
-  lang: "en", // html lang code. Set this empty and default will be "en"
-  langTag: ["en-EN"], // BCP 47 Language Tags. Set this empty [] to use the environment default
+  showBackButton: true,
+  editPost: {
+    enabled: false,
+    text: "Edit page",
+    url: "",
+  },
+  dynamicOgImage: true,
+  dir: "ltr" as const,
+  lang: "en",
+  timezone: "America/New_York",
 } as const;
-
-export const LOGO_IMAGE = {
-  enable: false,
-  svg: true,
-  width: 216,
-  height: 46,
-};
-
-export const SOCIALS: SocialObjects = [
-  {
-    name: "Square",
-    href: "https://square.link/u/DckfOgZK",
-    linkTitle: `${SITE.title} on Square`,
-    active: true,
-  },
-  {
-    name: "BuyMeCoffee",
-    href: "https://buymeacoffee.com/jzzcoding",
-    linkTitle: `${SITE.title} on BuyMeCoffee`,
-    active: true,
-  },
-  {
-    name: "Github",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: ` ${SITE.title} on Github`,
-    active: false,
-  },
-  {
-    name: "Facebook",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Facebook`,
-    active: false,
-  },
-  {
-    name: "Instagram",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Instagram`,
-    active: false,
-  },
-  {
-    name: "LinkedIn",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on LinkedIn`,
-    active: false,
-  },
-  {
-    name: "Mail",
-    href: "mailto:yourmail@gmail.com",
-    linkTitle: `Send an email to ${SITE.title}`,
-    active: false,
-  },
-  {
-    name: "X",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on X`,
-    active: false,
-  },
-  {
-    name: "Twitch",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Twitch`,
-    active: false,
-  },
-  {
-    name: "YouTube",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on YouTube`,
-    active: false,
-  },
-  {
-    name: "WhatsApp",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on WhatsApp`,
-    active: false,
-  },
-  {
-    name: "Snapchat",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Snapchat`,
-    active: false,
-  },
-  {
-    name: "Pinterest",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Pinterest`,
-    active: false,
-  },
-  {
-    name: "TikTok",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on TikTok`,
-    active: false,
-  },
-  {
-    name: "CodePen",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on CodePen`,
-    active: false,
-  },
-  {
-    name: "Discord",
-    href: "https://discord.gg/KVtPEdYWGG",
-    linkTitle: `${SITE.title} on Discord`,
-    active: true,
-  },
-  {
-    name: "GitLab",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on GitLab`,
-    active: false,
-  },
-  {
-    name: "Reddit",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Reddit`,
-    active: false,
-  },
-  {
-    name: "Skype",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Skype`,
-    active: false,
-  },
-  {
-    name: "Steam",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Steam`,
-    active: false,
-  },
-  {
-    name: "Telegram",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Telegram`,
-    active: false,
-  },
-  {
-    name: "Mastodon",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: `${SITE.title} on Mastodon`,
-    active: false,
-  },
-];
