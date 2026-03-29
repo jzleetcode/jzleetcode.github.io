@@ -3,27 +3,42 @@ import type { Page } from "astro";
 import LinkButton from "./LinkButton.astro";
 import type { CollectionEntry } from "astro:content";
 
-export interface Props {
+type Props = {
   page: Page<CollectionEntry<"blog">>;
-}
+};
 
 const { page } = Astro.props;
 ---
 
 {
   page.lastPage > 1 && (
-    <nav class="pagination-wrapper" aria-label="Pagination">
+    <nav
+      class="mt-auto mb-8 flex justify-center"
+      role="navigation"
+      aria-label="Pagination Navigation"
+    >
       <LinkButton
         disabled={!page.url.prev}
         href={page.url.prev as string}
-        class={`mr-4 select-none ${page.url.prev ? "" : "disabled"}`}
-        aria-label="Previous"
+        class:list={["me-4 select-none", { "opacity-50": !page.url.prev }]}
+        aria-label="Goto Previous Page"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class:list={[{ "disabled-svg": !page.url.prev }]}
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="inline-block rtl:rotate-180"
         >
-          <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M5 12l6 6"></path>
+          <path d="M5 12l6 -6"></path>
         </svg>
         Prev
       </LinkButton>
@@ -31,30 +46,28 @@ const { page } = Astro.props;
       <LinkButton
         disabled={!page.url.next}
         href={page.url.next as string}
-        class={`mx-4 select-none ${page.url.next ? "" : "disabled"}`}
-        aria-label="Next"
+        class:list={["ms-4 select-none", { "opacity-50": !page.url.next }]}
+        aria-label="Goto Next Page"
       >
         Next
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class:list={[{ "disabled-svg": !page.url.next }]}
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="inline-block rtl:rotate-180"
         >
-          <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M19 12l-14 0"></path>
+          <path d="M19 12l-6 6"></path>
+          <path d="M19 12l-6 -6"></path>
         </svg>
       </LinkButton>
     </nav>
   )
 }
-
-<style>
-@reference "@/styles/global.css";
-  .pagination-wrapper {
-    @apply mb-8 mt-auto flex justify-center;
-  }
-  .disabled {
-    @apply pointer-events-none select-none opacity-50 hover:text-foreground group-hover:fill-foreground;
-  }
-  .disabled-svg {
-    @apply group-hover:!fill-foreground;
-  }
-</style>
