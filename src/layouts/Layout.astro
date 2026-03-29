@@ -1,7 +1,7 @@
 ---
-import { LOCALE, SITE } from "@config";
-import "@styles/base.css";
-import { ViewTransitions } from "astro:transitions";
+import { SITE } from "@/config";
+import "@/styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -22,17 +22,14 @@ const {
   author = SITE.author,
   profile = SITE.profile,
   description = SITE.desc,
-  ogImage = SITE.ogImage,
+  ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
 } = Astro.props;
 
-const socialImageURL = new URL(
-  ogImage ?? SITE.ogImage ?? "og.png",
-  Astro.url.origin
-).href;
+const socialImageURL = new URL(ogImage, Astro.url.origin).href;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -49,13 +46,13 @@ const structuredData = {
     },
   ],
 };
-
 ---
 
 <!doctype html>
 <html
-  lang=`${LOCALE.lang ?? "en"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
+  lang={SITE.lang ?? "en"}
+  dir={SITE.dir}
+  class:list={[scrollSmooth && "scroll-smooth"]}
 >
   <head>
     <meta charset="UTF-8" />
@@ -68,7 +65,10 @@ const structuredData = {
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
     <!--KaTex for math equations-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    />
 
     <!-- General Meta Tags -->
     <title>{title}</title>
@@ -87,29 +87,35 @@ const structuredData = {
     <meta name="yandex-verification" content="5435cd952854a8d8" />
 
     <!-- microsoft monetize now -->
-    <script is:inline src="https://adsdk.microsoft.com/mmnow/sdk.js?siteId=10323706&publisherId=254193703" crossorigin="anonymous"></script>
+    <script
+      is:inline
+      src="https://adsdk.microsoft.com/mmnow/sdk.js?siteId=10323706&publisherId=254193703"
+      crossorigin="anonymous"></script>
 
     <!-- google verify domain owner -->
-    <meta name="google-site-verification" content="zYjLIXz7MKaU3e2aKkNKlrKMkcm2wg_xJdCfx3CK_gs" />
+    <meta
+      name="google-site-verification"
+      content="zYjLIXz7MKaU3e2aKkNKlrKMkcm2wg_xJdCfx3CK_gs"
+    />
 
     <!-- google adsense -->
-    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5647236369381955"
-            crossorigin="anonymous"></script>
+    <script
+      is:inline
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5647236369381955"
+      crossorigin="anonymous"></script>
 
     <!-- Google tag (gtag.js), google analytics -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-60C83EY9N4"></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-60C83EY9N4"
+    ></script>
     <script>
-      declare global {
-        interface Window {
-          dataLayer:Record<string, any>[];
-        }
-      }
-
-      let dataLayer = window.dataLayer;
-      window.dataLayer = window.dataLayer || [];
-      const gtag:Gtag.Gtag = function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-60C83EY9N4');
+      const w = window as Window & { dataLayer?: unknown[] };
+      w.dataLayer = w.dataLayer || [];
+      const gtag: Gtag.Gtag = function gtag(...args: unknown[]) {
+        w.dataLayer!.push(args as never);
+      };
+      gtag("js", new Date());
+      gtag("config", "G-60C83EY9N4");
     </script>
 
     <!-- Article Published/Modified time -->
@@ -139,6 +145,7 @@ const structuredData = {
 
     <!-- Google JSON-LD Structured data -->
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
     />
@@ -147,19 +154,14 @@ const structuredData = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
-      rel="preload"
-      as="style"
-      onload="this.onload=null; this.rel='stylesheet';"
       crossorigin
     />
 
     <meta name="theme-color" content="" />
 
     {
-      // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
-      // include google-site-verification tag in the heading
-      // Learn more: https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag
       googleSiteVerification && (
         <meta
           name="google-site-verification"
@@ -168,32 +170,57 @@ const structuredData = {
       )
     }
 
-    <ViewTransitions />
+    <ClientRouter />
 
-    <script is:inline src="/toggle-theme.js" async></script>
+    <script is:inline>
+      (function () {
+        const currentTheme = localStorage.getItem("theme");
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+        const themeValue = getPreferTheme();
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script>
   </head>
   <body>
     <slot />
+    <script>
+      import "@/scripts/theme.ts";
+    </script>
+    <script is:inline data-astro-rerun>
+      // make all links to open in new tab
+      function linksNewTab() {
+        Array.from(document.links)
+          .filter(link => link.hostname != window.location.hostname)
+          .forEach(link => (link.target = "_blank"));
+      }
+      linksNewTab();
+      // bing webmaster tools clarity
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i + "?ref=bwt";
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "pal6fs0dd1");
+      // microsoft monetize now
+      window.msAdsQueue = window.msAdsQueue || [];
+    </script>
   </body>
 </html>
-
-<script is:inline data-astro-rerun>
-  // make all links to open in new tab
-  function linksNewTab() {
-    Array.from(document.links)
-      .filter(link => link.hostname != window.location.hostname)
-      .forEach(link => link.target = '_blank');
-  }
-  linksNewTab();
-  // bing webmaster tools clarity
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function() {(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);
-    t.async=1;
-    t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
-    y=l.getElementsByTagName(r)[0];
-    y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "pal6fs0dd1");
-  // microsoft monetize now
-  window.msAdsQueue = window.msAdsQueue || [];
-</script>
