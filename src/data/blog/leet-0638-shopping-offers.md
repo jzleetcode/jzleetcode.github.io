@@ -96,6 +96,23 @@ At each of $k$ levels, we branch into up to $m+1$ choices (use offer 0 to $m$ ti
 
 ```java
 // lc 638, DFS + memo, n*k*m^n time, n*m^n space.
+static List<List<Integer>> filterSpecial(List<Integer> price, List<List<Integer>> special) {
+    int n = price.size();
+    List<List<Integer>> filtered = new ArrayList<>();
+    for (List<Integer> s : special) {
+        int sum = 0;
+        for (int i = 0; i < n; i++) sum += s.get(i) * price.get(i);
+        if (sum > s.get(n)) filtered.add(s);
+    }
+    return filtered;
+}
+
+static int individualCost(List<Integer> price, List<Integer> needs) {
+    int res = 0;
+    for (int i = 0; i < price.size(); i++) res += price.get(i) * needs.get(i);
+    return res;
+}
+
 public int shoppingOffers(List<Integer> price, List<List<Integer>> special, List<Integer> needs) {
     List<List<Integer>> filtered = filterSpecial(price, special);
     HashMap<List<Integer>, Integer> memo = new HashMap<>();
@@ -265,6 +282,14 @@ int shoppingOffers2(vector<int> &price, vector<vector<int>> &special, vector<int
 
 ```rust
 // lc 638, DFS + memo, n*k*m^n time, n*m^n space. 0ms, 2.31mb.
+fn filter_specials(price: &[i32], special: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    let n = price.len();
+    special.into_iter().filter(|s| {
+        let bundle: i32 = (0..n).map(|i| s[i] * price[i]).sum();
+        bundle > s[n]
+    }).collect()
+}
+
 impl Solution {
     pub fn shopping_offers(price: Vec<i32>, special: Vec<Vec<i32>>, needs: Vec<i32>) -> i32 {
         let n = price.len();
