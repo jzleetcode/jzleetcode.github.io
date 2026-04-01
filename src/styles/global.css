@@ -21,7 +21,8 @@ html[data-theme="dark"] {
 }
 
 @theme inline {
-  --font-app: "IBM Plex Mono", monospace;
+  --font-app: "IBM Plex Mono", ui-monospace, "Cascadia Mono", "Segoe UI Mono",
+    "Ubuntu Mono", "Roboto Mono", Menlo, Monaco, Consolas, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
