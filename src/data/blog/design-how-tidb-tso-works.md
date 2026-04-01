@@ -27,32 +27,30 @@ TiDB calls this timestamp generator the **TSO** (Timestamp Oracle). It lives ins
 ```
                           TiDB Cluster Architecture
 
-  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
-  │   TiDB      │   │   TiDB      │   │   TiDB      │    SQL layer
-  │   Server    │   │   Server    │   │   Server    │    (stateless)
-  └──────┬──────┘   └──────┬──────┘   └──────┬──────┘
-         │                 │                 │
-         │    GetTS()      │    GetTS()      │    GetTS()
-         │                 │                 │
-         └────────────┐    │    ┌────────────┘
-                      │    │    │
+  +-------------+   +-------------+   +-------------+
+  |    TiDB     |   |    TiDB     |   |    TiDB     |    SQL layer
+  |   Server    |   |   Server    |   |   Server    |    (stateless)
+  +------+------+   +------+------+   +------+------+
+         |                 |                 |
+         |    GetTS()      |    GetTS()      |    GetTS()
+         |                 |                 |
+         +------------+    |    +------------+
+                      |    |    |
                       v    v    v
-                   ┌──────────────┐
-                   │      PD      │
-                   │  ┌────────┐  │
-                   │  │  TSO   │  │    timestamp oracle
-                   │  └────────┘  │
-                   └──────┬───────┘
-                          │
-                   ┌──────┴───────┐
-                   │    etcd      │    persists timestamp
-                   │   (window)   │    window for safety
-                   └──────────────┘
+                   +--------------+
+                   |      PD      |
+                   |   [ TSO ]    |    timestamp oracle
+                   +------+-------+
+                          |
+                   +------+-------+
+                   |    etcd      |    persists timestamp
+                   |   (window)   |    window for safety
+                   +--------------+
 
-         ┌─────────────┐  ┌─────────────┐  ┌─────────────┐
-         │    TiKV     │  │    TiKV     │  │    TiKV     │   storage
-         │    Store    │  │    Store    │  │    Store    │   layer
-         └─────────────┘  └─────────────┘  └─────────────┘
+         +-------------+  +-------------+  +-------------+
+         |    TiKV     |  |    TiKV     |  |    TiKV     |   storage
+         |    Store    |  |    Store    |  |    Store    |   layer
+         +-------------+  +-------------+  +-------------+
 ```
 
 Every TiDB server asks PD for a timestamp before starting or committing a transaction. PD hands back a 64-bit number that is guaranteed to be larger than any previously issued number. Let's look at how that number is structured.
@@ -63,11 +61,11 @@ A TSO timestamp is a single 64-bit unsigned integer split into two parts:
 
 ```
  Bit 63                    Bit 18  Bit 17                Bit 0
- ┌────────────────────────────────┬─────────────────────────────┐
- │         physical part          │       logical part          │
- │          (46 bits)             │        (18 bits)            │
- │   milliseconds since epoch     │   counter within the ms     │
- └────────────────────────────────┴─────────────────────────────┘
+ +--------------------------------+-----------------------------+
+ |         physical part          |       logical part          |
+ |          (46 bits)             |        (18 bits)            |
+ |   milliseconds since epoch     |   counter within the ms     |
+ +--------------------------------+-----------------------------+
 ```
 
 - **Physical part (upper 46 bits):** Unix timestamp in milliseconds. 46 bits gives us $2^{46}$ milliseconds $\approx$ 2,230 years from epoch, far beyond practical need.
@@ -118,28 +116,28 @@ ROLLBACK;
 The timestamp oracle is not a standalone service (though it can be deployed as a **TSO microservice** in newer versions). By default, it runs inside PD. Here is how the pieces fit together:
 
 ```
- ┌──────────────────────────────────────────┐
- │               PD Server                  │
- │                                          │
- │  ┌──────────────────────────────────┐    │
- │  │          Allocator               │    │
- │  │  ┌────────────────────────────┐  │    │
- │  │  │    timestampOracle         │  │    │
- │  │  │                            │  │    │
- │  │  │  physical: time.Time       │  │    │
- │  │  │  logical:  int64           │  │    │
- │  │  │  lastSavedTime: time.Time  │  │    │
- │  │  └────────────────────────────┘  │    │
- │  │                                  │    │
- │  │  allocatorUpdater goroutine      │    │
- │  │  (ticks every 50ms by default)   │    │
- │  └──────────────────────────────────┘    │
- │                                          │
- │  ┌──────────────────────────────────┐    │
- │  │  Leadership (via etcd lease)     │    │
- │  │  Only the leader serves TSO      │    │
- │  └──────────────────────────────────┘    │
- └──────────────────────────────────────────┘
+ +------------------------------------------+
+ |               PD Server                  |
+ |                                          |
+ |  +----------------------------------+    |
+ |  |          Allocator               |    |
+ |  |  +----------------------------+  |    |
+ |  |  |    timestampOracle         |  |    |
+ |  |  |                            |  |    |
+ |  |  |  physical: time.Time       |  |    |
+ |  |  |  logical:  int64           |  |    |
+ |  |  |  lastSavedTime: time.Time  |  |    |
+ |  |  +----------------------------+  |    |
+ |  |                                  |    |
+ |  |  allocatorUpdater goroutine      |    |
+ |  |  (ticks every 50ms by default)   |    |
+ |  +----------------------------------+    |
+ |                                          |
+ |  +----------------------------------+    |
+ |  |  Leadership (via etcd lease)     |    |
+ |  |  Only the leader serves TSO      |    |
+ |  +----------------------------------+    |
+ +------------------------------------------+
 ```
 
 **Key rule: only one PD node allocates timestamps at any time.** PD nodes elect a leader using etcd leases. Only the leader (or the TSO primary in microservice mode) runs the `Allocator`. This single-writer design is how TiDB avoids issuing duplicate or out-of-order timestamps.
@@ -203,29 +201,29 @@ The periodic tick calls `updateTimestamp`. This function decides **whether** and
 
 ```
                     updateTimestamp()
-                          │
+                          |
                           v
-                ┌─────────────────────┐
-                │  jetLag = now -     │
-                │       prevPhysical  │
-                └─────────┬───────────┘
-                          │
-              ┌───────────┼───────────────┐
-              │           │               │
-              v           v               v
-     jetLag > 1ms    logical >       otherwise
-                     maxLogical/2
-              │           │               │
-              v           v               v
-      ┌───────────┐ ┌──────────┐  ┌────────────┐
-      │ sync to   │ │ advance  │  │  skip      │
-      │ wall      │ │ physical │  │  (no etcd  │
-      │ clock     │ │ by 1ms   │  │   write)   │
-      │ (now)     │ │ to get   │  │            │
-      │           │ │ more     │  │            │
-      │           │ │ logical  │  │            │
-      │           │ │ space    │  │            │
-      └───────────┘ └──────────┘  └────────────┘
+                +---------------------+
+                |  jetLag = now -     |
+                |    prevPhysical     |
+                +----------+----------+
+                           |
+              +------------+--------------+
+              |            |              |
+              v            v              v
+     jetLag > 1ms   logical >        otherwise
+                    maxLogical/2
+              |            |              |
+              v            v              v
+      +-----------+  +----------+   +------------+
+      | sync to   |  | advance  |   |  skip      |
+      | wall      |  | physical |   |  (no etcd  |
+      | clock     |  | by 1ms   |   |   write)   |
+      | (now)     |  | to get   |   |            |
+      |           |  | more     |   |            |
+      |           |  | logical  |   |            |
+      |           |  | space    |   |            |
+      +-----------+  +----------+   +------------+
 ```
 
 Here is the relevant source code, simplified for clarity:
@@ -305,16 +303,17 @@ The in-memory `physical` and `logical` values are volatile. If PD crashes and re
 PD does not write every single timestamp to etcd. Instead, it saves a **timestamp window** — a time value that is always **ahead** of the current in-memory physical time:
 
 ```
- Timeline ──────────────────────────────────────────────────>
+   Timeline
+   -------------------------------------------------------->
 
-              in-memory                 saved in etcd
-              physical                  (window edge)
-                 │                          │
-                 v                          v
-   ─────────────●────────────────────────────●──────────────
-                 │      saveInterval        │
-                 │    (default 3 seconds)   │
-                 │<────────────────────────>│
+             in-memory                 saved in etcd
+             physical                  (window edge)
+                |                          |
+                v                          v
+   -------------*--------------------------*--------------
+                |      saveInterval        |
+                |    (default 3 seconds)   |
+                |<------------------------>|
 
    Invariant: physical < savedTime (always)
 ```
@@ -391,37 +390,37 @@ Each TiDB server embeds a PD client. When a transaction calls `GetTS()`, the req
 
 ```
   TiDB Server
-  ┌──────────────────────────────────────────────────┐
-  │                                                  │
-  │  goroutine A ──> GetTS()──┐                      │
-  │                           │                      │
-  │  goroutine B ──> GetTS()──┼──> tsoDispatcher     │
-  │                           │   (collects a batch) │
-  │  goroutine C ──> GetTS()──┘         │            │
-  │                                     │            │
-  │                            wait up to            │
-  │                         MaxTSOBatchWaitInterval  │
-  │                            (default 0)           │
-  │                                     │            │
-  │                                     v            │
-  │                        ┌─────────────────┐       │
-  │                        │  single gRPC:   │       │
-  │                        │  GetTS(count=3) │       │
-  │                        └────────┬────────┘       │
-  └─────────────────────────────────┼────────────────┘
-                                    │
-                                    v
-                             ┌─────────────┐
-                             │     PD      │
-                             │   (TSO)     │
-                             └──────┬──────┘
-                                    │
-                         returns (physical, logical=X)
-                                    │
-                                    v
-                     goroutine A gets (physical, X-2)
-                     goroutine B gets (physical, X-1)
-                     goroutine C gets (physical, X)
+  +--------------------------------------------------+
+  |                                                  |
+  |  goroutine A --> GetTS()--+                      |
+  |                           |                      |
+  |  goroutine B --> GetTS()--+--> tsoDispatcher     |
+  |                           |    (collects batch)  |
+  |  goroutine C --> GetTS()--+          |           |
+  |                                      |           |
+  |                             wait up to           |
+  |                          MaxTSOBatchWaitInterval |
+  |                             (default 0)          |
+  |                                      |           |
+  |                                      v           |
+  |                        +--------------------+    |
+  |                        |   single gRPC:     |    |
+  |                        |   GetTS(count=3)   |    |
+  |                        +---------+----------+    |
+  +----------------------------------|---------------+
+                                     |
+                                     v
+                              +-------------+
+                              |     PD      |
+                              |   (TSO)     |
+                              +------+------+
+                                     |
+                          returns (physical, logical=X)
+                                     |
+                                     v
+                      goroutine A gets (physical, X-2)
+                      goroutine B gets (physical, X-1)
+                      goroutine C gets (physical, X)
 ```
 
 The [`client/clients/tso/dispatcher.go`](https://github.com/tikv/pd/blob/master/client/clients/tso/dispatcher.go) file implements this. The `tsoDispatcher` collects pending `GetTS()` requests from a channel, waits briefly for more to arrive (configurable via `MaxTSOBatchWaitInterval`), then sends a single gRPC call with the total count. When the response comes back, it distributes the timestamp range across all waiting goroutines.
@@ -433,16 +432,17 @@ This batching dramatically reduces the number of RPCs. Under high concurrency, h
 Five mechanisms work together to guarantee timestamps never go backward:
 
 ```
-  Guarantee                         Where it is enforced
-  ──────────────────────────────    ──────────────────────────────
-  1. Single allocator               PD leader election (etcd lease)
-  2. Physical only moves forward    setTSOPhysical() checks
-                                    next > current before updating
-  3. Logical increments under lock  generateTSO() holds tsoMux.Lock
-  4. etcd window is monotonic       SaveTimestamp() transaction
-                                    rejects new <= previous
-  5. Physical < saved time          updateTimestamp() extends window
-                                    before advancing physical
+  Guarantee                        Where it is enforced
+  ------------------------------  ------------------------------
+  1. Single allocator             PD leader election (etcd lease)
+  2. Physical only moves forward  setTSOPhysical() checks
+                                  next > current before updating
+  3. Logical increments under     generateTSO() holds tsoMux.Lock
+     lock
+  4. etcd window is monotonic     SaveTimestamp() transaction
+                                  rejects new <= previous
+  5. Physical < saved time        updateTimestamp() extends window
+                                  before advancing physical
 ```
 
 If any single mechanism fails (e.g., a stale leader tries to write), one of the others catches it. This defense-in-depth approach makes TSO robust against clock skew, network partitions, and leader failovers.
@@ -471,42 +471,42 @@ Here is a simplified view of a TiDB transaction with TSO calls:
 
 ```
    Client          TiDB Server            PD (TSO)             TiKV
-     │                 │                     │                   │
-     │   BEGIN         │                     │                   │
-     │────────────────>│                     │                   │
-     │                 │    GetTS()          │                   │
-     │                 │────────────────────>│                   │
-     │                 │    start_ts = 100   │                   │
-     │                 │<────────────────────│                   │
-     │                 │                     │                   │
-     │   SELECT ...    │                     │                   │
-     │────────────────>│                     │                   │
-     │                 │   Get(key, ts=100)  │                   │
-     │                 │────────────────────────────────────────>│
-     │                 │   value@version<=100│                   │
-     │                 │<────────────────────────────────────────│
-     │   result        │                     │                   │
-     │<────────────────│                     │                   │
-     │                 │                     │                   │
-     │   UPDATE ...    │                     │                   │
-     │────────────────>│   (buffered)        │                   │
-     │                 │                     │                   │
-     │   COMMIT        │                     │                   │
-     │────────────────>│    GetTS()          │                   │
-     │                 │────────────────────>│                   │
-     │                 │   commit_ts = 200   │                   │
-     │                 │<────────────────────│                   │
-     │                 │                     │                   │
-     │                 │   Prewrite(key, start_ts=100)           │
-     │                 │────────────────────────────────────────>│
-     │                 │   ok                │                   │
-     │                 │<────────────────────────────────────────│
-     │                 │   Commit(key, commit_ts=200)            │
-     │                 │────────────────────────────────────────>│
-     │                 │   ok                │                   │
-     │                 │<────────────────────────────────────────│
-     │   ok            │                     │                   │
-     │<────────────────│                     │                   │
+     |                 |                     |                   |
+     |   BEGIN         |                     |                   |
+     |---------------->|                     |                   |
+     |                 |    GetTS()          |                   |
+     |                 |-------------------->|                   |
+     |                 |    start_ts = 100   |                   |
+     |                 |<--------------------|                   |
+     |                 |                     |                   |
+     |   SELECT ...    |                     |                   |
+     |---------------->|                     |                   |
+     |                 |   Get(key, ts=100)  |                   |
+     |                 |---------------------------------------->|
+     |                 |   value@version<=100|                   |
+     |                 |<----------------------------------------|
+     |   result        |                     |                   |
+     |<----------------|                     |                   |
+     |                 |                     |                   |
+     |   UPDATE ...    |                     |                   |
+     |---------------->|   (buffered)        |                   |
+     |                 |                     |                   |
+     |   COMMIT        |                     |                   |
+     |---------------->|    GetTS()          |                   |
+     |                 |-------------------->|                   |
+     |                 |   commit_ts = 200   |                   |
+     |                 |<--------------------|                   |
+     |                 |                     |                   |
+     |                 |   Prewrite(key, start_ts=100)           |
+     |                 |---------------------------------------->|
+     |                 |   ok                |                   |
+     |                 |<----------------------------------------|
+     |                 |   Commit(key, commit_ts=200)            |
+     |                 |---------------------------------------->|
+     |                 |   ok                |                   |
+     |                 |<----------------------------------------|
+     |   ok            |                     |                   |
+     |<----------------|                     |                   |
 ```
 
 1. **BEGIN:** TiDB requests a `start_ts` from PD. This is the transaction's "snapshot" — it can only see data committed before `start_ts`.
