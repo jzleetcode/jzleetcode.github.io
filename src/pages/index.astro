@@ -25,23 +25,24 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
-      <h1 class="my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl">
-        JZLeetCode
-      </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="mb-6 inline-block sm:mb-0"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="mb-2 scale-110 stroke-accent stroke-3 sm:mb-3 sm:scale-125"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
+      <div class="my-4 flex items-center gap-2 sm:my-8">
+        <h1 class="text-3xl font-bold sm:text-5xl">
+          JZLeetCode
+        </h1>
+        <a
+          target="_blank"
+          href="/rss.xml"
+          aria-label="rss feed"
+          title="RSS Feed"
+        >
+          <IconRss
+            width={20}
+            height={20}
+            class="scale-110 stroke-accent stroke-3 sm:scale-125"
+          />
+          <span class="sr-only">RSS Feed</span>
+        </a>
+      </div>
 
       <p class="my-2">
         High quality leet code solutions in Java, Python, C++, and Rust.
