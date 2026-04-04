@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-03-17T10:57:34Z
 modDatetime: 2026-03-17T10:57:34Z
 title: LeetCode 1727 Largest Submatrix With Rearrangements
-featured: true
+featured: false
 tags:
   - a-array
   - a-matrix
