@@ -10,6 +10,7 @@ tags:
   - a-dfs
   - a-topological-sort
   - c-airbnb
+  - leetcode-locked
 description:
   "Solutions for LeetCode 631, hard, tags: design, graph, depth-first search, topological sort."
 ---

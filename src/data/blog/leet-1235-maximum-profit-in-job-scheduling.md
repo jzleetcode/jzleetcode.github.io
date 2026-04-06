@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-03-21T10:41:00Z
 modDatetime: 2026-03-21T10:41:00Z
 title: LeetCode 1235 Maximum Profit in Job Scheduling
-featured: true
+featured: false
 tags:
   - a-array
   - a-binary-search
