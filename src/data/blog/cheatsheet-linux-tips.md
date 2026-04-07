@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-12-04T08:22:00Z
-modDatetime: 2024-12-04T10:12:00Z
+modDatetime: 2026-04-07T21:00:00Z
 title: Linux Cheatsheet, tips and Commands
 tags:
   - cheatsheet-apps
@@ -306,6 +306,61 @@ Codename: noble
 $ echo $SHELL
 /bin/zsh  # mac os 15 default
 /bin/bash  # linux default
+# Ctrl+R  reverse incremental search (readline/bash/zsh): recall matching history lines
+# press Ctrl+R again (and again) to cycle through all matches for your search string
+```
+
+## Shell `!` and `$` quick reference
+
+### History (`!^`, `!$`, `!!`, …)
+
+```shell
+sudo !!  # !! repeat last command (e.g. add forgotten sudo)
+vim !$  # !$ last argument of previous command
+cd !^  # !^ first argument of previous command
+echo !*  # !* all arguments of previous command
+echo !:0  # !:0 command name from previous line
+echo !:2  # !:n nth word of previous line (example: second word)
+!-2  # !-n nth command back (example: two commands ago)
+!git  # !string last command starting with string
+!?foo  # !?string last command containing substring
+cp ~/Downloads/report.pdf /tmp/  # previous command (meant mv not cp)
+^cp^mv^  # ^old^new on previous line → mv ~/Downloads/report.pdf /tmp/
+!42  # !n history event by number (see `history` for numbers)
+```
+
+### Parameters (`$@`, `$1`, `$?`, …)
+
+```shell
+echo "$0"  # $0 script name (or shell name if interactive)
+echo "$1" "$2"  # $1 $2 first and second positional arguments
+echo "${10}"  # ${n} braces required for positional args past $9
+echo "$#"  # $# number of positional arguments
+set -- 'my file.txt' 'second' 'third'  # three positional args; first contains a space
+printf '%s\n' "$@"  # $@: each arg separate → three lines from printf
+# my file.txt
+# second
+# third
+printf '%s\n' "$*"  # $*: one joined string (first IFS char between args) → one line
+# my file.txt second third
+echo "$?"  # $? exit status of last foreground command
+echo "$$"  # $$ PID of current shell
+echo "$!"  # $! PID of last background job
+echo "$_"  # $_ last argument of previous command
+```
+
+### `$_` vs `!$`
+
+- **`$_`** — Special **parameter**: last argument of the previous simple command (bash updates it after each command). Use in **scripts**; does not rely on history expansion.
+- **`!$`** — **History expansion**: last word of the **previous history line** (same event as `!!`). Needs history (e.g. bash `set -H`, usually on in interactive shells). Uncommon in scripts where history is often off.
+
+Often the same string after a one-line command; they can differ with **pipelines**, **complex quoting**, or when “last word on the history line” is not the same as “last argument” of the executed command.
+
+```shell
+touch a b c
+echo "$_"  # $_ → c (last argument)
+# ls /tmp/foo
+# vim !$    # !$ → /tmp/foo (last word); expands before run, like other ! history
 ```
 
 ## U
