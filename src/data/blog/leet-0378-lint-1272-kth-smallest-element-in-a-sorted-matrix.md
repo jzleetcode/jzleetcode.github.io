@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2026-04-08T06:23:00Z
 modDatetime: 2026-04-08T06:23:00Z
 title: LeetCode 378 LintCode 1272 Kth Smallest Element in a Sorted Matrix
-draft: true
 featured: true
 tags:
   - a-array
