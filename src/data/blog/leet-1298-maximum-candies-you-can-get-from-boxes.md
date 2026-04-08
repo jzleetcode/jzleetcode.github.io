@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-03-21T12:00:00Z
 modDatetime: 2026-03-21T12:00:00Z
 title: LeetCode 1298 Maximum Candies You Can Get from Boxes
-featured: true
+featured: false
 tags:
   - a-array
   - a-bfs
