@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-03-19T08:00:00Z
 modDatetime: 2026-03-19T08:00:00Z
 title: LeetCode 3212 Count Submatrices With Equal Frequency of X and Y
-featured: true
+featured: false
 tags:
   - a-array
   - a-matrix
