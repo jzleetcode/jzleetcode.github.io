@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-03-28T06:00:00Z
 modDatetime: 2026-03-28T06:00:00Z
 title: LeetCode 638 Shopping Offers
-featured: true
+featured: false
 tags:
   - a-dp
   - a-dfs
