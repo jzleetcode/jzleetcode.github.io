@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-03-31T06:00:00Z
 modDatetime: 2026-03-31T06:00:00Z
 title: LeetCode 721 Accounts Merge
-featured: true
+featured: false
 tags:
   - a-union-find
   - a-dfs
