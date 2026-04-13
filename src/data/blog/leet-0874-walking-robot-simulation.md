@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-05T06:00:00Z
 modDatetime: 2026-04-05T06:00:00Z
 title: LeetCode 874 Walking Robot Simulation
-featured: true
+featured: false
 tags:
   - a-array
   - a-hash-table
