@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-07T08:00:00Z
 modDatetime: 2026-04-07T08:00:00Z
 title: LeetCode 3653 XOR After Range Multiplication Queries I
-featured: true
+featured: false
 tags:
   - a-array
   - a-simulation
