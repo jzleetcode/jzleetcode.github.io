@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-10T06:00:00Z
 modDatetime: 2026-04-10T06:00:00Z
 title: LeetCode 200 Number of Islands
-featured: true
+featured: false
 tags:
   - a-dfs
   - a-bfs
