@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-12T06:00:00Z
 modDatetime: 2026-04-12T06:00:00Z
 title: LeetCode 1848 Minimum Distance to the Target Element
-featured: true
+featured: false
 tags:
   - a-array
 description:
