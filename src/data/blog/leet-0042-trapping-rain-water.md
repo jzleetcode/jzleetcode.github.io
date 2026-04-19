@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-13T10:00:00Z
 modDatetime: 2026-04-13T10:00:00Z
 title: LeetCode 42 Trapping Rain Water
-featured: true
+featured: false
 tags:
   - a-array
   - a-two-pointers
