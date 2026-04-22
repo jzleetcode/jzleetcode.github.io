@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-15T06:23:00Z
 modDatetime: 2026-04-15T06:23:00Z
 title: LeetCode 238 Product of Array Except Self
-featured: true
+featured: false
 tags:
   - a-array
   - a-prefix-sum
