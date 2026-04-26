@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-16T06:00:00Z
 modDatetime: 2026-04-16T06:00:00Z
 title: LeetCode 155 Min Stack
-featured: true
+featured: false
 tags:
   - a-stack
   - a-design
