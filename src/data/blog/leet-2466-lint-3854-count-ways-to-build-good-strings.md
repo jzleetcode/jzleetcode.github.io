@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-12-28T06:23:00Z
-modDatetime: 2024-12-28T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 2466 LintCode 3854 Count Ways to Build Good Strings (Number of Good Binary Strings)
 tags:
   - a-dp
@@ -81,4 +81,61 @@ class Solution:
                 dp[i] += dp[i - one]  # appending one '1' on top of dp[i-one]
             dp[i] %= mod
         return sum(dp[low: high + 1]) % mod
+```
+
+### Java
+
+```java
+public static int countGoodStrings(int low, int high, int zero, int one) {
+    int mod = 1_000_000_007;
+    long[] dp = new long[high + 1];
+    dp[0] = 1;
+    for (int i = 1; i <= high; i++) {
+        if (i >= zero) dp[i] += dp[i - zero];
+        if (i >= one) dp[i] += dp[i - one];
+        dp[i] %= mod;
+    }
+    long res = 0;
+    for (int i = low; i <= high; i++) res += dp[i];
+    return (int) (res % mod);
+}
+```
+
+### C++
+
+```cpp
+int countGoodStrings(int low, int high, int zero, int one) {
+    const int mod = 1e9 + 7;
+    vector<long> dp(high + 1, 0);
+    dp[0] = 1;
+    for (int i = 1; i <= high; i++) {
+        if (i >= zero) dp[i] += dp[i - zero];
+        if (i >= one) dp[i] += dp[i - one];
+        dp[i] %= mod;
+    }
+    long res = 0;
+    for (int i = low; i <= high; i++) res += dp[i];
+    return (int) (res % mod);
+}
+```
+
+### Rust
+
+```rust
+pub fn count_good_strings(low: i32, high: i32, zero: i32, one: i32) -> i32 {
+    let high = high as usize;
+    let low = low as usize;
+    let zero = zero as usize;
+    let one = one as usize;
+    let modv: i64 = 1_000_000_007;
+    let mut dp = vec![0i64; high + 1];
+    dp[0] = 1;
+    for i in 1..=high {
+        if i >= zero { dp[i] += dp[i - zero]; }
+        if i >= one { dp[i] += dp[i - one]; }
+        dp[i] %= modv;
+    }
+    let res: i64 = dp[low..=high].iter().sum::<i64>() % modv;
+    res as i32
+}
 ```

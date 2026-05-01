@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2025-01-09T06:23:00Z
-modDatetime: 2025-01-09T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 1400 Construct K Palindrome Strings
 tags:
   - a-counting
@@ -75,7 +75,7 @@ Complexity: Time $O(n)$, Space $O(1)$.
 ### Python
 
 ```python
-lass Solution:
+class Solution:
     """30 ms, 18.26 mb"""
 
     def canConstruct(self, s: str, k: int) -> bool:
@@ -84,4 +84,49 @@ lass Solution:
         cnt = Counter(s)
 
         return sum([1 if cnt[c] & 1 else 0 for c in cnt]) <= k
+```
+
+### Java
+
+```java
+public static boolean canConstruct(String s, int k) {
+    if (s.length() < k) return false;
+    if (s.length() == k) return true;
+    int[] cnt = new int[26];
+    for (char c : s.toCharArray()) cnt[c - 'a']++;
+    int odd = 0;
+    for (int c : cnt) if ((c & 1) == 1) odd++;
+    return odd <= k;
+}
+```
+
+### C++
+
+```cpp
+bool canConstruct(const string &s, int k) {
+    int n = (int) s.size();
+    if (n < k) return false;
+    if (n == k) return true;
+    int cnt[26] = {};
+    for (char c: s) cnt[c - 'a']++;
+    int odd = 0;
+    for (int c: cnt) if (c & 1) odd++;
+    return odd <= k;
+}
+```
+
+### Rust
+
+```rust
+pub fn can_construct(s: String, k: i32) -> bool {
+    let n = s.len() as i32;
+    if n < k { return false; }
+    if n == k { return true; }
+    let mut cnt = [0i32; 26];
+    for c in s.bytes() {
+        cnt[(c - b'a') as usize] += 1;
+    }
+    let odd = cnt.iter().filter(|&&c| c & 1 == 1).count() as i32;
+    odd <= k
+}
 ```

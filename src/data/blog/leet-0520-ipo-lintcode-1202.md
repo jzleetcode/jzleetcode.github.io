@@ -108,3 +108,59 @@ class Solution {
     }
 }
 ```
+
+### C++
+
+```cpp []
+// leet 502, greedy + max-heap. O(n log n + k log n) time, O(n) space.
+class SolutionIPO {
+public:
+    int findMaximizedCapital(int k, int w, vector<int> &profits, vector<int> &capital) {
+        int n = profits.size();
+        vector<pair<int, int>> projects(n);
+        for (int i = 0; i < n; i++) projects[i] = {capital[i], profits[i]};
+        sort(projects.begin(), projects.end());
+        priority_queue<int> pq; // max-heap of profits
+        int i = 0;
+        while (k-- > 0) {
+            while (i < n && projects[i].first <= w) pq.push(projects[i++].second);
+            if (pq.empty()) break;
+            w += pq.top();
+            pq.pop();
+        }
+        return w;
+    }
+};
+```
+
+### Rust
+
+```rust []
+use std::collections::BinaryHeap;
+
+pub struct Solution;
+
+impl Solution {
+    /// Greedy + max-heap. O(n log n + k log n) time, O(n) space.
+    pub fn find_maximized_capital(k: i32, w: i32, profits: Vec<i32>, capital: Vec<i32>) -> i32 {
+        let n = profits.len();
+        let mut projects: Vec<(i32, i32)> = capital.into_iter().zip(profits).collect();
+        projects.sort_unstable();
+        let mut pq = BinaryHeap::new();
+        let mut i = 0;
+        let mut w = w;
+        for _ in 0..k {
+            while i < n && projects[i].0 <= w {
+                pq.push(projects[i].1);
+                i += 1;
+            }
+            if let Some(profit) = pq.pop() {
+                w += profit;
+            } else {
+                break;
+            }
+        }
+        w
+    }
+}
+```

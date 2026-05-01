@@ -96,9 +96,32 @@ We can use the two-pointer method. We advance the two pointers until they meet i
 
 Complexity: Time $O(n)$, Space $O(1)$.
 
+### C++
+
+```cpp []
+// leet 1650, lint 474
+struct ParentNode {
+    int val;
+    ParentNode *left, *right, *parent;
+    ParentNode(int x) : val(x), left(nullptr), right(nullptr), parent(nullptr) {}
+};
+
+class SolutionLCAIII {
+public:
+    ParentNode *lowestCommonAncestor(ParentNode *p, ParentNode *q) {
+        ParentNode *a = p, *b = q;
+        while (a != b) {
+            a = a->parent ? a->parent : q;
+            b = b->parent ? b->parent : p;
+        }
+        return a;
+    }
+};
+```
+
 ### Java
 
-```java
+```java []
 // solution 1, two pointer, O(h) time, O(1) space. h:tree height, worst case O(n). LintCode 2550ms, 21.95Mb.
 static class Solution {
     public BTNode lowestCommonAncestor(BTNode p, BTNode q) {
@@ -114,7 +137,7 @@ static class Solution {
 
 ### Python
 
-```python
+```python []
 class Solution:
 
     def lowestCommonAncestor(self, p: ParentTreeNode, q: ParentTreeNode):
@@ -124,4 +147,36 @@ class Solution:
             a = a.parent if a.parent else q
             b = b.parent if b.parent else p
         return a
+```
+
+### Rust
+
+```rust []
+use std::cell::RefCell;
+use std::rc::{Rc, Weak};
+
+type NodePtr = Rc<RefCell<Node>>;
+type WeakNodePtr = Weak<RefCell<Node>>;
+
+struct Node {
+    val: i32,
+    parent: Option<WeakNodePtr>,
+    left: Option<NodePtr>,
+    right: Option<NodePtr>,
+}
+
+struct Solution;
+
+impl Solution {
+    pub fn lca(p: Option<NodePtr>, q: Option<NodePtr>) -> Option<NodePtr> {
+        let (p, q) = (p?, q?);
+        let (mut a, mut b) = (p.clone(), q.clone());
+        while a.borrow().val != b.borrow().val {
+            let (ap, bp) = (a.borrow().parent.clone(), b.borrow().parent.clone());
+            a = if ap.is_none() { q.clone() } else { ap?.upgrade()? };
+            b = if bp.is_none() { p.clone() } else { bp?.upgrade()? };
+        }
+        Some(a)
+    }
+}
 ```

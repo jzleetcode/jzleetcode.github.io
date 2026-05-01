@@ -66,13 +66,46 @@ We could solve this question with the subset sum method.
 
 Complexity: Time O(n*2^n), Space O(2^n).
 
+#### C++
+
+```cpp []
+class Solution {
+public:
+    int minTransfers(vector<vector<int>> &transactions) {
+        int g[12]{};
+        for (auto &t: transactions) {
+            g[t[0]] -= t[2];
+            g[t[1]] += t[2];
+        }
+        vector<int> nums;
+        for (int x: g)
+            if (x) nums.push_back(x);
+        int m = nums.size();
+        int f[1 << m];
+        memset(f, 0x3f, sizeof(f));
+        f[0] = 0;
+        for (int i = 1; i < 1 << m; ++i) {
+            int s = 0;
+            for (int j = 0; j < m; ++j)
+                if (i >> j & 1) s += nums[j];
+            if (s == 0) {
+                f[i] = __builtin_popcount(i) - 1;
+                for (int j = (i - 1) & i; j; j = (j - 1) & i)
+                    f[i] = min(f[i], f[j] + f[i ^ j]);
+            }
+        }
+        return f[(1 << m) - 1];
+    }
+};
+```
+
 #### Java
 
 Stay tuned.
 
 #### Python
 
-```python
+```python []
 class Solution1:
     def balance_graph(self, edges: List[List[int]]) -> int:
         """
@@ -119,7 +152,7 @@ Stay tuned.
 
 #### Python
 
-```python
+```python []
 class Solution2:
     def minTransfers(self, edges: List[List[int]]) -> int:
         bal = defaultdict(int)
@@ -151,4 +184,46 @@ class Solution2:
             return res
 
         return dfs(0)
+```
+
+#### Rust
+
+```rust []
+use std::collections::HashMap;
+
+pub struct Solution;
+
+impl Solution {
+    /// Subset sum DP approach. O(n * 2^n) time, O(2^n) space.
+    pub fn min_transfers(transactions: Vec<Vec<i32>>) -> i32 {
+        let mut bal: HashMap<i32, i32> = HashMap::new();
+        for t in &transactions {
+            *bal.entry(t[0]).or_insert(0) -= t[2];
+            *bal.entry(t[1]).or_insert(0) += t[2];
+        }
+        let non_zero: Vec<i32> = bal.values().filter(|&&v| v != 0).copied().collect();
+        let n = non_zero.len();
+        let mut f = vec![i32::MAX; 1 << n];
+        f[0] = 0;
+        for i in 1..(1 << n) {
+            let mut total: i32 = 0;
+            for j in 0..n {
+                if (i >> j) & 1 == 1 {
+                    total += non_zero[j];
+                }
+            }
+            if total == 0 {
+                f[i] = (i as u32).count_ones() as i32 - 1;
+                let mut j = (i - 1) & i;
+                while j > 0 {
+                    if f[j] < i32::MAX && f[i ^ j] < i32::MAX {
+                        f[i] = f[i].min(f[j] + f[i ^ j]);
+                    }
+                    j = (j - 1) & i;
+                }
+            }
+        }
+        f[(1 << n) - 1]
+    }
+}
 ```

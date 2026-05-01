@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-11T07:22:00Z
-modDatetime: 2024-11-11T10:12:00Z
+modDatetime: 2025-05-01T10:12:00Z
 title: LeetCode 3043 Find the Length of the Longest Common Prefix
 tags:
   - a-string
@@ -104,6 +104,60 @@ public:
         return res;
     }
 };
+```
+
+#### Java
+
+```java []
+class Solution {
+    public int longestCommonPrefix(int[] arr1, int[] arr2) {
+        TrieNode root = new TrieNode(10, decimal);
+        for (int n : arr1) root.insert(String.valueOf(n));
+        int res = 0;
+        for (int n : arr2) res = Math.max(res, root.lcpLen(String.valueOf(n)));
+        return res;
+    }
+}
+```
+
+#### Python
+
+```python []
+class Solution:
+    def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
+        """Trie approach. O(m*d1+n*d2) time, O(m*d1) space."""
+        trie = {}
+        for num in arr1:
+            node = trie
+            for c in str(num):
+                if c not in node:
+                    node[c] = {}
+                node = node[c]
+        res = 0
+        for num in arr2:
+            node = trie
+            length = 0
+            for c in str(num):
+                if c not in node:
+                    break
+                node = node[c]
+                length += 1
+            res = max(res, length)
+        return res
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn longest_common_prefix(arr1: Vec<i32>, arr2: Vec<i32>) -> i32 {
+        let mut root = TrieNode::new();
+        for a in &arr1 { root.insert(a.to_string().as_bytes()); }
+        let mut res = 0;
+        for a in &arr2 { res = res.max(root.lcp_len(a.to_string().as_bytes())); }
+        res
+    }
+}
 ```
 
 ### Idea2

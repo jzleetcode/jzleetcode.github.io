@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2025-03-24T06:23:00Z
-modDatetime: 2025-03-24T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 658 LintCode 460 Find K Closest Elements
 tags:
   - a-array
@@ -73,4 +73,52 @@ class Solution:
             else:
                 r = mid
         return arr[l:l + k]
+```
+
+### Java
+
+```java
+public static List<Integer> findClosestElements(int[] arr, int k, int x) {
+    int l = 0, r = arr.length - k;
+    while (l < r) {
+        int mid = l + (r - l) / 2;
+        if (x - arr[mid] > arr[mid + k] - x) l = mid + 1;
+        else r = mid;
+    }
+    List<Integer> res = new ArrayList<>(k);
+    for (int i = l; i < l + k; i++) res.add(arr[i]);
+    return res;
+}
+```
+
+### C++
+
+```cpp
+vector<int> findClosestElements(vector<int> &arr, int k, int x) {
+    int l = 0, r = (int) arr.size() - k;
+    while (l < r) {
+        int mid = l + (r - l) / 2;
+        if (x - arr[mid] > arr[mid + k] - x) l = mid + 1;
+        else r = mid;
+    }
+    return vector<int>(arr.begin() + l, arr.begin() + l + k);
+}
+```
+
+### Rust
+
+```rust
+pub fn find_closest_elements(arr: Vec<i32>, k: i32, x: i32) -> Vec<i32> {
+    let k = k as usize;
+    let (mut l, mut r) = (0usize, arr.len() - k);
+    while l < r {
+        let mid = l + (r - l) / 2;
+        if x - arr[mid] > arr[mid + k] - x {
+            l = mid + 1;
+        } else {
+            r = mid;
+        }
+    }
+    arr[l..l + k].to_vec()
+}
 ```

@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-23T08:23:00Z
-modDatetime: 2024-11-23T09:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 1804 LintCode 3729 Implement Trie II
 tags:
   - a-design
@@ -116,4 +116,157 @@ class Trie:
                 return None
             cur = cur.next[c]
         return cur
+```
+
+#### Java
+
+```java
+public static class Trie {
+    private final Trie[] next = new Trie[26];
+    private int wordCount = 0;
+    private int prefixCount = 0;
+
+    public void insert(String word) {
+        Trie cur = this;
+        for (char c : word.toCharArray()) {
+            int id = c - 'a';
+            if (cur.next[id] == null) cur.next[id] = new Trie();
+            cur = cur.next[id];
+            cur.prefixCount++;
+        }
+        cur.wordCount++;
+    }
+
+    public int countWordsEqualTo(String word) {
+        Trie node = get(word);
+        return node == null ? 0 : node.wordCount;
+    }
+
+    public int countWordsStartingWith(String prefix) {
+        Trie node = get(prefix);
+        return node == null ? 0 : node.prefixCount;
+    }
+
+    public void erase(String word) {
+        Trie cur = this;
+        for (char c : word.toCharArray()) {
+            cur = cur.next[c - 'a'];
+            cur.prefixCount--;
+        }
+        cur.wordCount--;
+    }
+
+    private Trie get(String word) {
+        Trie cur = this;
+        for (char c : word.toCharArray()) {
+            int id = c - 'a';
+            if (cur.next[id] == null) return null;
+            cur = cur.next[id];
+        }
+        return cur;
+    }
+}
+```
+
+#### C++
+
+```cpp
+class TrieII {
+    unordered_map<char, unique_ptr<TrieII>> next;
+    int wordCount = 0, prefixCount = 0;
+
+public:
+    void insert(const string &word) {
+        TrieII *cur = this;
+        for (char c: word) {
+            if (!cur->next.count(c)) cur->next[c] = make_unique<TrieII>();
+            cur = cur->next[c].get();
+            cur->prefixCount++;
+        }
+        cur->wordCount++;
+    }
+
+    int countWordsEqualTo(const string &word) {
+        auto *node = get(word);
+        return node ? node->wordCount : 0;
+    }
+
+    int countWordsStartingWith(const string &prefix) {
+        auto *node = get(prefix);
+        return node ? node->prefixCount : 0;
+    }
+
+    void erase(const string &word) {
+        TrieII *cur = this;
+        for (char c: word) {
+            cur = cur->next[c].get();
+            cur->prefixCount--;
+        }
+        cur->wordCount--;
+    }
+
+private:
+    TrieII *get(const string &word) {
+        TrieII *cur = this;
+        for (char c: word) {
+            if (!cur->next.count(c)) return nullptr;
+            cur = cur->next[c].get();
+        }
+        return cur;
+    }
+};
+```
+
+#### Rust
+
+```rust
+use std::collections::HashMap;
+
+#[derive(Default)]
+pub struct TrieII {
+    next: HashMap<char, TrieII>,
+    word_count: i32,
+    prefix_count: i32,
+}
+
+impl TrieII {
+    pub fn new() -> Self { TrieII::default() }
+
+    pub fn insert(&mut self, word: &str) {
+        let mut cur = self;
+        for c in word.chars() {
+            cur = cur.next.entry(c).or_default();
+            cur.prefix_count += 1;
+        }
+        cur.word_count += 1;
+    }
+
+    pub fn count_words_equal_to(&self, word: &str) -> i32 {
+        self.get(word).map_or(0, |n| n.word_count)
+    }
+
+    pub fn count_words_starting_with(&self, prefix: &str) -> i32 {
+        self.get(prefix).map_or(0, |n| n.prefix_count)
+    }
+
+    pub fn erase(&mut self, word: &str) {
+        let mut cur = self;
+        for c in word.chars() {
+            cur = cur.next.get_mut(&c).unwrap();
+            cur.prefix_count -= 1;
+        }
+        cur.word_count -= 1;
+    }
+
+    fn get(&self, word: &str) -> Option<&TrieII> {
+        let mut cur = self;
+        for c in word.chars() {
+            match cur.next.get(&c) {
+                Some(node) => cur = node,
+                None => return None,
+            }
+        }
+        Some(cur)
+    }
+}
 ```

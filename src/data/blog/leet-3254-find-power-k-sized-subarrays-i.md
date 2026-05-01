@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-14T07:12:00Z
-modDatetime: 2024-11-14T07:22:00Z
+modDatetime: 2025-05-01T07:22:00Z
 title: LeetCode 3254 Find the Power of K-Size Subarrays I
 tags:
   - a-sliding-window
@@ -76,7 +76,7 @@ Complexity: Time O(n), Space O(1).
 
 #### Java
 
-```java
+```java []
 class Solution {
     public int[] resultsArray(int[] nums, int k) {
         if (k == 1) return nums; // every single element is a valid subarray
@@ -88,6 +88,67 @@ class Solution {
             if (streak >= k) res[i - k + 2] = nums[i + 1];
         }
         return res;
+    }
+}
+```
+
+#### C++
+
+```cpp []
+class PowerKSizeSubArraysI {
+public:
+    vector<int> resultsArray(vector<int> &nums, int k) {
+        if (k == 1) return nums;
+        int n = nums.size();
+        vector<int> res(n - k + 1, -1);
+        int streak = 1;
+        for (int i = 0; i < n - 1; i++) {
+            if (nums[i] + 1 == nums[i + 1]) streak++;
+            else streak = 1;
+            if (streak >= k) res[i - k + 2] = nums[i + 1];
+        }
+        return res;
+    }
+};
+```
+
+#### Python
+
+```python []
+class Solution:
+    def resultsArray(self, nums: List[int], k: int) -> List[int]:
+        """O(n) time, O(1) space."""
+        if k == 1:
+            return nums
+        n = len(nums)
+        res = [-1] * (n - k + 1)
+        streak = 1
+        for i in range(n - 1):
+            if nums[i] + 1 == nums[i + 1]:
+                streak += 1
+            else:
+                streak = 1
+            if streak >= k:
+                res[i - k + 2] = nums[i + 1]
+        return res
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn results_array(nums: Vec<i32>, k: i32) -> Vec<i32> {
+        let k = k as usize;
+        if k == 1 { return nums; }
+        let n = nums.len();
+        let mut res = vec![-1i32; n - k + 1];
+        let mut streak = 1usize;
+        for i in 0..n - 1 {
+            if nums[i] + 1 == nums[i + 1] { streak += 1; }
+            else { streak = 1; }
+            if streak >= k { res[i + 2 - k] = nums[i + 1]; }
+        }
+        res
     }
 }
 ```

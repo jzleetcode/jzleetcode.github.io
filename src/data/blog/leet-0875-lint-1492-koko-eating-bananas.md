@@ -63,6 +63,30 @@ The number of hours needed for Koko to eat the pile of bananas is the ceiling of
 
 Complexity: Time $O(n \log n)$, Space $O(1)$.
 
+### Java
+
+```java []
+// binary search, O(n log n) time, O(1) space.
+public final class KokoBanana {
+    public static int minEatingSpeed(int[] piles, int h) {
+        int l = 1, r = 0;
+        for (int p : piles) r = Math.max(r, p);
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            if (feasible(piles, h, mid)) r = mid;
+            else l = mid + 1;
+        }
+        return l;
+    }
+
+    static boolean feasible(int[] piles, int h, int speed) {
+        int sum = 0;
+        for (int p : piles) sum += (p - 1) / speed + 1;
+        return sum <= h;
+    }
+}
+```
+
 ### Python
 
 ```python

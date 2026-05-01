@@ -88,7 +88,7 @@ Complexity: Time $O(n+k \log n)$, Space $O(k)$.
 
 ### C++
 
-```cpp
+```cpp []
 // leet 2558, 6ms, 13.4 mb
 class Solution {
 public:
@@ -107,9 +107,28 @@ public:
 };
 ```
 
+### Java
+
+```java []
+// O(n + k log n) time, O(n) space.
+class Solution {
+    public long pickGifts(int[] gifts, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for (int g : gifts) pq.offer(g);
+        while (k-- > 0) {
+            int cur = pq.poll();
+            pq.offer((int) Math.sqrt(cur));
+        }
+        long res = 0;
+        while (!pq.isEmpty()) res += pq.poll();
+        return res;
+    }
+}
+```
+
 ### Python
 
-```python
+```python []
 class Solution:
     """8 ms, 17.72 mb"""
 
@@ -123,4 +142,23 @@ class Solution:
         while pq:
             res -= heappop(pq)
         return res
+```
+
+### Rust
+
+```rust []
+use std::collections::BinaryHeap;
+
+pub struct Solution;
+
+impl Solution {
+    pub fn pick_gifts(gifts: Vec<i32>, k: i32) -> i64 {
+        let mut pq: BinaryHeap<i32> = gifts.into_iter().collect();
+        for _ in 0..k {
+            let cur = pq.pop().unwrap();
+            pq.push((cur as f64).sqrt() as i32);
+        }
+        pq.into_iter().map(|x| x as i64).sum()
+    }
+}
 ```

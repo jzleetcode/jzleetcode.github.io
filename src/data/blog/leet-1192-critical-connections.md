@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-10T08:22:00Z
-modDatetime: 2024-11-10T10:12:00Z
+modDatetime: 2025-05-01T10:12:00Z
 title: LeetCode 1192 LintCode 1271 Critical Connections in a Network
 tags:
   - a-dfs
@@ -100,4 +100,93 @@ public:
         }
     }
 };
+```
+
+#### Java
+
+```java []
+class CriticalConnection {
+    List<List<Integer>> res;
+    List<List<Integer>> adj;
+    int[] ranks;
+
+    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+        adj = new ArrayList<>();
+        res = new ArrayList<>();
+        ranks = new int[n];
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
+        for (List<Integer> e : connections) {
+            adj.get(e.get(0)).add(e.get(1));
+            adj.get(e.get(1)).add(e.get(0));
+        }
+        dfs(0, 0, 1);
+        return res;
+    }
+
+    void dfs(int v, int parent, int rank) {
+        if (ranks[v] != 0) return;
+        ranks[v] = rank;
+        for (int w : adj.get(v)) {
+            if (w == parent) continue;
+            dfs(w, v, rank + 1);
+            ranks[v] = Math.min(ranks[v], ranks[w]);
+            if (rank < ranks[w]) res.add(Arrays.asList(v, w));
+        }
+    }
+}
+```
+
+#### Python
+
+```python []
+class Solution:
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        res = []
+        adj, ranks = [[] for _ in range(n)], [0] * n
+        for e in connections:
+            adj[e[0]].append(e[1])
+            adj[e[1]].append(e[0])
+
+        def dfs(v: int, parent: int, rank: int) -> None:
+            if ranks[v] != 0: return
+            ranks[v] = rank
+            for w in adj[v]:
+                if w == parent: continue
+                dfs(w, v, rank + 1)
+                ranks[v] = min(ranks[v], ranks[w])
+                if rank < ranks[w]: res.append([v, w])
+
+        dfs(0, 0, 1)
+        return res
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn critical_connections(n: i32, connections: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+        let n = n as usize;
+        let mut adj = vec![vec![]; n];
+        for e in &connections {
+            adj[e[0] as usize].push(e[1] as usize);
+            adj[e[1] as usize].push(e[0] as usize);
+        }
+        let mut ranks = vec![0i32; n];
+        let mut res = vec![];
+        Self::dfs(&adj, &mut ranks, &mut res, 0, 0, 1);
+        res
+    }
+
+    fn dfs(adj: &[Vec<usize>], ranks: &mut [i32], res: &mut Vec<Vec<i32>>,
+           parent: usize, v: usize, rank: i32) {
+        if ranks[v] != 0 { return; }
+        ranks[v] = rank;
+        for &w in &adj[v] {
+            if w == parent { continue; }
+            Self::dfs(adj, ranks, res, v, w, rank + 1);
+            ranks[v] = ranks[v].min(ranks[w]);
+            if rank < ranks[w] { res.push(vec![v as i32, w as i32]); }
+        }
+    }
+}
 ```

@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2025-01-05T06:23:00Z
-modDatetime: 2025-01-05T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 1930 Unique Length-3 Palindromic Subsequences
 tags:
   - a-hash
@@ -80,7 +80,7 @@ Complexity: Time $O(n)$, Space $O(1)$.
 
 ### Java
 
-```java
+```java []
 // n, 1. 281 ms, 45.44 mb.
 class Solution {
     public int countPalindromicSubsequence(String s) {
@@ -99,9 +99,38 @@ class Solution {
 }
 ```
 
+### C++
+
+```cpp []
+// leet 1930. O(n) time, O(1) space.
+class SolutionUniqL3Palindrome {
+public:
+    int countPalindromicSubsequence(const string &s) {
+        int first[26], last[26];
+        fill(first, first + 26, INT_MAX);
+        fill(last, last + 26, 0);
+        for (int i = 0; i < (int) s.size(); ++i) {
+            int id = s[i] - 'a';
+            first[id] = min(first[id], i);
+            last[id] = i;
+        }
+        int res = 0;
+        for (int i = 0; i < 26; ++i) {
+            if (first[i] < last[i]) {
+                unordered_set<char> between;
+                for (int j = first[i] + 1; j < last[i]; ++j)
+                    between.insert(s[j]);
+                res += (int) between.size();
+            }
+        }
+        return res;
+    }
+};
+```
+
 ### Python
 
-```python
+```python []
 class Solution:
     """266 ms, 19.3 mb"""
 
@@ -115,4 +144,32 @@ class Solution:
             if first[i] < last[i]:
                 res += len(set(list(s[first[i] + 1:last[i]])))
         return res
+```
+
+### Rust
+
+```rust []
+impl Solution {
+    pub fn count_palindromic_subsequence(s: &str) -> i32 {
+        let bytes = s.as_bytes();
+        let mut first = [i32::MAX; 26];
+        let mut last = [0i32; 26];
+        for (i, &b) in bytes.iter().enumerate() {
+            let id = (b - b'a') as usize;
+            first[id] = first[id].min(i as i32);
+            last[id] = i as i32;
+        }
+        let mut res = 0;
+        for i in 0..26 {
+            if first[i] < last[i] {
+                let mut seen = [false; 26];
+                for j in (first[i] + 1)..last[i] {
+                    seen[(bytes[j as usize] - b'a') as usize] = true;
+                }
+                res += seen.iter().filter(|&&x| x).count() as i32;
+            }
+        }
+        res
+    }
+}
 ```

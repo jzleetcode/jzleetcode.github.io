@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-17T07:23:00Z
-modDatetime: 2024-11-17T07:23:00Z
+modDatetime: 2026-05-01T07:23:00Z
 title: LeetCode 2461 Maximum Sum of Distinct Subarrays With Length K
 tags:
   - a-sliding-window
@@ -86,6 +86,66 @@ class Solution {
             last.put(nums[i], i);
         }
         return res;
+    }
+}
+```
+
+#### Python
+
+```python
+class Solution:
+    """Sliding window with last-seen map. O(n) time, O(n) space."""
+
+    def maximumSubarraySum(self, nums: list[int], k: int) -> int:
+        res, cur, dup = 0, 0, -1
+        last: dict[int, int] = {}
+        for i, v in enumerate(nums):
+            cur += v
+            if i >= k:
+                cur -= nums[i - k]
+            dup = max(dup, last.get(v, -1))
+            if i - dup >= k:
+                res = max(res, cur)
+            last[v] = i
+        return res
+```
+
+#### C++
+
+```cpp
+class MaxSumDistinctK {
+public:
+    static long long maximumSubarraySum(vector<int>& nums, int k) {
+        long long res = 0, cur = 0, dup = -1;
+        unordered_map<int, int> last;
+        for (int i = 0; i < (int)nums.size(); ++i) {
+            cur += nums[i];
+            if (i >= k) cur -= nums[i - k];
+            if (last.count(nums[i])) dup = max(dup, (long long)last[nums[i]]);
+            if (i - dup >= k) res = max(res, cur);
+            last[nums[i]] = i;
+        }
+        return res;
+    }
+};
+```
+
+#### Rust
+
+```rust
+impl Solution {
+    pub fn maximum_subarray_sum(nums: &[i32], k: i32) -> i64 {
+        let k = k as usize;
+        let (mut res, mut cur, mut dup): (i64, i64, i64) = (0, 0, -1);
+        let mut last: HashMap<i32, i64> = HashMap::new();
+        for (i, &v) in nums.iter().enumerate() {
+            cur += v as i64;
+            if i >= k { cur -= nums[i - k] as i64; }
+            if let Some(&prev) = last.get(&v) { dup = dup.max(prev); }
+            if i as i64 - dup >= k as i64 { res = res.max(cur); }
+            last.insert(v, i as i64);
+        }
+        res
     }
 }
 ```

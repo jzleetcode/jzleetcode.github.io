@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2025-01-19T06:23:00Z
-modDatetime: 2025-01-19T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 542 LintCode 974 01 Matrix and LeetCode 1765 Map of Highest Peak
 tags:
   - a-dp
@@ -149,6 +149,100 @@ class Solution1:
                     right = mat[r][c + 1] if c < n - 1 else INF
                     mat[r][c] = min(mat[r][c], bottom + 1, right + 1)
         return mat
+```
+
+### Java
+
+```java []
+// DP, O(m*n) time, O(1) space (in-place).
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        int m = mat.length, n = mat[0].length;
+        int INF = m + n;
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (mat[r][c] > 0) {
+                    int top = r > 0 ? mat[r - 1][c] : INF;
+                    int left = c > 0 ? mat[r][c - 1] : INF;
+                    mat[r][c] = Math.min(top, left) + 1;
+                }
+            }
+        }
+        for (int r = m - 1; r >= 0; r--) {
+            for (int c = n - 1; c >= 0; c--) {
+                if (mat[r][c] > 0) {
+                    int bottom = r < m - 1 ? mat[r + 1][c] : INF;
+                    int right = c < n - 1 ? mat[r][c + 1] : INF;
+                    mat[r][c] = Math.min(mat[r][c], Math.min(bottom + 1, right + 1));
+                }
+            }
+        }
+        return mat;
+    }
+}
+```
+
+### C++
+
+```cpp []
+// leet 542, DP. O(m*n) time, O(1) space (in-place).
+class Solution542 {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>> &mat) {
+        int m = mat.size(), n = mat[0].size();
+        int INF = m + n;
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (mat[r][c] > 0) {
+                    int top = r > 0 ? mat[r - 1][c] : INF;
+                    int left = c > 0 ? mat[r][c - 1] : INF;
+                    mat[r][c] = min(top, left) + 1;
+                }
+            }
+        }
+        for (int r = m - 1; r >= 0; r--) {
+            for (int c = n - 1; c >= 0; c--) {
+                if (mat[r][c] > 0) {
+                    int bottom = r < m - 1 ? mat[r + 1][c] : INF;
+                    int right = c < n - 1 ? mat[r][c + 1] : INF;
+                    mat[r][c] = min(mat[r][c], min(bottom + 1, right + 1));
+                }
+            }
+        }
+        return mat;
+    }
+};
+```
+
+### Rust
+
+```rust []
+impl Solution {
+    pub fn update_matrix(mut mat: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+        let m = mat.len();
+        let n = mat[0].len();
+        let inf = (m + n) as i32;
+        for r in 0..m {
+            for c in 0..n {
+                if mat[r][c] > 0 {
+                    let top = if r > 0 { mat[r - 1][c] } else { inf };
+                    let left = if c > 0 { mat[r][c - 1] } else { inf };
+                    mat[r][c] = top.min(left) + 1;
+                }
+            }
+        }
+        for r in (0..m).rev() {
+            for c in (0..n).rev() {
+                if mat[r][c] > 0 {
+                    let bottom = if r < m - 1 { mat[r + 1][c] } else { inf };
+                    let right = if c < n - 1 { mat[r][c + 1] } else { inf };
+                    mat[r][c] = mat[r][c].min(bottom + 1).min(right + 1);
+                }
+            }
+        }
+        mat
+    }
+}
 ```
 
 ## Idea2

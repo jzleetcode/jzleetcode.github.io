@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-20T06:23:00Z
-modDatetime: 2024-11-20T07:23:00Z
+modDatetime: 2026-05-01T07:23:00Z
 title: LeetCode 2257 Count Unguarded Cells in the Grid
 tags:
   - a-array
@@ -108,6 +108,85 @@ class Solution {
         for (int[] row : grid)
             for (int cell : row) if (cell == UNGUARDED) res++;
         return res;
+    }
+}
+```
+
+#### Python
+
+```python
+class Solution:
+    """Simulation. O(mn + g(m+n)) time, O(mn) space."""
+
+    def countUnguarded(self, m: int, n: int, guards: list[list[int]], walls: list[list[int]]) -> int:
+        grid = [[0] * n for _ in range(m)]
+        GUARD, WALL, GUARDED = 2, 3, 1
+        for r, c in guards:
+            grid[r][c] = GUARD
+        for r, c in walls:
+            grid[r][c] = WALL
+        dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        for gr, gc in guards:
+            for dr, dc in dirs:
+                nr, nc = gr + dr, gc + dc
+                while 0 <= nr < m and 0 <= nc < n and grid[nr][nc] != GUARD and grid[nr][nc] != WALL:
+                    grid[nr][nc] = GUARDED
+                    nr += dr
+                    nc += dc
+        return sum(1 for r in range(m) for c in range(n) if grid[r][c] == 0)
+```
+
+#### C++
+
+```cpp
+class CountUnguardedCells {
+public:
+    static int countUnguarded(int m, int n, vector<vector<int>>& guards, vector<vector<int>>& walls) {
+        vector<vector<int>> grid(m, vector<int>(n, 0));
+        const int GUARD = 2, WALL = 3, GUARDED = 1;
+        for (auto& g : guards) grid[g[0]][g[1]] = GUARD;
+        for (auto& w : walls) grid[w[0]][w[1]] = WALL;
+        int dirs[][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        for (auto& g : guards) {
+            for (auto& d : dirs) {
+                int nr = g[0] + d[0], nc = g[1] + d[1];
+                while (nr >= 0 && nc >= 0 && nr < m && nc < n &&
+                       grid[nr][nc] != GUARD && grid[nr][nc] != WALL) {
+                    grid[nr][nc] = GUARDED;
+                    nr += d[0]; nc += d[1];
+                }
+            }
+        }
+        int res = 0;
+        for (auto& row : grid) for (int cell : row) if (cell == 0) res++;
+        return res;
+    }
+};
+```
+
+#### Rust
+
+```rust
+impl Solution {
+    pub fn count_unguarded(m: i32, n: i32, guards: &[Vec<i32>], walls: &[Vec<i32>]) -> i32 {
+        let (m, n) = (m as usize, n as usize);
+        let mut grid = vec![vec![0u8; n]; m];
+        const GUARD: u8 = 2; const WALL: u8 = 3; const GUARDED: u8 = 1;
+        for g in guards { grid[g[0] as usize][g[1] as usize] = GUARD; }
+        for w in walls { grid[w[0] as usize][w[1] as usize] = WALL; }
+        let dirs: [(i32, i32); 4] = [(1, 0), (-1, 0), (0, 1), (0, -1)];
+        for g in guards {
+            for &(dr, dc) in &dirs {
+                let (mut nr, mut nc) = (g[0] + dr, g[1] + dc);
+                while nr >= 0 && nc >= 0 && (nr as usize) < m && (nc as usize) < n
+                    && grid[nr as usize][nc as usize] != GUARD
+                    && grid[nr as usize][nc as usize] != WALL {
+                    grid[nr as usize][nc as usize] = GUARDED;
+                    nr += dr; nc += dc;
+                }
+            }
+        }
+        grid.iter().flatten().filter(|&&c| c == 0).count() as i32
     }
 }
 ```

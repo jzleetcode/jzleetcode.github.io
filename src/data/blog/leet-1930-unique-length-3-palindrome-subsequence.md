@@ -65,9 +65,38 @@ We can use hash map or array to remember the first index and the last index for 
 
 Complexity: Time O(n), Space O(26) O(1).
 
+#### C++
+
+```cpp []
+// leet 1930
+class SolutionUniqL3Palindrome {
+public:
+    int countPalindromicSubsequence(const string &s) {
+        int first[26], last[26];
+        fill(first, first + 26, INT_MAX);
+        fill(last, last + 26, 0);
+        for (int i = 0; i < (int) s.size(); ++i) {
+            int id = s[i] - 'a';
+            first[id] = min(first[id], i);
+            last[id] = i;
+        }
+        int res = 0;
+        for (int i = 0; i < 26; ++i) {
+            if (first[i] < last[i]) {
+                unordered_set<char> between;
+                for (int j = first[i] + 1; j < last[i]; ++j)
+                    between.insert(s[j]);
+                res += (int) between.size();
+            }
+        }
+        return res;
+    }
+};
+```
+
 #### Java
 
-```java
+```java []
 class Solution {
     public int countPalindromicSubsequence(String s) {
         int first[] = new int[26], last[] = new int[26], res = 0;
@@ -81,6 +110,54 @@ class Solution {
             if (first[i] < last[i])
                 res += (int) s.substring(first[i] + 1, last[i]).chars().distinct().count();
         return res;
+    }
+}
+```
+
+#### Python
+
+```python []
+class Solution:
+    """266 ms, 19.3 mb"""
+
+    def countPalindromicSubsequence(self, s: str) -> int:
+        first, last, res = [inf] * 26, [0] * 26, 0
+        for i, c in enumerate(s):
+            id = ord(c) - ord('a')
+            first[id] = min(i, first[id])
+            last[id] = i
+        for i in range(26):
+            if first[i] < last[i]:
+                res += len(set(list(s[first[i] + 1:last[i]])))
+        return res
+```
+
+#### Rust
+
+```rust []
+pub struct Solution;
+
+impl Solution {
+    pub fn count_palindromic_subsequence(s: &str) -> i32 {
+        let bytes = s.as_bytes();
+        let mut first = [i32::MAX; 26];
+        let mut last = [0i32; 26];
+        for (i, &b) in bytes.iter().enumerate() {
+            let id = (b - b'a') as usize;
+            first[id] = first[id].min(i as i32);
+            last[id] = i as i32;
+        }
+        let mut res = 0;
+        for i in 0..26 {
+            if first[i] < last[i] {
+                let mut seen = [false; 26];
+                for j in (first[i] + 1)..last[i] {
+                    seen[(bytes[j as usize] - b'a') as usize] = true;
+                }
+                res += seen.iter().filter(|&&x| x).count() as i32;
+            }
+        }
+        res
     }
 }
 ```

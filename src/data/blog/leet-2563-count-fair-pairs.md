@@ -70,7 +70,7 @@ The space complexity of the sorting algorithm depends on the programming languag
 
 #### C++
 
-```cpp
+```cpp []
 class Solution {
 public:
     long long countFairPairs(vector<int> &nums, int lower, int upper) {
@@ -95,7 +95,7 @@ Because of that, this method should be faster than the C++ implementation above
 we can use a variable to remember and reduce the initial search range in the C++ implementation).
 Big O complexity is still the same.
 
-```java
+```java []
 class Solution {
     public long countFairPairs(int[] nums, int lower, int upper) {
         Arrays.sort(nums);
@@ -114,6 +114,54 @@ class Solution {
             } else r--;
         }
         return res;
+    }
+}
+```
+
+#### Python
+
+```python []
+class Solution:
+    """O(n log n) time, O(n) space"""
+
+    def countFairPairs(self, nums, lower, upper):
+        nums.sort()
+        return self.lower_bound(nums, upper + 1) - self.lower_bound(nums, lower)
+
+    def lower_bound(self, nums, value):
+        left, right, result = 0, len(nums) - 1, 0
+        while left < right:
+            if nums[left] + nums[right] < value:
+                result += right - left
+                left += 1
+            else:
+                right -= 1
+        return result
+```
+
+#### Rust
+
+```rust []
+pub struct Solution;
+
+impl Solution {
+    pub fn count_fair_pairs(mut nums: Vec<i32>, lower: i32, upper: i32) -> i64 {
+        nums.sort();
+        Self::cnt_less(&nums, upper as i64 + 1) - Self::cnt_less(&nums, lower as i64)
+    }
+
+    fn cnt_less(nums: &[i32], value: i64) -> i64 {
+        let (mut l, mut r) = (0i64, nums.len() as i64 - 1);
+        let mut res: i64 = 0;
+        while l < r {
+            if nums[l as usize] as i64 + nums[r as usize] as i64 < value {
+                res += r - l;
+                l += 1;
+            } else {
+                r -= 1;
+            }
+        }
+        res
     }
 }
 ```

@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-17T06:12:00Z
-modDatetime: 2024-11-17T07:22:00Z
+modDatetime: 2026-05-01T07:22:00Z
 title: LeetCode 1652 Defuse the Bomb
 tags:
   - a-sliding-window
@@ -89,6 +89,79 @@ class Solution {
             sum += code[(end++ + 1) % n];
         }
         return res;
+    }
+}
+```
+
+#### Python
+
+```python
+class Solution:
+    """Rolling sum. O(n) time, O(1) space (excluding result)."""
+
+    def decrypt(self, code: list[int], k: int) -> list[int]:
+        n = len(code)
+        res = [0] * n
+        if k == 0:
+            return res
+        start, end = 1, k
+        if k < 0:
+            start = n - abs(k)
+            end = n - 1
+        s = sum(code[i] for i in range(start, end + 1))
+        for i in range(n):
+            res[i] = s
+            s -= code[start % n]
+            start += 1
+            end += 1
+            s += code[end % n]
+        return res
+```
+
+#### C++
+
+```cpp
+class DefuseBomb {
+public:
+    static vector<int> decrypt(vector<int>& code, int k) {
+        int n = (int)code.size();
+        vector<int> res(n, 0);
+        if (k == 0) return res;
+        int start = 1, end = k, sum = 0;
+        if (k < 0) { start = n - abs(k); end = n - 1; }
+        for (int i = start; i <= end; i++) sum += code[i];
+        for (int i = 0; i < n; i++) {
+            res[i] = sum;
+            sum -= code[(start++) % n];
+            sum += code[(end++ + 1) % n];
+        }
+        return res;
+    }
+};
+```
+
+#### Rust
+
+```rust
+impl Solution {
+    pub fn decrypt(code: &[i32], k: i32) -> Vec<i32> {
+        let n = code.len();
+        let mut res = vec![0i32; n];
+        if k == 0 { return res; }
+        let (mut start, mut end): (i32, i32) = if k > 0 {
+            (1, k)
+        } else {
+            (n as i32 + k, n as i32 - 1)
+        };
+        let mut sum: i32 = (start..=end).map(|i| code[i as usize % n]).sum();
+        for i in 0..n {
+            res[i] = sum;
+            sum -= code[start as usize % n];
+            start += 1;
+            end += 1;
+            sum += code[end as usize % n];
+        }
+        res
     }
 }
 ```

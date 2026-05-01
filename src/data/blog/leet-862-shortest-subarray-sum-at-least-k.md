@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-15T06:12:00Z
-modDatetime: 2024-11-15T07:22:00Z
+modDatetime: 2025-05-01T07:22:00Z
 title: LeetCode 862 LintCode 1507 Shortest Subarray with Sum at Least K
 tags:
   - a-sliding-window
@@ -75,8 +75,8 @@ Both have the same complexity: Time O(n*log*n), Space O(n).
 
 #### Java
 
-```java
- class Solution {
+```java []
+class Solution {
     public int shortestSubarray(int[] A, int K) {
         int N = A.length, res = N + 1;
         long[] sum = new long[N + 1];
@@ -88,6 +88,77 @@ Both have the same complexity: Time O(n*log*n), Space O(n).
             dq.addLast(i);
         }
         return res <= N ? res : -1;
+    }
+}
+```
+
+#### C++
+
+```cpp []
+class ShortestSubarrayK {
+public:
+    int shortestSubarray(vector<int> &nums, int k) {
+        int n = nums.size(), res = n + 1;
+        vector<long> prefix(n + 1, 0);
+        for (int i = 0; i < n; i++) prefix[i + 1] = prefix[i] + nums[i];
+        deque<int> dq;
+        for (int i = 0; i <= n; i++) {
+            while (!dq.empty() && prefix[i] - prefix[dq.front()] >= k) {
+                res = min(res, i - dq.front());
+                dq.pop_front();
+            }
+            while (!dq.empty() && prefix[i] <= prefix[dq.back()]) dq.pop_back();
+            dq.push_back(i);
+        }
+        return res <= n ? res : -1;
+    }
+};
+```
+
+#### Python
+
+```python []
+class Solution:
+    def shortestSubarray(self, nums: List[int], k: int) -> int:
+        """O(n) time, O(n) space."""
+        n = len(nums)
+        res = n + 1
+        prefix = [0] * (n + 1)
+        for i in range(n):
+            prefix[i + 1] = prefix[i] + nums[i]
+        dq = deque()
+        for i in range(n + 1):
+            while dq and prefix[i] - prefix[dq[0]] >= k:
+                res = min(res, i - dq.popleft())
+            while dq and prefix[i] <= prefix[dq[-1]]:
+                dq.pop()
+            dq.append(i)
+        return res if res <= n else -1
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn shortest_subarray(nums: Vec<i32>, k: i32) -> i32 {
+        let n = nums.len();
+        let mut res = n + 1;
+        let mut prefix = vec![0i64; n + 1];
+        for i in 0..n { prefix[i + 1] = prefix[i] + nums[i] as i64; }
+        let k = k as i64;
+        let mut dq: VecDeque<usize> = VecDeque::new();
+        for i in 0..=n {
+            while let Some(&front) = dq.front() {
+                if prefix[i] - prefix[front] >= k { res = res.min(i - dq.pop_front().unwrap()); }
+                else { break; }
+            }
+            while let Some(&back) = dq.back() {
+                if prefix[i] <= prefix[back] { dq.pop_back(); }
+                else { break; }
+            }
+            dq.push_back(i);
+        }
+        if res <= n { res as i32 } else { -1 }
     }
 }
 ```

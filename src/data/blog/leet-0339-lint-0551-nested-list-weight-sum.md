@@ -163,3 +163,54 @@ static class Solution {
     }
 }
 ```
+
+### C++
+
+```cpp []
+// leet 339, DFS. O(n) time, O(d) space where d = max depth.
+class SolutionNestedListWeightSum {
+public:
+    int depthSum(const vector<NestedInteger> &nestedList) {
+        return dfs(nestedList, 1);
+    }
+
+private:
+    int dfs(const vector<NestedInteger> &list, int depth) {
+        int res = 0;
+        for (const auto &ni : list) {
+            if (ni.isInteger()) res += ni.getInteger() * depth;
+            else res += dfs(ni.getList(), depth + 1);
+        }
+        return res;
+    }
+};
+```
+
+### Rust
+
+```rust []
+pub struct Solution;
+
+pub enum NestedInteger {
+    Int(i32),
+    List(Vec<NestedInteger>),
+}
+
+impl Solution {
+    /// DFS. O(n) time, O(d) space where d = max depth.
+    pub fn depth_sum(nested_list: &[NestedInteger]) -> i32 {
+        Self::dfs(nested_list, 1)
+    }
+
+    fn dfs(list: &[NestedInteger], depth: i32) -> i32 {
+        let mut res = 0;
+        for ni in list {
+            match ni {
+                NestedInteger::Int(val) => res += val * depth,
+                NestedInteger::List(inner) => res += Self::dfs(inner, depth + 1),
+            }
+        }
+        res
+    }
+}
+```

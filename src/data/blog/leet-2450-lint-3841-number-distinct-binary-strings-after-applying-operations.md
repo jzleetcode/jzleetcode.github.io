@@ -102,3 +102,20 @@ public:
     }
 };
 ```
+
+### Rust
+
+```rust []
+impl Solution {
+    pub fn count_distinct_strings(s: String, k: i32) -> i32 {
+        let n = s.len() as u64;
+        let k = k as u64;
+        let m = 1_000_000_007u64;
+        let mut ans = 1u64;
+        for _ in 0..(n - k + 1) {
+            ans = ans * 2 % m;
+        }
+        ans as i32
+    }
+}
+```

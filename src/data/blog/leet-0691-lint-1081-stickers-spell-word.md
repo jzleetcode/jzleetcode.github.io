@@ -133,6 +133,61 @@ We could use dynamic programming to fill all the characters in the target.
 
 Complexity: Time $O(2^n \cdot s \cdot t)$, Space $O(2^n)$.
 
+### C++
+
+```cpp []
+// leet 691, 135 ms, 12.7 mb
+int minStickers(vector<string> &stickers, string target) {
+    int t = target.size(), m = 1 << t;
+    vector<uint> dp(m, -1);
+    dp[0] = 0;
+    for (int i = 0; i < m; i++) {
+        if (dp[i] == -1) continue;
+        for (string &s: stickers) {
+            int cur = i;
+            for (char c: s) {
+                for (int j = 0; j < t; j++) {
+                    if (target[j] == c && !((cur >> j) & 1)) {
+                        cur |= 1 << j;
+                        break;
+                    }
+                }
+            }
+            dp[cur] = min(dp[cur], dp[i] + 1);
+        }
+    }
+    return dp[m - 1];
+}
+```
+
+### Java
+
+```java []
+// leet 691, bitmask dp
+public static int minStickers(String[] stickers, String target) {
+    int t = target.length(), m = 1 << t;
+    int[] dp = new int[m];
+    Arrays.fill(dp, Integer.MAX_VALUE);
+    dp[0] = 0;
+    for (int j = 0; j < m; j++) {
+        if (dp[j] == Integer.MAX_VALUE) continue;
+        for (String s : stickers) {
+            int cur = j;
+            for (char c : s.toCharArray()) {
+                for (int i = 0; i < t; i++) {
+                    if (target.charAt(i) == c && ((cur >> i) & 1) == 0) {
+                        cur |= 1 << i;
+                        break;
+                    }
+                }
+            }
+            dp[cur] = Math.min(dp[cur], dp[j] + 1);
+        }
+    }
+    return dp[m - 1] == Integer.MAX_VALUE ? -1 : dp[m - 1];
+}
+```
+
 ### Python
 
 ```python

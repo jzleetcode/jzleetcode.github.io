@@ -96,6 +96,80 @@ The main advantage of this method versus the method to save all the paths in a h
 
 The trie only saves `/path` one time, whereas the naive hash table method will save the `/path` four times.
 
+### C++
+
+```cpp []
+// leet 1166
+class FileSystem {
+    struct TrieNode {
+        unordered_map<string, TrieNode*> next;
+        int val = -1;
+    };
+    TrieNode root;
+
+    static vector<string> split(const string &path) {
+        vector<string> parts;
+        istringstream ss(path);
+        string token;
+        while (getline(ss, token, '/'))
+            if (!token.empty()) parts.push_back(token);
+        return parts;
+    }
+
+public:
+    bool createPath(const string &path, int value) {
+        auto ps = split(path);
+        TrieNode *node = &root;
+        for (int i = 0; i < (int)ps.size() - 1; i++) {
+            if (node->next.find(ps[i]) == node->next.end()) return false;
+            node = node->next[ps[i]];
+        }
+        if (node->next.find(ps.back()) != node->next.end()) return false;
+        auto *newNode = new TrieNode();
+        newNode->val = value;
+        node->next[ps.back()] = newNode;
+        return true;
+    }
+
+    int get(const string &path) {
+        auto ps = split(path);
+        TrieNode *node = &root;
+        for (auto &p : ps) {
+            if (node->next.find(p) == node->next.end()) return -1;
+            node = node->next[p];
+        }
+        return node->val;
+    }
+};
+```
+
+### Java
+
+```java []
+// leet 1166
+public boolean createPath(String path, int value) {
+    String[] ps = path.split("/");
+    DesignFileSystem node = this;
+    for (int i = 1; i < ps.length - 1; i++) {
+        if (!node.next.containsKey(ps[i])) return false;
+        node = node.next.get(ps[i]);
+    }
+    if (node.next.containsKey(ps[ps.length - 1])) return false;
+    node.next.put(ps[ps.length - 1], new DesignFileSystem(value));
+    return true;
+}
+
+public int get(String path) {
+    String[] ps = path.split("/");
+    DesignFileSystem node = this;
+    for (int i = 1; i < ps.length; i++) {
+        if (!node.next.containsKey(ps[i])) return -1;
+        node = node.next.get(ps[i]);
+    }
+    return node.val;
+}
+```
+
 ### Python
 
 ```python
