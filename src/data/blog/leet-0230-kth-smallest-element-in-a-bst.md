@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-18T06:00:00Z
 modDatetime: 2026-04-18T06:00:00Z
 title: LeetCode 230 Kth Smallest Element in a BST
-featured: true
+featured: false
 tags:
   - a-binary-search-tree
   - a-dfs
