@@ -59,7 +59,7 @@ Complexity: Time $O(n)$, Space $O(1)$.
 
 ### Python
 
-```python
+```python []
 class Solution:
     """0 ms, 17.93 mb"""
 
@@ -80,7 +80,7 @@ class Solution:
 
 ### Java
 
-```java
+```java []
 class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(0), cur = dummy;
@@ -96,6 +96,59 @@ class Solution {
         }
         cur.next = l1 == null ? l2 : l1;
         return dummy.next;
+    }
+}
+```
+
+### C++
+
+```cpp []
+class Solution {
+public:
+    // Time O(n + m), Space O(1).
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode dummy(0);
+        ListNode* cur = &dummy;
+        while (l1 && l2) {
+            if (l1->val < l2->val) { cur->next = l1; l1 = l1->next; }
+            else                   { cur->next = l2; l2 = l2->next; }
+            cur = cur->next;
+        }
+        cur->next = l1 ? l1 : l2;
+        return dummy.next;
+    }
+};
+```
+
+### Rust
+
+```rust []
+// Time O(n + m), Space O(1). Reparents nodes from each list into a merged
+// chain via a dummy head; no extra allocation.
+impl Solution {
+    pub fn merge_two_lists(
+        list1: Option<Box<ListNode>>,
+        list2: Option<Box<ListNode>>,
+    ) -> Option<Box<ListNode>> {
+        let mut dummy = Box::new(ListNode::new(0));
+        let mut tail = &mut dummy;
+        let (mut a, mut b) = (list1, list2);
+        while a.is_some() && b.is_some() {
+            let take_a = a.as_ref().unwrap().val < b.as_ref().unwrap().val;
+            let next_box = if take_a {
+                let mut n = a.take().unwrap();
+                a = n.next.take();
+                n
+            } else {
+                let mut n = b.take().unwrap();
+                b = n.next.take();
+                n
+            };
+            tail.next = Some(next_box);
+            tail = tail.next.as_mut().unwrap();
+        }
+        tail.next = if a.is_some() { a } else { b };
+        dummy.next
     }
 }
 ```

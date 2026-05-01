@@ -72,7 +72,7 @@ Complexity: Time O(1), Space O(n).
 
 #### Java
 
-```java
+```java []
 public class LRUCache {
     Map<Integer, Node> cache; // key -> node
     int cnt;
@@ -156,7 +156,7 @@ public class LRUCache {
 
 #### Python
 
-```python
+```python []
 def delete(node):
     node.pre.nex = node.nex
     node.nex.pre = node.pre
@@ -217,3 +217,109 @@ class Node:
         self.pre = pre
         self.nex = nex
 ```
+
+#### C++
+
+C++'s `std::list` is a doubly linked list and exposes O(1) splicing, which lets
+us pair it with an `unordered_map<int, list<...>::iterator>` for an idiomatic
+O(1) get/put.
+
+```cpp []
+class LRUCache {
+    int cap;
+    list<pair<int, int>> ll;                                  // front = MRU, back = LRU
+    unordered_map<int, list<pair<int, int>>::iterator> map;   // key -> node
+public:
+    explicit LRUCache(int capacity) : cap(capacity) {}
+
+    int get(int key) {
+        auto it = map.find(key);
+        if (it == map.end()) return -1;
+        ll.splice(ll.begin(), ll, it->second);                // promote in O(1)
+        return it->second->second;
+    }
+
+    void put(int key, int value) {
+        auto it = map.find(key);
+        if (it != map.end()) {
+            it->second->second = value;
+            ll.splice(ll.begin(), ll, it->second);
+            return;
+        }
+        if ((int)ll.size() == cap) {                           // evict LRU
+            map.erase(ll.back().first);
+            ll.pop_back();
+        }
+        ll.emplace_front(key, value);
+        map[key] = ll.begin();
+    }
+};
+```
+
+#### Rust
+
+In Rust, sharing a node between the linked list (which sets `prev`/`next`) and
+the hash map (which holds another reference) requires reference counting. We
+use `Rc<RefCell<Node>>` for shared ownership with interior mutability, and
+`Weak<RefCell<Node>>` for the `prev` link to break the strong-reference cycle
+that would otherwise leak the list.
+
+```rust []
+type NodePtr = Rc<RefCell<Node>>;
+type WeakNodePtr = Weak<RefCell<Node>>;
+
+struct Node {
+    key: i32,
+    value: i32,
+    prev: Option<WeakNodePtr>,  // weak to avoid cycles
+    next: Option<NodePtr>,
+}
+
+struct LRUCache {
+    capacity: usize,
+    map: HashMap<i32, NodePtr>,
+    head: Option<NodePtr>,      // MRU end
+    tail: Option<NodePtr>,      // LRU end
+}
+
+impl LRUCache {
+    fn new(capacity: i32) -> Self {
+        Self { capacity: capacity as usize, map: HashMap::new(), head: None, tail: None }
+    }
+
+    fn get(&mut self, key: i32) -> i32 {
+        if let Some(node) = self.map.get(&key) {
+            let node = Rc::clone(node);
+            self.remove(&node);
+            self.push_front(&node);
+            let v = node.borrow().value;
+            v
+        } else {
+            -1
+        }
+    }
+
+    fn put(&mut self, key: i32, value: i32) {
+        if let Some(node) = self.map.get(&key) {
+            let node = Rc::clone(node);
+            node.borrow_mut().value = value;
+            self.remove(&node);
+            self.push_front(&node);
+        } else {
+            let node = Rc::new(RefCell::new(Node { key, value, prev: None, next: None }));
+            self.push_front(&node);
+            self.map.insert(key, node);
+            if self.map.len() > self.capacity {
+                if let Some(evicted) = self.pop_back() {
+                    self.map.remove(&evicted.borrow().key);
+                }
+            }
+        }
+    }
+    // push_front, remove, pop_back follow the standard doubly-linked list pattern;
+    // see crates/leet/src/list/lru_cache.rs for the full source.
+}
+```
+
+See [LeetCode Tree Node and LinkedList in Rust](../leet-rust-option-rc-refcell-tree-linked-list-node-all-explained/)
+for a deeper explanation of `Option<Rc<RefCell<...>>>`.

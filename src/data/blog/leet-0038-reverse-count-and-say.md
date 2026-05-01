@@ -56,18 +56,75 @@ Edge Cases to Consider
 -   An empty string should return an empty result.
 -   Invalid strings (e.g., odd-length input) should be handled appropriately, possibly by throwing an exception or returning an error message.
 
-Complexity: Time O(n/1.3), Space O(n/1.3) or O(1) not considering result space.
+Complexity: Time $O(n)$, Space $O(n)$ or $O(1)$ not considering result space.
+
+#### Java
+
+```java []
+public final class ReverseCountAndSay {
+    public static String reverseCountSay(String s) {
+        if (s == null || s.isEmpty()) return "";
+        if ((s.length() & 1) != 0) throw new IllegalArgumentException("odd length input");
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < s.length(); i += 2) {  // O(n/2) pairs
+            int cnt = s.charAt(i) - '0';
+            char digit = s.charAt(i + 1);
+            for (int k = 0; k < cnt; k++) out.append(digit);
+        }
+        return out.toString();
+    }
+}
+```
 
 #### Python
 
-```python
+```python []
 class Solution:
 
     def reverseCountSay(self, s):
         res, n = [], len(s)
-        for i in range(0, n, 2):
+        for i in range(0, n, 2):       # O(n/2) pairs
             cnt = int(s[i])
             ch = s[i + 1]
             res.extend([ch] * cnt)
         return ''.join(res)
+```
+
+#### C++
+
+```cpp []
+class Solution {
+public:
+    string reverseCountSay(const string& s) {
+        if (s.empty()) return "";
+        if (s.size() % 2 != 0) throw invalid_argument("odd length input");
+        string out;
+        for (size_t i = 0; i < s.size(); i += 2) {
+            int cnt = s[i] - '0';
+            out.append(cnt, s[i + 1]);   // append cnt copies of digit
+        }
+        return out;
+    }
+};
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn reverse_count_say(s: &str) -> Result<String, &'static str> {
+        if s.is_empty() { return Ok(String::new()); }
+        let bytes = s.as_bytes();
+        if bytes.len() % 2 != 0 { return Err("odd length input"); }
+        let mut out = String::with_capacity(bytes.len() * 4);
+        let mut i = 0;
+        while i < bytes.len() {
+            let cnt = (bytes[i] - b'0') as usize;
+            let digit_ch = bytes[i + 1] as char;
+            for _ in 0..cnt { out.push(digit_ch); }
+            i += 2;
+        }
+        Ok(out)
+    }
+}
 ```

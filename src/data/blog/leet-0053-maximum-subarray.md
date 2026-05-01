@@ -76,7 +76,7 @@ Complexity: Time $O(n)$, Space $O(1)$.
 
 ### Java
 
-```java
+```java []
 class Solution1 {
     int maxSubarrayDP(int[] nums) {
         int maxHere = 0, res = Integer.MIN_VALUE; // max sum ending at current index
@@ -89,9 +89,40 @@ class Solution1 {
 }
 ```
 
+### Python
+
+```python []
+class Solution:
+    """75 ms, 31.8 mb"""
+
+    def maxSubArray(self, nums: list[int]) -> int:
+        max_here, res = 0, -inf
+        for n in nums:
+            max_here = max(n, max_here + n)
+            res = max(res, max_here)
+        return res
+```
+
+### C++
+
+```cpp []
+class Solution {
+public:
+    // Time O(n), Space O(1).
+    int maxSubArray(vector<int>& nums) {
+        int maxHere = 0, res = INT_MIN;
+        for (int n : nums) {
+            maxHere = max(n, maxHere + n);
+            res = max(res, maxHere);
+        }
+        return res;
+    }
+};
+```
+
 ### Rust
 
-```rust
+```rust []
 use std::cmp::max;
 
 /// leet 53
@@ -107,20 +138,6 @@ impl Solution {
         res
     }
 }
-```
-
-### Python
-
-```python
-class Solution:
-    """75 ms, 31.8 mb"""
-
-    def maxSubArray(self, nums: list[int]) -> int:
-        max_here, res = 0, -inf
-        for n in nums:
-            max_here = max(n, max_here + n)
-            res = max(res, max_here)
-        return res
 ```
 
 ## Idea2
@@ -143,7 +160,7 @@ Alternatively, if we perform the calculation after the recursive call. We could 
 
 ### Java
 
-```java
+```java []
 class Solution2 {
     int[] pre, suf;
 
@@ -156,11 +173,6 @@ class Solution2 {
         return helper(nums, 0, n - 1);
     }
 
-    /**
-     * 72 ms, 58.05 mb.
-     * Divide and conquer, O(N) time, O(N) space. T(N) = 2T(N/2) + O(1).
-     * Alternative DnC solution available for O(NlgN) time and O(lgN) recursive stack space.
-     */
     int helper(int[] nums, int left, int right) {
         if (left == right) return nums[left];
         int mid = (left + right) / 2;
@@ -170,4 +182,31 @@ class Solution2 {
                 pre[mid] + suf[mid + 1]}).max().orElseThrow();
     }
 }
+```
+
+### C++
+
+```cpp []
+class Solution {
+public:
+    // Divide and conquer with prefix/suffix arrays. Time O(n), Space O(n).
+    int maxSubArray(vector<int>& nums) {
+        int n = (int)nums.size();
+        vector<int> pre(nums.begin(), nums.end());
+        vector<int> suf(nums.begin(), nums.end());
+        for (int i = 1; i < n; ++i)     pre[i] += max(0, pre[i - 1]);
+        for (int i = n - 2; i >= 0; --i) suf[i] += max(0, suf[i + 1]);
+        return helper(nums, pre, suf, 0, n - 1);
+    }
+
+private:
+    int helper(const vector<int>& nums, const vector<int>& pre, const vector<int>& suf,
+               int left, int right) {
+        if (left == right) return nums[left];
+        int mid = (left + right) / 2;
+        return max({helper(nums, pre, suf, left, mid),
+                    helper(nums, pre, suf, mid + 1, right),
+                    pre[mid] + suf[mid + 1]});
+    }
+};
 ```

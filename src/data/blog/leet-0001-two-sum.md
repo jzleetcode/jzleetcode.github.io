@@ -69,9 +69,60 @@ The second train of thought is, without changing the array, can we use additiona
 
 Complexity: Time $O(n)$, Space $O(n)$.
 
+### Java
+
+```java []
+public class TwoSum {
+    // O(n) time, O(n) space.
+    public int[] twoSumMap(int[] nums, int target) {
+        HashMap<Integer, Integer> valInd = new HashMap<>(); // value -> index
+        for (int i = 0; i < nums.length; i++) {
+            int v = target - nums[i];
+            if (valInd.containsKey(v)) return new int[]{valInd.get(v), i};
+            else valInd.put(nums[i], i);
+        }
+        throw new RuntimeException();
+    }
+}
+```
+
+### Python
+
+```python []
+class Solution:
+    """3ms, 19.13mb"""
+
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        val_ind = dict()
+        for i, n in enumerate(nums):
+            v = target - n
+            if v in val_ind:
+                return [val_ind[v], i]
+            else:
+                val_ind[n] = i
+```
+
+### C++
+
+```cpp []
+class Solution {
+public:
+    // O(n) time, O(n) space.
+    vector<int> twoSum(vector<int> &nums, int target) {
+        unordered_map<int, int> valInd;
+        for (int i = 0; i < (int)nums.size(); i++) {
+            int look = target - nums[i];
+            if (valInd.count(look)) return {valInd[look], i};
+            valInd[nums[i]] = i;
+        }
+        throw runtime_error("not found");
+    }
+};
+```
+
 ### Rust
 
-```rust
+```rust []
 use std::collections::HashMap;
 
 
@@ -89,22 +140,6 @@ impl Solution {
 }
 ```
 
-### Python
-
-```python
-class Solution:
-    """3ms, 19.13mb"""
-
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        val_ind = dict()
-        for i, n in enumerate(nums):
-            v = target - n
-            if v in val_ind:
-                return [val_ind[v], i]
-            else:
-                val_ind[n] = i
-```
-
 ## Variation 1
 
 One variation is to print out the value for all such pairs.
@@ -116,9 +151,37 @@ One variation is to print out the value for all such pairs.
 
 Complexity: Time $O(n)$, Space $O(n)$.
 
+### Java
+
+```java []
+public static void twoSumPrint(int[] nums, int target) {
+    Map<Integer, Integer> cnt = new HashMap<>();
+    for (int n : nums) {
+        int look = target - n;
+        Integer c = cnt.get(look);
+        if (c != null) for (int i = 0; i < c; i++) System.out.println(look + " " + n);
+        cnt.merge(n, 1, Integer::sum);
+    }
+}
+```
+
+### C++
+
+```cpp []
+void twoSumPrint(const vector<int>& nums, int target) {
+    unordered_map<int, int> cnt;
+    for (int n : nums) {
+        int look = target - n;
+        auto it = cnt.find(look);
+        if (it != cnt.end()) for (int i = 0; i < it->second; i++) cout << look << " " << n << "\n";
+        cnt[n]++;
+    }
+}
+```
+
 ### Rust
 
-```rust
+```rust []
 pub fn two_sum_print(nums: Vec<i32>, target: i32) {
     let mut cnt = HashMap::new();
     for v in nums.iter() {
@@ -155,7 +218,7 @@ fn test_two_sum_print() {
 
 ### Python
 
-```python
+```python []
 def two_sum_print(nums, target):
     cnt = defaultdict(int)
     for n in nums:
