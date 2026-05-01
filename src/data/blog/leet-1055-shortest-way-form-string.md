@@ -63,7 +63,7 @@ Complexity: Time O(mn), Space O(1).
 
 #### Java
 
-```java
+```java []
 class Solution {
     public int shortestWay(String source, String target) {
         int m = source.length(), n = target.length();
@@ -86,9 +86,36 @@ class Solution {
 }
 ```
 
+#### C++
+
+```cpp []
+// leet 1055, lint 3652
+class SolutionShortestWay {
+public:
+    int shortestWay(const string &source, const string &target) {
+        int m = source.size(), n = target.size();
+        int res = 0, j = 0;
+        while (j < n) {
+            bool found = false;
+            int i = 0;
+            while (i < m && j < n) {
+                if (source[i] == target[j]) {
+                    found = true;
+                    j++;
+                }
+                i++;
+            }
+            if (!found) return -1;
+            res++;
+        }
+        return res;
+    }
+};
+```
+
 #### Python
 
-```python
+```python []
 class Solution:
     """
     @param s: Source string
@@ -110,4 +137,34 @@ class Solution:
             if not found: return -1
             res += 1
         return res
+```
+
+#### Rust
+
+```rust []
+pub struct Solution;
+
+impl Solution {
+    pub fn shortest_way(source: &str, target: &str) -> i32 {
+        let (src, tgt) = (source.as_bytes(), target.as_bytes());
+        let (m, n) = (src.len(), tgt.len());
+        let (mut res, mut j) = (0, 0);
+        while j < n {
+            let mut found = false;
+            let mut i = 0;
+            while i < m && j < n {
+                if src[i] == tgt[j] {
+                    found = true;
+                    j += 1;
+                }
+                i += 1;
+            }
+            if !found {
+                return -1;
+            }
+            res += 1;
+        }
+        res
+    }
+}
 ```

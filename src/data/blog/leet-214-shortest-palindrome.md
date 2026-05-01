@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-26T06:23:00Z
-modDatetime: 2024-11-26T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 214 LintCode 678 Shortest Palindrome (GeeksForGeeks Minimum Insertion to Form Shortest Palindrome)
 tags:
   - a-rolling-hash
@@ -94,4 +94,81 @@ class SolutionHash:
             pow = (pow * base) % mod
             if forward == reverse: end = i
         return s[end + 1:][::-1] + s
+```
+
+#### Java
+
+```java []
+// rolling hash, similar to rabin karp. O(n) time and space.
+class Solution2 {
+    public String shortestPalindrome(String s) {
+        long base = 29;
+        long mod = (long) 1e9 + 7;
+        long forward = 0, reverse = 0, pow = 1;
+        int end = -1;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            forward = (forward * base + (c - 'a' + 1)) % mod;
+            reverse = (reverse + (c - 'a' + 1) * pow) % mod;
+            pow = (pow * base) % mod;
+            if (forward == reverse) end = i;
+        }
+        String suffix = s.substring(end + 1);
+        StringBuilder reversedSuffix = new StringBuilder(suffix).reverse();
+        return reversedSuffix.append(s).toString();
+    }
+}
+```
+
+#### C++
+
+```cpp []
+// leet 214, rolling hash. O(n) time, O(n) space.
+class Solution214 {
+public:
+    string shortestPalindrome(string s) {
+        long long base = 31, pw = 1, mod = 1e9 + 7;
+        long long forward = 0, reverse = 0;
+        int end = -1;
+        for (int i = 0; i < (int) s.size(); i++) {
+            int id = s[i] - 'a' + 1;
+            forward = (forward * base + id) % mod;
+            reverse = (reverse + (long long) id * pw) % mod;
+            pw = (pw * base) % mod;
+            if (forward == reverse) end = i;
+        }
+        string suffix = s.substr(end + 1);
+        string rev_suffix(suffix.rbegin(), suffix.rend());
+        return rev_suffix + s;
+    }
+};
+```
+
+#### Rust
+
+```rust []
+pub struct Solution;
+
+impl Solution {
+    pub fn shortest_palindrome(s: String) -> String {
+        let base: u64 = 31;
+        let modulus: u64 = 1_000_000_007;
+        let mut pw: u64 = 1;
+        let mut forward: u64 = 0;
+        let mut reverse: u64 = 0;
+        let mut end: i32 = -1;
+        for (i, c) in s.bytes().enumerate() {
+            let id = (c - b'a' + 1) as u64;
+            forward = (forward * base + id) % modulus;
+            reverse = (reverse + id * pw) % modulus;
+            pw = (pw * base) % modulus;
+            if forward == reverse {
+                end = i as i32;
+            }
+        }
+        let suffix = &s[(end + 1) as usize..];
+        let rev_suffix: String = suffix.chars().rev().collect();
+        rev_suffix + &s
+    }
+}
 ```

@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-29T06:23:00Z
-modDatetime: 2024-11-29T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 1346 Check If N and Its Double Exist
 tags:
   - a-array
@@ -79,4 +79,45 @@ class Solution:
                 return True
             seen.add(n)
         return False
+```
+
+#### Java
+
+```java
+public static boolean checkIfExist(int[] arr) {
+    Set<Integer> seen = new HashSet<>();
+    for (int n : arr) {
+        if (seen.contains(2 * n) || (n % 2 == 0 && seen.contains(n / 2))) return true;
+        seen.add(n);
+    }
+    return false;
+}
+```
+
+#### C++
+
+```cpp
+bool checkIfExist(vector<int> &arr) {
+    unordered_set<int> seen;
+    for (int n: arr) {
+        if (seen.count(2 * n) || (n % 2 == 0 && seen.count(n / 2))) return true;
+        seen.insert(n);
+    }
+    return false;
+}
+```
+
+#### Rust
+
+```rust
+pub fn check_if_exist(arr: Vec<i32>) -> bool {
+    let mut seen = std::collections::HashSet::new();
+    for n in arr {
+        if seen.contains(&(2 * n)) || (n % 2 == 0 && seen.contains(&(n / 2))) {
+            return true;
+        }
+        seen.insert(n);
+    }
+    false
+}
 ```

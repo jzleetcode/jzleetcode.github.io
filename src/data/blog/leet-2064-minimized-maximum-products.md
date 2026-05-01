@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-12T04:22:00Z
-modDatetime: 2024-11-12T05:12:00Z
+modDatetime: 2026-05-01T05:12:00Z
 title: LeetCode 2064 Minimized Maximum of Products Distributed to Any Store
 tags:
   - a-array
@@ -95,6 +95,58 @@ class Solution2 {
             else right = mid;
         }
         return left;
+    }
+}
+```
+
+#### Python
+
+```python
+class Solution:
+    """Binary search. O(n*log(k)) time, O(1) space."""
+
+    def minimizedMaximum(self, n: int, quantities: list[int]) -> int:
+        left, right = 1, 100000
+        while left < right:
+            mid = (left + right) // 2
+            stores_needed = sum((q + mid - 1) // mid for q in quantities)
+            if stores_needed > n:
+                left = mid + 1
+            else:
+                right = mid
+        return left
+```
+
+#### C++
+
+```cpp
+class MinimizedMaxProducts {
+public:
+    static int minimizedMaximum(int n, vector<int>& quantities) {
+        int left = 1, right = 100000;
+        while (left < right) {
+            int mid = (left + right) / 2, sum = 0;
+            for (int q : quantities) sum += (q + mid - 1) / mid;
+            if (sum > n) left = mid + 1;
+            else right = mid;
+        }
+        return left;
+    }
+};
+```
+
+#### Rust
+
+```rust
+impl Solution {
+    pub fn minimized_maximum(n: i32, quantities: &[i32]) -> i32 {
+        let (mut left, mut right) = (1, 100000);
+        while left < right {
+            let mid = (left + right) / 2;
+            let stores: i32 = quantities.iter().map(|&q| (q + mid - 1) / mid).sum();
+            if stores > n { left = mid + 1; } else { right = mid; }
+        }
+        left
     }
 }
 ```

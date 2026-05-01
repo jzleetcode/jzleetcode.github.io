@@ -99,3 +99,54 @@ class Solution:
                 cnt[d[i + 1:]] += n
         return [f'{cnt[k]} {k}' for k in cnt]
 ```
+
+#### C++
+
+```cpp []
+// leet 811, hash map. O(nm) time, O(nm) space.
+class SolutionSubdomainVisitCount {
+public:
+    vector<string> subdomainVisits(vector<string> &cpdomains) {
+        unordered_map<string, int> cnt;
+        for (const string &cd : cpdomains) {
+            int sp = cd.find(' ');
+            int n = stoi(cd.substr(0, sp));
+            string domain = cd.substr(sp + 1);
+            cnt[domain] += n;
+            for (int i = 0; i < (int)domain.size(); i++) {
+                if (domain[i] == '.') cnt[domain.substr(i + 1)] += n;
+            }
+        }
+        vector<string> res;
+        for (auto &[d, c] : cnt) res.push_back(to_string(c) + " " + d);
+        return res;
+    }
+};
+```
+
+#### Rust
+
+```rust []
+use std::collections::HashMap;
+
+pub struct Solution;
+
+impl Solution {
+    /// Hash map. O(nm) time, O(nm) space.
+    pub fn subdomain_visits(cpdomains: Vec<String>) -> Vec<String> {
+        let mut cnt: HashMap<&str, i32> = HashMap::new();
+        for cd in &cpdomains {
+            let sp = cd.find(' ').unwrap();
+            let n: i32 = cd[..sp].parse().unwrap();
+            let domain = &cd[sp + 1..];
+            *cnt.entry(domain).or_insert(0) += n;
+            for (i, c) in domain.char_indices() {
+                if c == '.' {
+                    *cnt.entry(&domain[i + 1..]).or_insert(0) += n;
+                }
+            }
+        }
+        cnt.into_iter().map(|(d, c)| format!("{} {}", c, d)).collect()
+    }
+}
+```

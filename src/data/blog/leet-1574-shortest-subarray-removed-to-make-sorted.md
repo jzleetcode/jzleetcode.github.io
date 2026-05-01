@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-10T06:12:00Z
-modDatetime: 2024-11-10T07:22:00Z
+modDatetime: 2026-05-01T07:22:00Z
 title: LeetCode 1574 Shortest Subarray to be Removed to Make Array Sorted
 tags:
   - a-array
@@ -82,6 +82,64 @@ class Solution {
             l++;
         }
         return res;
+    }
+}
+```
+
+#### Python
+
+```python
+class Solution:
+    """Two pointers. O(n) time, O(1) space."""
+
+    def findLengthOfShortestSubarray(self, arr: list[int]) -> int:
+        r = len(arr) - 1
+        while r > 0 and arr[r] >= arr[r - 1]:
+            r -= 1
+        res, l = r, 0
+        while l < r and (l == 0 or arr[l - 1] <= arr[l]):
+            while r < len(arr) and arr[l] > arr[r]:
+                r += 1
+            res = min(res, r - l - 1)
+            l += 1
+        return res
+```
+
+#### C++
+
+```cpp
+class ShortestSubarrayRemoved {
+public:
+    static int findLengthOfShortestSubarray(vector<int>& A) {
+        int r = (int)A.size() - 1;
+        while (r > 0 && A[r] >= A[r - 1]) r--;
+        int res = r, l = 0;
+        while (l < r && (l == 0 || A[l - 1] <= A[l])) {
+            while (r < (int)A.size() && A[l] > A[r]) r++;
+            res = min(res, r - l - 1);
+            l++;
+        }
+        return res;
+    }
+};
+```
+
+#### Rust
+
+```rust
+impl Solution {
+    pub fn find_length_of_shortest_subarray(arr: &[i32]) -> i32 {
+        let n = arr.len();
+        let mut r = n - 1;
+        while r > 0 && arr[r] >= arr[r - 1] { r -= 1; }
+        let mut res = r as i32;
+        let mut l = 0usize;
+        while l < r && (l == 0 || arr[l - 1] <= arr[l]) {
+            while r < n && arr[l] > arr[r] { r += 1; }
+            res = res.min((r - l - 1) as i32);
+            l += 1;
+        }
+        res
     }
 }
 ```

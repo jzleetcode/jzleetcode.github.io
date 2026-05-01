@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-30T07:23:00Z
-modDatetime: 2024-11-30T07:23:00Z
+modDatetime: 2025-05-01T07:23:00Z
 title: LeetCode 1041 LintCode 1345 Robot Bounded in Circle (GeeksForGeeks, HackerRank EnCircular)
 tags:
   - a-math
@@ -153,6 +153,66 @@ public:
         return x == 0 && y == 0 || i > 0;
     }
 };
+```
+
+#### Java
+
+```java []
+public final class RobotBoundedInCircle {
+    private RobotBoundedInCircle() {}
+
+    public static boolean isRobotBounded(String instructions) {
+        int x = 0, y = 0, dir = 0; // 0:N, 1:E, 2:S, 3:W
+        int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        for (char c : instructions.toCharArray()) {
+            if (c == 'G') {
+                x += dirs[dir][0];
+                y += dirs[dir][1];
+            } else if (c == 'R') dir = (dir + 1) % 4;
+            else dir = (dir + 3) % 4;
+        }
+        return (x == 0 && y == 0) || dir > 0;
+    }
+}
+```
+
+#### Python
+
+```python []
+class Solution:
+    def isRobotBounded(self, instructions: str) -> bool:
+        """O(n) time, O(1) space."""
+        x, y, d = 0, 0, 0  # 0:N, 1:E, 2:S, 3:W
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        for c in instructions:
+            if c == 'G':
+                x += dirs[d][0]
+                y += dirs[d][1]
+            elif c == 'R':
+                d = (d + 1) % 4
+            else:
+                d = (d + 3) % 4
+        return (x == 0 and y == 0) or d > 0
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn is_robot_bounded(instructions: &str) -> bool {
+        let dirs: [(i32, i32); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
+        let (mut x, mut y, mut d) = (0i32, 0i32, 0usize);
+        for c in instructions.chars() {
+            match c {
+                'G' => { x += dirs[d].0; y += dirs[d].1; }
+                'R' => d = (d + 1) % 4,
+                'L' => d = (d + 3) % 4,
+                _ => {}
+            }
+        }
+        (x == 0 && y == 0) || d > 0
+    }
+}
 ```
 
 ## HackerRank EnCircular Question

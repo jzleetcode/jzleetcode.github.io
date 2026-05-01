@@ -62,6 +62,52 @@ let l1 = max(words1.len()), l2 = max(words2.len());
 
 Complexity: Time $O(n*l1+m*l2)$, Space $O(l1+l2)$.
 
+### C++
+
+```cpp []
+// leet 916
+vector<string> wordSubsets(vector<string> &words1, vector<string> &words2) {
+    int maxCnt[26] = {};
+    for (auto &b : words2) {
+        int cnt[26] = {};
+        for (char c : b) cnt[c - 'a']++;
+        for (int i = 0; i < 26; i++) maxCnt[i] = max(maxCnt[i], cnt[i]);
+    }
+    vector<string> res;
+    for (auto &a : words1) {
+        int cnt[26] = {};
+        for (char c : a) cnt[c - 'a']++;
+        bool ok = true;
+        for (int i = 0; i < 26; i++)
+            if (cnt[i] < maxCnt[i]) { ok = false; break; }
+        if (ok) res.push_back(a);
+    }
+    return res;
+}
+```
+
+### Java
+
+```java []
+// leet 916
+public static List<String> wordSubsets(String[] words1, String[] words2) {
+    int[] maxCnt = new int[26];
+    for (String b : words2) {
+        int[] cnt = count(b);
+        for (int i = 0; i < 26; i++) maxCnt[i] = Math.max(maxCnt[i], cnt[i]);
+    }
+    List<String> res = new ArrayList<>();
+    for (String a : words1) {
+        int[] cnt = count(a);
+        boolean universal = true;
+        for (int i = 0; i < 26; i++)
+            if (cnt[i] < maxCnt[i]) { universal = false; break; }
+        if (universal) res.add(a);
+    }
+    return res;
+}
+```
+
 ### Python
 
 ```python

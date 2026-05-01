@@ -74,6 +74,31 @@ Each iteration we advance the index `j` in abbreviation so the time complexity i
 
 Complexity: Time $O(m)$, Space $O(1)$.
 
+### Java
+
+```java []
+// two pointers, O(m) time, O(1) space. 324ms, 22.25Mb.
+public class ValidWordAbbr {
+    public boolean validWordAbbreviation(String word, String abbr) {
+        int i = 0, j = 0;
+        while (i < word.length() && j < abbr.length()) {
+            if (word.charAt(i) == abbr.charAt(j)) {
+                ++i;
+                ++j;
+            } else if (Character.isDigit(abbr.charAt(j)) && abbr.charAt(j) != '0') {
+                int num = 0;
+                while (j < abbr.length() && Character.isDigit(abbr.charAt(j))) {
+                    num = num * 10 + abbr.charAt(j) - '0';
+                    ++j;
+                }
+                i += num;
+            } else return false;
+        }
+        return i == word.length() && j == abbr.length();
+    }
+}
+```
+
 ### C++
 
 ```cpp

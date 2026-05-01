@@ -92,6 +92,46 @@ class Solution:
         return r - l
 ```
 
+#### C++
+
+```cpp []
+// leet 487, sliding window. O(n) time, O(1) space.
+class SolutionMaxConsecutiveOnesII {
+public:
+    int findMaxConsecutiveOnes(vector<int> &nums) {
+        int l = 0, r = 0, k = 1, n = nums.size();
+        while (r < n) {
+            if (nums[r++] == 0) --k;
+            if (k < 0 && nums[l++] == 0) ++k;
+        }
+        return r - l;
+    }
+};
+```
+
+#### Rust
+
+```rust []
+pub struct Solution;
+
+impl Solution {
+    /// Sliding window, O(n) time, O(1) space.
+    pub fn find_max_consecutive_ones(nums: &[i32]) -> i32 {
+        let (mut l, mut r, mut k) = (0usize, 0usize, 1i32);
+        let n = nums.len();
+        while r < n {
+            if nums[r] == 0 { k -= 1; }
+            r += 1;
+            if k < 0 {
+                if nums[l] == 0 { k += 1; }
+                l += 1;
+            }
+        }
+        (r - l) as i32
+    }
+}
+```
+
 ### Idea for the Follow-Up
 
 In the solution above, we never shrink the sliding window after it grows. This requires access to `nums[l]` to check whether the value is 0 so we can decide whether we can increment k back up by one.

@@ -84,6 +84,22 @@ public:
 };
 ```
 
+### Java
+
+```java []
+// leet 532
+public static int findPairs(int[] nums, int k) {
+    Map<Integer, Integer> cnt = new HashMap<>();
+    for (int n : nums) cnt.merge(n, 1, Integer::sum);
+    int res = 0;
+    for (var e : cnt.entrySet()) {
+        if (k > 0 && cnt.containsKey(e.getKey() + k)) res++;
+        else if (k == 0 && e.getValue() > 1) res++;
+    }
+    return res;
+}
+```
+
 ### Python
 
 ```python
@@ -93,4 +109,24 @@ class Solution:
     def findPairs(self, nums: list[int], k: int) -> int:
         cnt = Counter(nums)
         return sum([k > 0 and c + k in cnt or k == 0 and cnt[c] > 1 for c in cnt])
+```
+
+### Rust
+
+```rust []
+use std::collections::HashMap;
+
+/// leet 532, 0 ms, 2.3 mb
+impl Solution {
+    pub fn find_pairs(nums: Vec<i32>, k: i32) -> i32 {
+        let mut cnt: HashMap<i32, i32> = HashMap::new();
+        for &n in &nums { *cnt.entry(n).or_insert(0) += 1; }
+        let mut res = 0;
+        for (&key, &val) in &cnt {
+            if k > 0 && cnt.contains_key(&(key + k)) { res += 1; }
+            else if k == 0 && val > 1 { res += 1; }
+        }
+        res
+    }
+}
 ```

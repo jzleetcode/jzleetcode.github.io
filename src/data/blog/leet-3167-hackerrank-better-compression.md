@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-11-26T07:23:00Z
-modDatetime: 2024-11-26T07:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 3167 HackerRank Better Compression
 tags:
   - a-string
@@ -100,6 +100,97 @@ def better_compression(s: str) -> str:
         res[ord(c) - ord('a')] += cnt
     return ''.join(chr(i + ord('a')) + str(res[i]) for i in range(26) if res[i])
 
+```
+
+#### Java
+
+```java []
+// O(n) time, O(1) space.
+class Solution {
+    public String betterCompression(String s) {
+        int[] res = new int[26];
+        int n = s.length(), i = 0;
+        while (i < n) {
+            int c = s.charAt(i) - 'a';
+            i++;
+            int cnt = 0;
+            while (i < n && Character.isDigit(s.charAt(i))) {
+                cnt = cnt * 10 + (s.charAt(i) - '0');
+                i++;
+            }
+            res[c] += cnt;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int j = 0; j < 26; j++) {
+            if (res[j] > 0) {
+                sb.append((char) ('a' + j)).append(res[j]);
+            }
+        }
+        return sb.toString();
+    }
+}
+```
+
+#### C++
+
+```cpp []
+// leet 3167 HackerRank Better Compression. O(n) time, O(1) space.
+class Solution3167 {
+public:
+    string betterCompression(const string &s) {
+        int res[26] = {};
+        int n = s.size(), i = 0;
+        while (i < n) {
+            int c = s[i] - 'a';
+            i++;
+            int cnt = 0;
+            while (i < n && isdigit(s[i])) {
+                cnt = cnt * 10 + (s[i] - '0');
+                i++;
+            }
+            res[c] += cnt;
+        }
+        string result;
+        for (int j = 0; j < 26; j++) {
+            if (res[j] > 0) {
+                result += (char) ('a' + j);
+                result += to_string(res[j]);
+            }
+        }
+        return result;
+    }
+};
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn better_compression(s: &str) -> String {
+        let mut res = [0u32; 26];
+        let bytes = s.as_bytes();
+        let n = bytes.len();
+        let mut i = 0;
+        while i < n {
+            let c = (bytes[i] - b'a') as usize;
+            i += 1;
+            let mut cnt: u32 = 0;
+            while i < n && bytes[i].is_ascii_digit() {
+                cnt = cnt * 10 + (bytes[i] - b'0') as u32;
+                i += 1;
+            }
+            res[c] += cnt;
+        }
+        let mut result = String::new();
+        for j in 0..26 {
+            if res[j] > 0 {
+                result.push((b'a' + j as u8) as char);
+                result.push_str(&res[j].to_string());
+            }
+        }
+        result
+    }
+}
 ```
 
 Unit Test

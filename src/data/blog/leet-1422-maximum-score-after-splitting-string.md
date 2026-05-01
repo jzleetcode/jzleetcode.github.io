@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-12-30T06:23:00Z
-modDatetime: 2024-12-30T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 1422 Maximum Score After Splitting a String
 tags:
   - a-string
@@ -78,4 +78,50 @@ class Solution:
             r1 -= s[i] == '1'  # remaining ones count
             res = max(res, zero + r1)
         return res
+```
+
+### Java
+
+```java
+public static int maxScore(String s) {
+    int res = 0, zero = 0, ones = 0;
+    for (char c : s.toCharArray()) if (c == '1') ones++;
+    for (int i = 0; i < s.length() - 1; i++) {
+        if (s.charAt(i) == '0') zero++;
+        else ones--;
+        res = Math.max(res, zero + ones);
+    }
+    return res;
+}
+```
+
+### C++
+
+```cpp
+int maxScore(const string &s) {
+    int res = 0, zero = 0, ones = 0;
+    for (char c: s) if (c == '1') ones++;
+    for (int i = 0; i < (int) s.size() - 1; i++) {
+        if (s[i] == '0') zero++;
+        else ones--;
+        res = max(res, zero + ones);
+    }
+    return res;
+}
+```
+
+### Rust
+
+```rust
+pub fn max_score(s: String) -> i32 {
+    let bytes = s.as_bytes();
+    let mut ones = bytes.iter().filter(|&&b| b == b'1').count() as i32;
+    let mut zero = 0i32;
+    let mut res = 0i32;
+    for i in 0..bytes.len() - 1 {
+        if bytes[i] == b'0' { zero += 1; } else { ones -= 1; }
+        res = res.max(zero + ones);
+    }
+    res
+}
 ```

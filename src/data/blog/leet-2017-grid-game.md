@@ -93,6 +93,41 @@ For example, assume robot 1 will turn down at column 1. Robot 2 will then choose
 
 Complexity: Time $O(n)$, Space $O(1)$.
 
+### C++
+
+```cpp []
+// leet 2017
+long long gridGame(vector<vector<int>> &grid) {
+    int n = grid[0].size();
+    long long first = accumulate(grid[0].begin(), grid[0].end(), 0LL);
+    long long second = 0, res = LLONG_MAX;
+    for (int i = 0; i < n; i++) {
+        first -= grid[0][i];
+        res = min(res, max(first, second));
+        second += grid[1][i];
+    }
+    return res;
+}
+```
+
+### Java
+
+```java []
+// leet 2017
+public static long gridGame(int[][] grid) {
+    int n = grid[0].length;
+    long first = 0;
+    for (int v : grid[0]) first += v;
+    long second = 0, res = Long.MAX_VALUE;
+    for (int i = 0; i < n; i++) {
+        first -= grid[0][i];
+        res = Math.min(res, Math.max(first, second));
+        second += grid[1][i];
+    }
+    return res;
+}
+```
+
 ### Python
 
 ```python

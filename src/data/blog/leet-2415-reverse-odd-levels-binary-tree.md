@@ -1,7 +1,7 @@
 ---
 author: JZ
 pubDatetime: 2024-12-18T06:23:00Z
-modDatetime: 2024-12-18T06:23:00Z
+modDatetime: 2025-05-01T06:23:00Z
 title: LeetCode 2415 Reverse Odd Levels of Binary Tree
 tags:
   - a-binary-tree
@@ -99,4 +99,79 @@ class Solution:
 
         dfs(root.left, root.right, 1)
         return root
+```
+
+### Java
+
+```java []
+// DFS. O(n) time, O(log n) space.
+class Solution {
+    public TreeNode reverseOddLevels(TreeNode root) {
+        dfs(root.left, root.right, 1);
+        return root;
+    }
+
+    private void dfs(TreeNode l, TreeNode r, int d) {
+        if (l == null || r == null) return;
+        if (d % 2 == 1) {
+            int temp = l.val;
+            l.val = r.val;
+            r.val = temp;
+        }
+        dfs(l.left, r.right, d + 1);
+        dfs(l.right, r.left, d + 1);
+    }
+}
+```
+
+### C++
+
+```cpp []
+// leet 2415, DFS. O(n) time, O(log n) space.
+class Solution2415 {
+public:
+    TreeNode *reverseOddLevels(TreeNode *root) {
+        if (root) dfs(root->left, root->right, 1);
+        return root;
+    }
+
+private:
+    void dfs(TreeNode *l, TreeNode *r, int d) {
+        if (!l || !r) return;
+        if (d % 2 == 1) swap(l->val, r->val);
+        dfs(l->left, r->right, d + 1);
+        dfs(l->right, r->left, d + 1);
+    }
+};
+```
+
+### Rust
+
+```rust []
+impl Solution {
+    pub fn reverse_odd_levels(root: TreeNodeRef) -> TreeNodeRef {
+        if let Some(ref node) = root {
+            let node = node.borrow();
+            Self::dfs(&node.left, &node.right, 1);
+        }
+        root
+    }
+
+    fn dfs(l: &TreeNodeRef, r: &TreeNodeRef, d: i32) {
+        match (l, r) {
+            (Some(left), Some(right)) => {
+                if d % 2 == 1 {
+                    let mut lb = left.borrow_mut();
+                    let mut rb = right.borrow_mut();
+                    std::mem::swap(&mut lb.val, &mut rb.val);
+                }
+                let lb = left.borrow();
+                let rb = right.borrow();
+                Self::dfs(&lb.left, &rb.right, d + 1);
+                Self::dfs(&lb.right, &rb.left, d + 1);
+            }
+            _ => {}
+        }
+    }
+}
 ```
