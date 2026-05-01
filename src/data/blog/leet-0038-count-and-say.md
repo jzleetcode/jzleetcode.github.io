@@ -92,13 +92,36 @@ The solution should be straightforward.
 
 If the function might be called multiple times with random `n` values within the constraint bounds, we can use a hash map to cache the first `30` strings in the sequence.
 
-Complexity: Time O(1.3^n), Space O(1.3^n) or O(1) not considering result space.
+Complexity: Time $O(1.3^n)$, Space $O(1.3^n)$ or $O(1)$ not considering result space.
 
 #### Java
 
+```java []
+public final class CountAndSay {
+    public static String countAndSay(int n) {
+        StringBuilder res = new StringBuilder("1");
+        for (int round = 1; round < n; round++) {  // build (round+1)-th term
+            StringBuilder next = new StringBuilder();
+            int i = 0, m = res.length();
+            while (i < m) {                        // O(|res|)
+                int count = 1;
+                while (i + 1 < m && res.charAt(i) == res.charAt(i + 1)) {
+                    count++;
+                    i++;
+                }
+                next.append(count).append(res.charAt(i));
+                i++;
+            }
+            res = next;
+        }
+        return res.toString();
+    }
+}
+```
+
 #### Python
 
-```python
+```python []
 class Solution:
     """7 ms, 16.67 mb"""
 
@@ -118,4 +141,56 @@ class Solution:
             res = "".join(tmp)  # 1121->211211
             n -= 1
         return res
+```
+
+#### C++
+
+```cpp []
+class Solution {
+public:
+    string countAndSay(int n) {
+        string res = "1";
+        for (int round = 1; round < n; ++round) {
+            string nxt;
+            int i = 0, m = (int)res.size();
+            while (i < m) {                        // O(|res|)
+                int count = 1;
+                while (i + 1 < m && res[i] == res[i + 1]) { ++count; ++i; }
+                nxt += to_string(count);
+                nxt += res[i];
+                ++i;
+            }
+            res = std::move(nxt);
+        }
+        return res;
+    }
+};
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn count_and_say(n: i32) -> String {
+        let mut res = String::from("1");
+        for _ in 1..n {
+            let bytes = res.as_bytes();
+            let mut next = String::new();
+            let m = bytes.len();
+            let mut i = 0;
+            while i < m {                          // O(|res|)
+                let mut count = 1;
+                while i + 1 < m && bytes[i] == bytes[i + 1] {
+                    count += 1;
+                    i += 1;
+                }
+                next.push_str(&count.to_string());
+                next.push(bytes[i] as char);
+                i += 1;
+            }
+            res = next;
+        }
+        res
+    }
+}
 ```

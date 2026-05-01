@@ -91,7 +91,7 @@ Complexity: Time $O(n)$, Space $O(1)$ not considering result space.
 
 ####  Python
 
-```python
+```python []
 def decode_ascii_string(s: str) -> str:
     s, i, res = s[::-1], 0, []
 
@@ -99,10 +99,10 @@ def decode_ascii_string(s: str) -> str:
         return chr(int(s))
 
     while i < len(s):
-        if '3' <= s[i] <= '9':
+        if '3' <= s[i] <= '9':           # 2-digit code in 32..99
             res.append(convert(s[i:i + 2]))
             i += 2
-        else:
+        else:                             # leading 1 or 2 -> 3-digit code in 100..126
             res.append(convert(s[i:i + 3]))
             i += 3
     return ''.join(res)
@@ -110,6 +110,61 @@ def decode_ascii_string(s: str) -> str:
 
 def encode_ascii_string(s: str) -> str:
     return ''.join(map(str, map(ord, s)))[::-1]
+```
+
+#### C++
+
+```cpp []
+class Solution {
+public:
+    string encode(const string& s) {
+        string out;
+        for (char c : s) out += to_string((int)(unsigned char)c);
+        reverse(out.begin(), out.end());
+        return out;
+    }
+    string decode(const string& encoded) {
+        string s = encoded;
+        reverse(s.begin(), s.end());
+        string res;
+        size_t i = 0, n = s.size();
+        while (i < n) {
+            if (s[i] >= '3' && s[i] <= '9') { // 2-digit code
+                res.push_back((char)stoi(s.substr(i, 2)));
+                i += 2;
+            } else {                           // 3-digit code starting with '1' or '2'
+                res.push_back((char)stoi(s.substr(i, 3)));
+                i += 3;
+            }
+        }
+        return res;
+    }
+};
+```
+
+#### Rust
+
+```rust []
+impl Solution {
+    pub fn encode(s: &str) -> String {
+        let mut buf = String::new();
+        for c in s.chars() { buf.push_str(&(c as u32).to_string()); }
+        buf.chars().rev().collect()
+    }
+
+    pub fn decode(encoded: &str) -> String {
+        let reversed: Vec<char> = encoded.chars().rev().collect();
+        let mut res = String::new();
+        let mut i = 0;
+        while i < reversed.len() {
+            let take = if matches!(reversed[i], '3'..='9') { 2 } else { 3 };
+            let chunk: String = reversed[i..i + take].iter().collect();
+            res.push(char::from_u32(chunk.parse::<u32>().unwrap()).unwrap());
+            i += take;
+        }
+        res
+    }
+}
 ```
 
 Unit Test
