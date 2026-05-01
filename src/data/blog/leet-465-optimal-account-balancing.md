@@ -19,6 +19,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 465](https://leetcode.com/problems/optimal-account-balancing/description/), [LintCode 707](https://www.lintcode.com/problem/707/)
+
 You are given an array of transactions `transactions` where `transactions[i] = [from_i, to_i, amount_i]` indicates that the person with `ID = from_i` gave `amount_i $` to the person with `ID = to_i`.
 
 Return _the minimum number of transactions required to settle the debt_.

@@ -13,6 +13,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 2466](https://leetcode.com/problems/count-ways-to-build-good-strings/description/), [LintCode 3854](https://www.lintcode.com/problem/3854/)
+
 Given the integers `zero`, `one`, `low`, and `high`, we can construct a string by starting with an empty string, and then at each step perform either of the following:
 
 -   Append the character `'0'` `zero` times.

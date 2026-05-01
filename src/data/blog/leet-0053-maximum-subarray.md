@@ -17,6 +17,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 53](https://leetcode.com/problems/maximum-subarray/description/), [LintCode 41](https://www.lintcode.com/problem/41/)
+
 Given an integer array `nums`, find the subarray with the largest sum, and return _its sum_.
 
 ```

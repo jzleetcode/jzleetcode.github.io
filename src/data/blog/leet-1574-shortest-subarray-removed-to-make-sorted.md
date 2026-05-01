@@ -15,6 +15,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 1574](https://leetcode.com/problems/shortest-subarray-to-be-removed-to-make-array-sorted/description/)
+
 Given an integer array `arr`, remove a subarray (can be empty) from `arr` such that the remaining elements in `arr` are **non-decreasing**.
 
 Return _the length of the shortest subarray to remove_.

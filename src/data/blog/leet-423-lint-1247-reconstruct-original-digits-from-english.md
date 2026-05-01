@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 423](https://leetcode.com/problems/reconstruct-original-digits-from-english/description/), [LintCode 1247](https://www.lintcode.com/problem/1247/)
+
 Given a string `s` containing an out-of-order English representation of digits `0-9`, return _the digits in **ascending** order_.
 
 ```

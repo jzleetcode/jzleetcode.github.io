@@ -18,6 +18,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 214](https://leetcode.com/problems/shortest-palindrome/description/), [LintCode 678](https://www.lintcode.com/problem/678/)
+
 You are given a string `s`. You can convert `s` to a palindrome by adding characters in front of it.
 
 Return _the shortest palindrome you can find by performing this transformation_.

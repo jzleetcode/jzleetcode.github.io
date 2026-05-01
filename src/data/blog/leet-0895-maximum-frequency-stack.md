@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 895](https://leetcode.com/problems/maximum-frequency-stack/description/)
+
 Design a stack-like data structure to push elements to the stack and pop the most frequent element from the stack.
 
 Implement the `FreqStack` class:

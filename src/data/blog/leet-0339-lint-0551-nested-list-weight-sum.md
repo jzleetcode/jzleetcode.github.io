@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 339](https://leetcode.com/problems/nested-list-weight-sum/description/), [LintCode 551](https://www.lintcode.com/problem/551/)
+
 You are given a nested list of integers `nestedList`. Each element is either an integer or a list whose elements may also be integers or other lists.
 
 The **depth** of an integer is the number of lists that it is inside of. For example, the nested list `[1,[2,2],[[3],2],1]` has each integer's value set to its **depth**.

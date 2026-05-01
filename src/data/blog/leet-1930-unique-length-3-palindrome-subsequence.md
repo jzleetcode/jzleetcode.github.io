@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 1930](https://leetcode.com/problems/unique-length-3-palindromic-subsequences/description/)
+
 Given a string `s`, return _the number of **unique palindromes of length three** that are a **subsequence** of_ `s`.
 
 Note that even if there are multiple ways to obtain the same subsequence, it is still only counted **once**.

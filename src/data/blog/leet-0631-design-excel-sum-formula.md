@@ -19,6 +19,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 631](https://leetcode.com/problems/design-excel-sum-formula/description/)
+
 Design an Excel-like spreadsheet that supports:
 
 - `set(row, column, val)` - assign a raw value to one cell.

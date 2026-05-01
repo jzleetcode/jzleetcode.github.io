@@ -15,6 +15,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 2064](https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/description/)
+
 You are given an integer `n` indicating there are `n` specialty retail stores. There are `m` product types of varying amounts, which are given as a **0-indexed** integer array `quantities`, where `quantities[i]` represents the number of products of the `ith` product type.
 
 You need to distribute **all products** to the retail stores following these rules:

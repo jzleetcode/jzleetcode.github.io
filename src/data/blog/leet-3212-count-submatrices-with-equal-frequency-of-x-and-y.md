@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 3212](https://leetcode.com/problems/count-submatrices-with-equal-frequency-of-x-and-y/description/)
+
 Given a 2D character matrix `grid` containing `'X'`, `'Y'`, and `'.'`, return the number of submatrices that contain:
 
 - `grid[0][0]` (top-left corner fixed at `(0,0)`)

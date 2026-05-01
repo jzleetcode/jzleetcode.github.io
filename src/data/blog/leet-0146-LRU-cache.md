@@ -17,6 +17,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 146](https://leetcode.com/problems/lru-cache/description/), [LintCode 134](https://www.lintcode.com/problem/134/)
+
 Design a data structure that follows the constraints of the **[Least Recently Used (LRU) cache](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU)**.
 
 Implement the `LRUCache` class:

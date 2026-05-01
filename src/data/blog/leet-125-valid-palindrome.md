@@ -19,6 +19,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 125](https://leetcode.com/problems/valid-palindrome/description/), [LintCode 415](https://www.lintcode.com/problem/415/)
+
 A phrase is a **palindrome** if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
 
 Given a string `s`, return `true` _if it is a **palindrome**, or_ `false` _otherwise_.

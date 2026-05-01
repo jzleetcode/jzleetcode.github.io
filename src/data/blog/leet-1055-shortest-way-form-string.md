@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 1055](https://leetcode.com/problems/shortest-way-to-form-string/description/), [LintCode 3652](https://www.lintcode.com/problem/3652/)
+
 A **subsequence** of a string is a new string formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., `"ace"` is a subsequence of `"abcde"` while `"aec"` is not).
 
 Given two strings `source` and `target`, return _the minimum number of **subsequences** of_ `source` _such that their concatenation equals_ `target`. If the task is impossible, return `-1`.

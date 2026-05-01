@@ -20,6 +20,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 862](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/description/), [LintCode 1507](https://www.lintcode.com/problem/1507/)
+
 Given an integer array `nums` and an integer `k`, return _the length of the shortest non-empty **subarray** of_ `nums` _with a sum of at least_ `k`. If there is no such **subarray**, return `-1`.
 
 A **subarray** is a **contiguous** part of an array.

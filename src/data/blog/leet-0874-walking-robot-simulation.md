@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 874](https://leetcode.com/problems/walking-robot-simulation/description/)
+
 A robot on an infinite XY-plane starts at point `(0, 0)` facing north. The robot can receive a sequence of these three possible types of `commands`:
 
 - `-2`: Turn left 90 degrees.

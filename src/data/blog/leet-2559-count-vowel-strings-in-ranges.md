@@ -15,6 +15,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 2559](https://leetcode.com/problems/count-vowel-strings-in-ranges/description/)
+
 You are given a **0-indexed** array of strings `words` and a 2D array of integers `queries`.
 
 Each query `queries[i] = [li, ri]` asks us to find the number of strings present in the range `li` to `ri` (both **inclusive**) of `words` that start and end with a vowel.

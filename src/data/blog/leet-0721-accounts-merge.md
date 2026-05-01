@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 721](https://leetcode.com/problems/accounts-merge/description/)
+
 Given a list of `accounts` where each element `accounts[i]` is a list of strings, the first element `accounts[i][0]` is a name, and the rest are **emails** belonging to that account.
 
 Now, we want to merge these accounts. Two accounts definitely belong to the same person if there is some common email to both accounts. Even if two accounts have the same name, they may belong to different people (people can have the same name). A person can have any number of accounts initially, but all of their accounts definitely have the same name.
