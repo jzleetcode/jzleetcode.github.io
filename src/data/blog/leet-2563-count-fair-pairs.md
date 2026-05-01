@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 2563](https://leetcode.com/problems/count-the-number-of-fair-pairs/description/)
+
 Given a **0-indexed** integer array `nums` of size `n` and two integers `lower` and `upper`, return _the number of fair pairs_.
 
 A pair `(i, j)` is **fair** if:

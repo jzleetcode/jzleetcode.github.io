@@ -17,6 +17,8 @@ description:
 
 ## Context
 
+Question Links: [LeetCode 1041](https://leetcode.com/problems/robot-bounded-in-circle/description/), [LintCode 1345](https://www.lintcode.com/problem/1345/), [GeeksForGeeks](https://www.geeksforgeeks.org/robot-bounded-in-circle/), [HackerRank](https://www.hackerrank.com/challenges/encircular)
+
 This is a popular question seen on LeetCode, LintCode, GeeksForGeeks, and HackerRank.
 
 For a related but much harder question, see [project euler 208 and hackerrank robot walks](../hackerrank-robot-walks-project-euler-208/).

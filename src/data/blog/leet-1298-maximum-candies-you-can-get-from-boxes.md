@@ -17,6 +17,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 1298](https://leetcode.com/problems/maximum-candies-you-can-get-from-boxes/description/)
+
 Given `n` boxes, each box `i` has:
 
 - `status[i]`: `1` if the box is open, `0` if closed.

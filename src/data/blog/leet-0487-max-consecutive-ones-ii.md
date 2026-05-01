@@ -18,6 +18,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 487](https://leetcode.com/problems/max-consecutive-ones-ii/description/), [LintCode 883](https://www.lintcode.com/problem/883/)
+
 Given a binary array `nums`, return _the maximum number of consecutive_ `1`_'s in the array if you can flip at most one_ `0`.
 
 ```

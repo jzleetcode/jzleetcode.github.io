@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 38](https://leetcode.com/problems/count-and-say/description/), [LintCode 420](https://www.lintcode.com/problem/420/)
+
 See [solution for LeetCode 38](../leet-0038-count-and-say/) for more background. The question could come up as a follow-up to that question.
 
 You should clarify the exact meaning of "reverse".

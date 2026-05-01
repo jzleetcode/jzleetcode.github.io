@@ -17,6 +17,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 638](https://leetcode.com/problems/shopping-offers/description/)
+
 In LeetCode Store, there are `n` items to sell. Each item has a price. However, there are some special group-discount offers, each represented as a list of integers where the last number is the bundle price, and the preceding numbers indicate how many of each item the offer includes.
 
 Given the `price` for each item, a list of `special` offers, and the `needs` for each item, return the lowest price you have to pay for **exactly** the items you need. You cannot buy more items than you want, even if that would lower the overall price. You can use any of the special offers as many times as you want.

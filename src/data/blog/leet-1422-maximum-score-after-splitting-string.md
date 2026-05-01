@@ -13,6 +13,9 @@ description:
 ## Table of contents
 
 ## Description
+
+Question Links: [LeetCode 1422](https://leetcode.com/problems/maximum-score-after-splitting-a-string/description/)
+
 Given a string `s` of zeros and ones, _return the maximum score after splitting the string into two **non-empty** substrings_ (i.e. **left** substring and **right** substring).
 
 The score after splitting a string is the number of **zeros** in the **left** substring plus the number of **ones** in the **right** substring.

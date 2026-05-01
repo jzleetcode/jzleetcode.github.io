@@ -14,6 +14,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 540](https://leetcode.com/problems/single-element-in-a-sorted-array/description/), [LintCode 1183](https://www.lintcode.com/problem/1183/)
+
 ## Idea
 
 The short solution below takes a couple of discoveries.

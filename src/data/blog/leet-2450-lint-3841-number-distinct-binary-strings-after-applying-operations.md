@@ -15,6 +15,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 2450](https://leetcode.com/problems/number-of-distinct-binary-strings-after-applying-operations/description/), [LintCode 3841](https://www.lintcode.com/problem/3841/)
+
 You are given a **binary** string `s` and a positive integer `k`.
 
 You can apply the following operation on the string **any** number of times:

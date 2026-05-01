@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 1166](https://leetcode.com/problems/design-file-system/description/), [LintCode 3677](https://www.lintcode.com/problem/3677/)
+
 You are asked to design a file system that allows you to create new paths and associate them with different values.
 
 The format of a path is one or more concatenated strings of the form: `/` followed by one or more lowercase English letters. For example, "`/leetcode"` and "`/leetcode/problems"` are valid paths while an empty string `""` and `"/"` are not.

@@ -19,6 +19,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 691](https://leetcode.com/problems/stickers-to-spell-word/description/), [LintCode 1081](https://www.lintcode.com/problem/1081/)
+
 We are given `n` different types of `stickers`. Each sticker has a lowercase English word on it.
 
 You would like to spell out the given string `target` by cutting individual letters from your collection of stickers and rearranging them. You can use each sticker more than once if you want, and you have infinite quantities of each sticker.

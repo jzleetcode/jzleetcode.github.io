@@ -15,6 +15,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 3653](https://leetcode.com/problems/xor-after-range-multiplication-queries-i/description/)
+
 You have an integer array `nums` of length `n` and a 2D integer array `queries` of size `q`, where `queries[i] = [lᵢ, rᵢ, kᵢ, vᵢ]`.
 
 For each query, apply these operations in order:

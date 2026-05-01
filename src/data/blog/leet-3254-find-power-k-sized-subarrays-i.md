@@ -14,6 +14,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 3254](https://leetcode.com/problems/find-the-power-of-k-size-subarrays-i/description/)
+
 You are given an array of integers `nums` of length `n` and a _positive_ integer `k`.
 
 The **power** of an array is defined as:

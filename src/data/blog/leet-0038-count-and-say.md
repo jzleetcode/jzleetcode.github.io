@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 38](https://leetcode.com/problems/count-and-say/description/), [LintCode 420](https://www.lintcode.com/problem/420/)
+
 The **count-and-say** sequence is a sequence of digit strings defined by the recursive formula:
 
 -   `countAndSay(1) = "1"`

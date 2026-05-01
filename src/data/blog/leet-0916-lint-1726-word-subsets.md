@@ -16,6 +16,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 916](https://leetcode.com/problems/word-subsets/description/), [LintCode 1726](https://www.lintcode.com/problem/1726/)
+
 You are given two string arrays `words1` and `words2`.
 
 A string `b` is a **subset** of string `a` if every letter in `b` occurs in `a` including multiplicity.

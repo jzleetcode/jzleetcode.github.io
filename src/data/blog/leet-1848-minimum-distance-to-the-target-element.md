@@ -14,6 +14,8 @@ description:
 
 ## Description
 
+Question Links: [LeetCode 1848](https://leetcode.com/problems/minimum-distance-to-the-target-element/description/)
+
 Given a 0-indexed integer array `nums` and two integers `target` and `start`, find an index `i` such that `nums[i] == target` and `abs(i - start)` is **minimized**. Return `abs(i - start)`.
 
 It is **guaranteed** that `target` exists in `nums`.
