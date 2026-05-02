@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-20T06:00:00Z
 modDatetime: 2026-04-20T06:00:00Z
 title: LeetCode 300 Longest Increasing Subsequence
-featured: true
+featured: false
 tags:
   - a-array
   - a-binary-search
