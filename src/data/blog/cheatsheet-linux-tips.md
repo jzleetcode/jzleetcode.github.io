@@ -363,6 +363,133 @@ echo "$_"  # $_ → c (last argument)
 # vim !$    # !$ → /tmp/foo (last word); expands before run, like other ! history
 ```
 
+## T
+
+### tmux
+
+`tmux` is a terminal multiplexer: one terminal hosts multiple sessions, each with multiple windows (tabs) and panes (splits). Sessions persist after you disconnect, so you can `detach` and `attach` later (great over SSH).
+
+Key concept: **prefix key** is `Ctrl+b` by default. Press prefix, release, then the next key. Below `C-b` means `Ctrl+b`.
+
+#### Sessions vs windows vs panes
+
+- **Session**: a collection of windows owned by the tmux server. Survives logout/SSH disconnect. Attach/detach to move it between terminals.
+- **Window**: like a browser tab inside a session. Only one window is visible at a time; each has its own name/number and can hold one or more panes.
+- **Pane**: a split (rectangular region) inside a window. Multiple panes are visible **at the same time** in one window, each running its own shell/command.
+
+When to use which:
+
+- Two **panes** when you want to **see both at once** — e.g. editor on the left, `npm run dev` logs on the right; or `kubectl logs` next to `kubectl get pods -w`. Panes also share the window's working context and switch with one keypress (`C-b o` or `C-b h/j/k/l`).
+- Two **windows** when the tasks are **unrelated** or each needs the **full screen** — e.g. one window for a long build, another for code review, another for a database shell. You only see one at a time but they don't fight for screen space, and you switch with `C-b n/p` or `C-b <number>`.
+
+Rule of thumb: if you'd want them side-by-side on a second monitor, use panes; if you'd put them on separate desktops/spaces, use windows.
+
+```shell
+# --- session management (from outside tmux) ---
+tmux ls                       # list sessions (alias of `tmux list-sessions`)
+tmux new -s work              # create a new session named "work"
+tmux a                        # attach to the most recent session (alias of `attach`)
+tmux a -t work                # attach to session named "work"
+tmux kill-session -t work     # kill session "work"
+tmux kill-server              # kill all sessions
+```
+
+```shell
+# --- inside tmux: sessions ---
+C-b d        # detach from current session (leaves it running in background)
+C-b s        # interactive list of sessions to switch to
+C-b $        # rename current session
+C-b (  / )   # previous / next session
+```
+
+```shell
+# --- windows (tabs) ---
+C-b c        # create a new window
+C-b ,        # rename current window
+C-b w        # preview/list all windows (interactive picker with preview)
+C-b n / p    # next / previous window
+C-b 0..9     # jump to window by number
+C-b &        # kill current window (asks for confirmation)
+C-b f        # find window by name
+```
+
+```shell
+# --- panes (splits) ---
+C-b %        # split current pane vertically (left | right) — DEFAULT
+C-b "        # split current pane horizontally (top / bottom) — DEFAULT
+# my ~/.tmux.conf rebinds the splits to more intuitive keys:
+#   unbind % ; unbind '"'
+#   bind | split-window -h    # C-b |  vertical split (| looks like the divider)
+#   bind - split-window -v    # C-b -  horizontal split
+# so on my machine % and " do nothing — use | and - instead.
+C-b o        # cycle to next pane
+C-b ; / arrows  # last pane / move by direction
+C-b z        # zoom (toggle) current pane to fullscreen
+C-b x        # kill current pane (asks `kill-pane? (y/n)` in status bar — press y)
+C-b {  / }   # swap pane with previous / next
+C-b space    # cycle through preset pane layouts
+```
+
+```shell
+# --- copy mode (scrollback / select text) ---
+C-b [        # enter copy mode; use arrows / PgUp / PgDn / `/` to search
+# in copy mode (default emacs keys): space=start selection, enter=copy, q=quit
+C-b ]        # paste most recent buffer
+```
+
+```shell
+# --- misc ---
+C-b ?        # show all key bindings
+C-b :        # command prompt (e.g. `:new-window -n logs`)
+tmux source-file ~/.tmux.conf # reload config without restarting
+```
+
+#### Plugins: tpm + resurrect + continuum
+
+I manage plugins with [tpm](https://github.com/tmux-plugins/tpm) (Tmux Plugin Manager) and use two plugins to survive machine restarts:
+
+- [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) — manually save/restore tmux environment (sessions, windows, panes, working dirs, and even running programs like `vim`/`ssh`).
+- [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) — builds on resurrect to **autosave** at an interval and optionally **auto-restore** on tmux start.
+
+Install tpm once:
+
+```shell
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+Relevant lines in `~/.tmux.conf`:
+
+```shell
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+# autosave snapshot every N minutes (0 = off)
+set -g @continuum-save-interval '15'
+# 'on' = restore last saved session when tmux starts
+set -g @continuum-restore 'off'
+
+# must be the LAST line — initializes tpm
+run '~/.tmux/plugins/tpm/tpm'
+```
+
+After editing `.tmux.conf`, reload it (`C-b r` if you bound it, otherwise `tmux source-file ~/.tmux.conf`), then:
+
+```shell
+C-b I   # capital I — install plugins listed in .tmux.conf
+C-b U   # capital U — update plugins
+C-b alt+u  # uninstall plugins removed from config
+```
+
+Resurrect manual save/restore (continuum just runs save automatically):
+
+```shell
+C-b C-s   # save current tmux environment to disk
+C-b C-r   # restore last saved environment
+# snapshots live at ~/.local/share/tmux/resurrect/ (or ~/.tmux/resurrect/ on older setups)
+```
+
+Tip: keep `@continuum-restore 'off'` initially so tmux doesn't surprise you with old sessions on startup; flip to `'on'` once you trust it.
+
 ## U
 
 ### `ulimit`
