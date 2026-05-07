@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-22T06:00:00Z
 modDatetime: 2026-04-22T06:00:00Z
 title: LeetCode 2452 Words Within Two Edits of Dictionary
-featured: true
+featured: false
 tags:
   - a-string
   - a-trie
