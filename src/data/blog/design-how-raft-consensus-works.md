@@ -1,14 +1,12 @@
 ---
 author: JZ
-pubDatetime: 2026-04-10T04:00:00Z
-modDatetime: 2026-04-10T04:00:00Z
-title: System Design - How the Raft Consensus Algorithm Works
+pubDatetime: 2026-05-07T08:00:00Z
+modDatetime: 2026-05-07T08:00:00Z
+title: System Design - How Raft Consensus Algorithm Works
 tags:
   - design-system
-  - design-database
-  - design-concurrency
-description:
-  "How the Raft consensus algorithm works: leader election, log replication, safety guarantees, and a source code walkthrough of the etcd/raft implementation in Go."
+  - design-distributed
+description: "A deep dive into how Raft consensus algorithm achieves fault-tolerant replication in distributed systems — leader election, log replication, and safety guarantees explained with ASCII diagrams and source code references."
 ---
 
 ## Table of contents
@@ -409,6 +407,52 @@ Here is the complete lifecycle of a single write flowing through the system:
                          | commitIndex to followers   |
                          | => they apply too          |
                          +----------------------------+
+```
+
+## Membership Changes
+
+Real clusters are not static — you add nodes for capacity, remove failed nodes, or migrate to new hardware. Changing the cluster membership is tricky because during a transition, two different configurations could each independently form a majority, leading to two leaders.
+
+Raft's solution is to make membership changes go through the log itself. The simplest approach (used by etcd) is **single-server changes**: add or remove one node at a time. This works because any two majorities of adjacent configurations (differing by one node) must overlap:
+
+```
+  Old config: {A, B, C}         majority = 2
+  New config: {A, B, C, D}      majority = 3
+
+  Any 3-of-4 subset must include at least 2 from {A,B,C}.
+  Any 2-of-3 subset of old config overlaps with any 3-of-4 of new.
+  => No two disjoint majorities can form.
+```
+
+The process:
+
+1. Leader receives a config change request (add/remove node).
+2. Leader appends a special `ConfChange` entry to the log.
+3. Each node applies the new configuration as soon as it persists the entry.
+4. Once committed, the change is permanent.
+
+For adding a node, the leader first replicates the current log to the new node (catching it up) before proposing the config change. For removing a node, the leader steps down if it is the one being removed.
+
+The more general **joint consensus** approach (from the original paper) handles arbitrary config changes by introducing a transitional configuration that requires agreement from majorities of *both* old and new configs. Most production systems stick to single-server changes for simplicity.
+
+In etcd/raft:
+
+```go
+// raft.go — etcd-io/raft
+func (r *raft) applyConfChange(cc pb.ConfChangeV2) pb.ConfState {
+    cfg, trk, err := func() (tracker.Config, tracker.ProgressMap, error) {
+        changer := confchange.Changer{
+            Tracker:   r.trk,
+            LastIndex: r.raftLog.lastIndex(),
+        }
+        if cc.LeaveJoint() {
+            return changer.LeaveJoint()
+        }
+        // ... handle add/remove ...
+    }()
+    // apply new config
+    return r.switchToConfig(cfg, trk)
+}
 ```
 
 ## Raft in Practice
