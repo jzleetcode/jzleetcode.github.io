@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-26T06:00:00Z
 modDatetime: 2026-04-26T06:00:00Z
 title: LeetCode 72 Edit Distance
-featured: true
+featured: false
 tags:
   - a-string
   - a-dynamic-programming
