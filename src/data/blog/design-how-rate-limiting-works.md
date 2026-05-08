@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-04-22T08:00:00Z
 modDatetime: 2026-04-22T08:00:00Z
 title: System Design - How Rate Limiting Works
-featured: true
+featured: false
 tags:
   - design-system
   - design-concurrency
