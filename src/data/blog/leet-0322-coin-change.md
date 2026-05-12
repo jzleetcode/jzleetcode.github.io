@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-01T06:00:00Z
 modDatetime: 2026-05-01T06:00:00Z
 title: LeetCode 322 Coin Change
-featured: true
+featured: false
 tags:
   - a-dynamic-programming
   - a-bfs
