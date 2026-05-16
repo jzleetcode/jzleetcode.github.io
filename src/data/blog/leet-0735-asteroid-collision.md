@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-02T06:00:00Z
 modDatetime: 2026-05-02T06:00:00Z
 title: LeetCode 735 Asteroid Collision
-featured: true
+featured: false
 tags:
   - a-array
   - a-stack
