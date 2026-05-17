@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-07T06:00:00Z
 modDatetime: 2026-05-07T06:00:00Z
 title: LeetCode 84 Largest Rectangle in Histogram
-featured: true
+featured: false
 tags:
   - a-array
   - a-stack
