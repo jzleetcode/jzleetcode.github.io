@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-03T08:00:00Z
 modDatetime: 2026-05-03T08:00:00Z
 title: LeetCode 22 Generate Parentheses
-featured: true
+featured: false
 tags:
   - a-string
   - a-dynamic-programming
