@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-08T06:00:00Z
 modDatetime: 2026-05-08T06:00:00Z
 title: LeetCode 139 Word Break
-featured: true
+featured: false
 tags:
   - a-dynamic-programming
   - a-hash-table
