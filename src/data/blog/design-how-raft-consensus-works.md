@@ -1,505 +1,587 @@
 ---
 author: JZ
-pubDatetime: 2026-05-07T08:00:00Z
-modDatetime: 2026-05-07T08:00:00Z
-title: System Design - How Raft Consensus Algorithm Works
+pubDatetime: 2026-05-18T06:23:00Z
+modDatetime: 2026-05-18T06:23:00Z
+title: System Design - How the Raft Consensus Algorithm Works
 tags:
   - design-system
-  - design-distributed
-description: "A deep dive into how Raft consensus algorithm achieves fault-tolerant replication in distributed systems — leader election, log replication, and safety guarantees explained with ASCII diagrams and source code references."
+  - design-concurrency
+description:
+  "How the Raft consensus algorithm works: leader election, log replication, safety guarantees, membership changes, and source code walkthrough from the etcd/raft implementation."
 ---
 
 ## Table of contents
 
 ## Context
 
-Imagine three servers holding copies of the same data. A client writes a new value. Which server decides the order of writes? What happens if one server crashes mid-update? How do the remaining servers agree on what the data looks like?
+Imagine you are building a key-value store that must stay available even if one of three servers crashes. Every server should agree on the same sequence of writes. This is the **consensus problem**: getting a group of machines to agree on a single value (or sequence of values) despite crashes, network partitions, and message delays.
 
-This is the **consensus problem**: getting a group of machines to agree on a shared sequence of operations, even when some of them fail. Consensus is the backbone of every replicated system — databases like TiKV and CockroachDB, coordination services like etcd and Consul, and message queues like Apache Kafka (via KRaft) all rely on it.
+### Why is this hard?
 
-Before Raft, the standard answer was **Paxos**, published by Leslie Lamport in 1989. Paxos is provably correct, but notoriously hard to understand and even harder to implement. In 2014, Diego Ongaro and John Ousterhout published [*In Search of an Understandable Consensus Algorithm*](https://raft.github.io/raft.pdf), introducing **Raft** — designed from the ground up to be easy to teach, easy to implement, and easy to reason about. It achieves the same guarantees as Paxos but decomposes the problem into three clean subproblems:
+Consider three servers. A client sends "SET x=1" to server A. Before A can tell B and C, it crashes. Now B and C have no idea about x=1. When A recovers, did the write succeed? Who decides?
 
-1. **Leader election** — who is in charge?
-2. **Log replication** — how do writes spread to all nodes?
-3. **Safety** — under what conditions is it safe to consider a write "committed"?
+The fundamental tension is:
+- We want **availability** (the system keeps serving requests)
+- We want **consistency** (all nodes agree on the same state)
+- Failures are inevitable
 
-Let's walk through each piece, then look at real source code from the [etcd/raft](https://github.com/etcd-io/raft) library — the most widely deployed Raft implementation in production.
+### The Paxos Era
+
+Leslie Lamport's Paxos algorithm (1989, published 1998) solved consensus but was notoriously difficult to understand and implement. As Lamport himself noted, many people found his paper impenetrable. Real implementations (like Google's Chubby) deviated substantially from the published protocol.
+
+### Raft: Designed for Understandability
+
+In 2014, Diego Ongaro and John Ousterhout published "In Search of an Understandable Consensus Algorithm" at USENIX ATC. Their key insight was that consensus could be decomposed into mostly independent subproblems:
+
+1. **Leader election** -- pick one server to be in charge
+2. **Log replication** -- the leader coordinates writes
+3. **Safety** -- guarantee that all servers execute the same commands in the same order
+
+This decomposition is what makes Raft comprehensible. Let us walk through each piece.
 
 ## The Three Roles
 
-Every node in a Raft cluster is in one of three states at any given time:
+Every server in a Raft cluster is in exactly one of three states at any given moment:
 
 ```
-                          times out,
-                         starts election
-                 +----------------------------+
-                 |                            |
-                 |      receives votes        |
-                 v       from majority        |
-           +-----------+             +--------+-----+
-   +------>| Follower  |------------>|  Candidate   |
-   |       +-----------+  times out  +--------------+
-   |            ^                         |
-   |            |   discovers current     |  wins
-   |            |   leader or new term    |  election
-   |            |                         v
-   |       +-----------+          +--------------+
-   |       | Follower  |<--------+    Leader     |
-   |       +-----------+ steps   +--------------+
-   |                     down         |
-   +----------------------------------+
-         discovers higher term
+                    times out,
+                    starts election
+               +-------------------+
+               |                   |
+               v                   |
+         +-----------+       +-----------+
+    +--->| Follower  |------>| Candidate |
+    |    +-----------+       +-----------+
+    |         ^                    |
+    |         |   discovers        | receives majority
+    |         |   current leader   | of votes
+    |         |   or new term      v
+    |         |              +-----------+
+    |         +--------------| Leader    |
+    |                        +-----------+
+    |                              |
+    +------------------------------+
+          discovers server with higher term
 ```
 
-- **Follower**: Passive. Responds to requests from leaders and candidates. If it hears nothing for a while (the **election timeout**), it becomes a candidate.
-- **Candidate**: Actively seeking votes. If it gets votes from a majority, it becomes the leader. If another leader appears, it steps back down to follower.
-- **Leader**: Handles all client requests. Replicates log entries to followers. Sends periodic heartbeats to prevent new elections.
+**Follower**: The default state. Passively waits for RPCs from the leader. If it hears nothing for a while (the **election timeout**), it becomes a candidate.
 
-Time in Raft is divided into **terms** — monotonically increasing integers that act like logical clocks. Each term begins with an election. If a candidate wins, it leads for the rest of that term. If no one wins (split vote), the term ends with no leader and a new term begins.
+**Candidate**: Actively trying to become leader. Votes for itself and sends RequestVote RPCs to all other servers.
+
+**Leader**: Handles all client requests. Sends AppendEntries RPCs (heartbeats + log entries) to followers.
+
+### Terms: Raft's Logical Clock
+
+Raft divides time into **terms**, numbered with consecutive integers:
 
 ```
-     Term 1         Term 2         Term 3       Term 4
-  +------------+ +------------+ +----------+ +------------+
-  | election + | | election + | | election | | election + |
-  | normal op  | | normal op  | | (no      | | normal op  |
-  |            | |            | |  leader) | |            |
-  +------------+ +------------+ +----------+ +------------+
-  ---time----------------------------------------------------------->
+  Term 1       Term 2         Term 3       Term 4
+|----------|-------------|-------------|--------->
+ election   normal       election      normal
+ + normal   operation    (split vote)  operation
+ operation               no leader
+                         elected
 ```
+
+Each term begins with an election. If a candidate wins, it serves as leader for the rest of that term. If no one wins (split vote), the term ends with no leader and a new term begins immediately.
+
+Terms act as a logical clock. Every RPC includes the sender's term number. If a server receives an RPC with a higher term, it updates its own term and reverts to follower. If a server receives a stale RPC (lower term), it rejects it.
 
 ## Leader Election
 
-When a follower's election timer fires without hearing from a leader, it starts an election:
+### The Happy Path
 
-1. Increment its current term.
-2. Vote for itself.
-3. Send `RequestVote` RPCs to all other nodes.
-4. Wait for responses.
+When a follower's election timeout fires (typically 150-300ms, randomized):
 
-Each node votes for **at most one candidate per term** (first-come, first-served). A candidate wins if it receives votes from a **majority** of nodes (e.g., 3 out of 5). This majority requirement guarantees that at most one leader exists per term — two different candidates cannot both get a majority because the two majorities must overlap in at least one node, and that node can only vote once.
-
-Here is how the etcd/raft library handles the transition. When the election timeout fires, `tickElection` sends a `MsgHup` message to itself:
-
-```go
-// raft.go — etcd-io/raft
-func (r *raft) tickElection() {
-    r.electionElapsed++
-    if r.promotable() && r.pastElectionTimeout() {
-        r.electionElapsed = 0
-        r.Step(pb.Message{From: r.id, Type: pb.MsgHup})
-    }
-}
+```
+  Server A (Follower)     Server B (Follower)     Server C (Follower)
+       |                        |                        |
+       | election timeout!      |                        |
+       |                        |                        |
+       | becomes Candidate      |                        |
+       | increments term to 2   |                        |
+       | votes for self         |                        |
+       |                        |                        |
+       |---RequestVote(term=2)->|                        |
+       |---RequestVote(term=2)-------------------------->|
+       |                        |                        |
+       |<--VoteGranted(term=2)--|                        |
+       |<--VoteGranted(term=2)---------------------------|
+       |                        |                        |
+       | majority! becomes Leader                        |
+       |                        |                        |
+       |---AppendEntries(heartbeat)----->|               |
+       |---AppendEntries(heartbeat)--------------------->|
+       |                        |                        |
 ```
 
-`MsgHup` triggers `becomeCandidate`, which increments the term, votes for self, and switches the message handler:
+### Key Rules for Voting
 
-```go
-func (r *raft) becomeCandidate() {
-    r.step = stepCandidate
-    r.reset(r.Term + 1)
-    r.tick = r.tickElection
-    r.Vote = r.id
-    r.state = StateCandidate
-}
+A server grants its vote if **all** of the following hold:
+1. The candidate's term is >= the voter's current term
+2. The voter has not already voted for someone else in this term
+3. The candidate's log is at least as up-to-date as the voter's (more on this later)
+
+Each server votes for **at most one** candidate per term. This ensures at most one leader per term.
+
+### Handling Split Votes
+
+If two candidates start elections simultaneously, votes might split and nobody gets a majority. Raft handles this with **randomized election timeouts**:
+
+```
+  Server A (Candidate)    Server B (Candidate)    Server C (Follower)
+       |                        |                        |
+       | term=2, votes self     | term=2, votes self     |
+       |                        |                        |
+       |---RequestVote--------->| (rejected, voted self) |
+       |<--RequestVote----------| (rejected, voted self) |
+       |---RequestVote---------------------------------->|
+       |                        |---RequestVote--------->| (already voted A)
+       |<--VoteGranted-----------------------------------|
+       |                        |<--VoteRejected---------|
+       |                        |                        |
+       | 2 votes (self + C)     | 1 vote (self only)    |
+       | majority! Leader!      | times out, new term    |
 ```
 
-The candidate then broadcasts `MsgVote` to all peers. When votes come back, the `stepCandidate` handler tallies them:
+The randomized timeout (each server picks a different random value in [150ms, 300ms]) makes it extremely unlikely that two servers time out simultaneously again.
+
+### etcd/raft Source: stepCandidate
+
+In the etcd/raft implementation, the candidate's message handling lives in the `stepCandidate` function:
 
 ```go
+// https://github.com/etcd-io/raft/blob/main/raft.go
 func stepCandidate(r *raft, m pb.Message) error {
     switch m.Type {
     case pb.MsgVoteResp:
         gr, rj, res := r.poll(m.From, m.Type, !m.Reject)
         switch res {
         case quorum.VoteWon:
-            r.becomeLeader()
-            r.bcastAppend()
+            if r.state == StatePreCandidate {
+                r.campaign(campaignElection)
+            } else {
+                r.becomeLeader()
+                r.bcastAppend()
+            }
         case quorum.VoteLost:
             r.becomeFollower(r.Term, None)
         }
     case pb.MsgApp:
-        // Another leader exists for this term — step down
         r.becomeFollower(m.Term, m.From)
         r.handleAppendEntries(m)
+    case pb.MsgSnap:
+        r.becomeFollower(m.Term, m.From)
+        r.handleSnapshot(m)
     }
     return nil
 }
 ```
 
-If the candidate wins, it immediately becomes leader and broadcasts an empty append entry (a "no-op") to assert its authority. If it discovers a message from a valid leader, it steps down.
+Key observations:
+- `r.poll()` tallies votes and checks if quorum is reached
+- On winning, the candidate becomes leader and immediately broadcasts AppendEntries
+- If it receives an AppendEntries from a legitimate leader, it steps down to follower
 
-### Randomized Timeouts Prevent Split Votes
+### PreVote: Avoiding Disruption
 
-What if two followers time out at the same instant and both become candidates? They could split the vote, with neither getting a majority. Raft handles this elegantly: each node picks a **random** election timeout from a range (e.g., 150–300ms). Because timeouts differ, it's very unlikely that two nodes start an election simultaneously. If a split vote does happen, both candidates time out again (with new random values), and the next round almost certainly produces a winner.
-
-### Pre-Vote: Avoiding Disruption
-
-A node that is partitioned from the cluster will keep timing out and incrementing its term. When it rejoins, its artificially high term forces the real leader to step down — disrupting the entire cluster over a single node's network blip.
-
-etcd/raft solves this with **PreVote**. Before incrementing its term, a candidate runs a "pre-election" to check whether it *could* win. It asks peers: "Would you vote for me if I started a real election?" If a majority says no (because they're still hearing from a valid leader), the node stays a follower and doesn't disrupt anyone:
-
-```go
-func (r *raft) becomePreCandidate() {
-    // Does NOT increment term
-    r.step = stepCandidate
-    r.trk.ResetVotes()
-    r.tick = r.tickElection
-    r.lead = None
-    r.state = StatePreCandidate
-}
-```
+etcd/raft implements an optimization called **PreVote**. Before incrementing its term and starting a real election, a candidate first sends PreVote messages to check if it *could* win. This prevents a partitioned server from incrementing its term unnecessarily and disrupting the cluster when it rejoins.
 
 ## Log Replication
 
-Once a leader is elected, it handles all client writes. Each write becomes an **entry** in the leader's log. The leader then replicates this entry to all followers. Here is the flow:
-
-```
-  Client          Leader (Node 1)       Follower (Node 2)    Follower (Node 3)
-    |                  |                       |                     |
-    |  PUT x=7         |                       |                     |
-    |----------------->|                       |                     |
-    |                  |  append to local log  |                     |
-    |                  |  [term=3, idx=5, x=7] |                     |
-    |                  |                       |                     |
-    |                  |--- AppendEntries ---->|                     |
-    |                  |--- AppendEntries --------------------------->|
-    |                  |                       |                     |
-    |                  |<-- success -----------|                     |
-    |                  |<-- success --------------------------------|
-    |                  |                       |                     |
-    |                  |  majority replied     |                     |
-    |                  |  => commit index 5    |                     |
-    |                  |  => apply x=7 to      |                     |
-    |                  |     state machine     |                     |
-    |                  |                       |                     |
-    |  ok              |--- next heartbeat --->|                     |
-    |<-----------------|    (commitIdx=5)      |--- next heartbeat ->|
-    |                  |                       |                     |
-    |                  |               apply x=7 to          apply x=7 to
-    |                  |               state machine         state machine
-```
+Once a leader is elected, it begins serving client requests. Every client command goes through the leader's log before being applied to the state machine.
 
 ### The Log Structure
 
-Every entry in the log has three fields:
+```
+  Index:    1       2       3       4       5       6
+         +-------+-------+-------+-------+-------+-------+
+Leader:  | x=1   | y=2   | x=3   | y=1   | z=5   | x=7   |
+         | t=1   | t=1   | t=1   | t=2   | t=2   | t=2   |
+         +-------+-------+-------+-------+-------+-------+
+
+         +-------+-------+-------+-------+-------+
+Node B:  | x=1   | y=2   | x=3   | y=1   | z=5   |
+         | t=1   | t=1   | t=1   | t=2   | t=2   |
+         +-------+-------+-------+-------+-------+
+
+         +-------+-------+-------+-------+
+Node C:  | x=1   | y=2   | x=3   | y=1   |
+         | t=1   | t=1   | t=1   | t=2   |
+         +-------+-------+-------+-------+
+
+                              ^
+                         committed
+                     (replicated to majority)
+```
+
+Each log entry contains:
+- A **command** for the state machine (e.g., "SET x=3")
+- The **term** in which the leader received the entry
+- An **index** (position in the log)
+
+### The Replication Flow
 
 ```
-  Log (Node 1 — Leader, Term 3)
-
-  Index:  | 1 | 2 | 3 | 4 | 5 |
-  Term:   | 1 | 1 | 2 | 3 | 3 |
-  Data:   |x=1|y=2|x=3|y=5|x=7|
-                                ^
-                             lastIndex
+  Client        Leader           Follower B       Follower C
+    |              |                  |                |
+    |--SET x=7---->|                  |                |
+    |              |                  |                |
+    |              | append to local  |                |
+    |              | log at index 6   |                |
+    |              |                  |                |
+    |              |--AppendEntries-->|                |
+    |              |   (prevIdx=5,    |                |
+    |              |    prevTerm=2,   |                |
+    |              |    entries=[x=7])|                |
+    |              |--AppendEntries------------------>|
+    |              |                  |                |
+    |              |<--Success--------|                |
+    |              |<--Success------------------------|
+    |              |                  |                |
+    |              | majority ack!    |                |
+    |              | commit index=6   |                |
+    |              | apply to state   |                |
+    |              | machine          |                |
+    |              |                  |                |
+    |<--OK---------|                  |                |
+    |              |                  |                |
+    |              | next heartbeat   |                |
+    |              | includes         |                |
+    |              | leaderCommit=6   |                |
+    |              |--AppendEntries-->|                |
+    |              |   (leaderCommit=6)               |
+    |              |                  |                |
+    |              |                  | apply entries  |
+    |              |                  | up to index 6  |
 ```
 
-- **Index**: Position in the log (monotonically increasing).
-- **Term**: The term when the entry was created.
-- **Data**: The command to apply to the state machine.
+### The Log Matching Property
 
-The etcd/raft `raftLog` struct manages the log across stable storage and an in-memory buffer:
+Raft maintains a crucial invariant: **if two entries in different logs have the same index and term, they store the same command, and all preceding entries are also identical.**
+
+This is enforced through the `prevLogIndex` and `prevLogTerm` fields in AppendEntries. The leader includes the index and term of the entry immediately preceding the new entries. A follower rejects the RPC if it does not have a matching entry, forcing the leader to back up.
+
+### Handling Inconsistencies
+
+When a new leader takes over, followers' logs may diverge from the leader's. The leader handles this by maintaining a `nextIndex` for each follower:
+
+```
+  Leader's log:   [1:t1] [2:t1] [3:t2] [4:t2] [5:t3]
+  Follower's log: [1:t1] [2:t1] [3:t2] [4:t3]   <-- divergent at 4!
+
+  Leader sends AppendEntries(prevIdx=4, prevTerm=t2, entries=[5:t3])
+  Follower rejects: "I have term t3 at index 4, not t2"
+  Leader decrements nextIndex to 4
+  Leader sends AppendEntries(prevIdx=3, prevTerm=t2, entries=[4:t2, 5:t3])
+  Follower accepts: deletes index 4 onward, appends leader's entries
+```
+
+### etcd/raft Source: stepLeader
+
+The leader's message handling in etcd/raft:
 
 ```go
-// log.go — etcd-io/raft
-type raftLog struct {
-    storage   Storage   // persisted entries (e.g., on disk)
-    unstable  unstable  // new entries not yet persisted
-    committed uint64    // highest index known to be on a quorum
-    applied   uint64    // highest index applied to state machine
-}
-```
-
-There is a crucial invariant: `applied <= committed <= lastIndex`. Entries are first appended (unstable), then persisted (storage), then committed (quorum ack), then applied (state machine).
-
-### AppendEntries: The Consistency Check
-
-The leader sends `AppendEntries` RPCs with the new entries and a **consistency check**: it includes the index and term of the entry *immediately before* the new ones. The follower rejects the request if it doesn't have a matching entry at that position:
-
-```
-  Leader sends:
-    prevLogIndex = 4
-    prevLogTerm  = 3
-    entries      = [{index:5, term:3, data:"x=7"}]
-
-  Follower's log:
-    | 1 | 2 | 3 | 4 |
-    | 1 | 1 | 2 | 3 |    <-- term at index 4 is 3, matches!
-
-    => Accept. Append entry 5.
-
-  Different follower's log (was partitioned):
-    | 1 | 2 | 3 | 4 |
-    | 1 | 1 | 2 | 2 |    <-- term at index 4 is 2, mismatch!
-
-    => Reject. Leader will decrement prevLogIndex and retry.
-```
-
-This check is what gives Raft its **Log Matching Property**: if two logs contain an entry with the same index and term, then all entries up to that index are identical. The leader never gives up — it keeps decrementing `prevLogIndex` until the follower's log matches, then sends all entries from that point forward.
-
-The `matchTerm` method in etcd/raft implements this check:
-
-```go
-// log.go — etcd-io/raft
-func (l *raftLog) matchTerm(id entryID) bool {
-    t, err := l.term(id.index)
-    if err != nil {
-        return false
-    }
-    return t == id.term
-}
-```
-
-### Commitment
-
-An entry is **committed** when the leader knows it has been replicated to a majority of nodes. The leader tracks each follower's progress (how far along their log is) and advances the commit index when a majority has caught up:
-
-```
-  Leader tracks match index for each follower:
-
-  Node 1 (leader):  matchIndex = 5
-  Node 2:           matchIndex = 5   <-- ack'd up to 5
-  Node 3:           matchIndex = 4   <-- still catching up
-
-  Sorted matchIndexes: [4, 5, 5]
-  Majority position (N/2): index 1 => matchIndex = 5
-
-  Is entry 5's term == current term?  term=3, currentTerm=3  => YES
-  => commitIndex advances to 5
-```
-
-The term check is critical. A leader only commits entries from its **own term**. Entries from previous terms get committed indirectly — once a new entry from the current term is committed, all prior entries are committed too. This prevents a subtle bug where a leader could commit an old entry, get replaced, and have that entry overwritten by a new leader (see Section 5.4.2 of the Raft paper for the full scenario).
-
-## Safety: The Election Restriction
-
-For consensus to work, a newly elected leader must already have every committed entry in its log. Raft enforces this through a **voting restriction**: a node refuses to vote for a candidate whose log is less up-to-date than its own.
-
-"Up-to-date" is defined by comparing the last entry in each log:
-
-```go
-// log.go — etcd-io/raft
-func (l *raftLog) isUpToDate(their entryID) bool {
-    our := l.lastEntryID()
-    return their.term > our.term ||
-           their.term == our.term && their.index >= our.index
-}
-```
-
-This means:
-
-1. The candidate with the higher last-entry term wins.
-2. If the terms are equal, the longer log wins.
-
-Since a committed entry must be on a majority of nodes, and a candidate needs votes from a majority, the candidate must contact at least one node that has the committed entry. That node will refuse to vote for anyone with a less complete log. Therefore, the winner of any election is guaranteed to have all committed entries.
-
-```
-  Node A log: | 1 | 1 | 2 | 3 |     lastTerm=3, lastIndex=4
-  Node B log: | 1 | 1 | 2 |         lastTerm=2, lastIndex=3
-  Node C log: | 1 | 1 | 2 | 3 | 3 | lastTerm=3, lastIndex=5
-
-  If Node B starts an election:
-    Node A: "My last term is 3, yours is 2. Rejected."
-    Node C: "My last term is 3, yours is 2. Rejected."
-    Node B loses.
-
-  If Node A starts an election:
-    Node B: "Your last term 3 > my 2. Granted."
-    Node C: "Same term 3, but your index 4 < my 5. Rejected."
-    Node A needs Node B's vote + its own = 2 out of 3. Wins.
-```
-
-## Putting It Together: The Leader's Message Loop
-
-When a client proposes a write to the leader, the `stepLeader` function handles the full pipeline:
-
-```go
-// raft.go — etcd-io/raft
+// https://github.com/etcd-io/raft/blob/main/raft.go
 func stepLeader(r *raft, m pb.Message) error {
     switch m.Type {
-    case pb.MsgBeat:
-        r.bcastHeartbeat()
-        return nil
-    case pb.MsgProp:
-        // 1. Append entries to local log
-        if !r.appendEntry(m.Entries...) {
+    case pb.MsgProp:  // client proposal
+        if len(m.Entries) == 0 {
             return ErrProposalDropped
         }
-        // 2. Broadcast to all followers
+        if r.prs.Progress[r.id] == nil {
+            return ErrProposalDropped
+        }
+        r.appendEntry(m.Entries...)
         r.bcastAppend()
         return nil
-    case pb.MsgCheckQuorum:
-        // Step down if quorum of followers hasn't responded recently
-        if !r.trk.QuorumActive() {
-            r.becomeFollower(r.Term, None)
+
+    case pb.MsgAppResp:  // follower response to AppendEntries
+        pr := r.prs.Progress[m.From]
+        if m.Reject {
+            // follower's log diverges, back up nextIndex
+            if pr.MaybeDecrTo(m.Index, m.RejectHint) {
+                r.sendAppend(m.From)
+            }
+        } else {
+            pr.MaybeUpdate(m.Index)
+            if r.maybeCommit() {
+                r.bcastAppend()  // notify followers of new commit
+            }
         }
-        return nil
     }
     return nil
 }
 ```
 
-The leader also sends periodic heartbeats to prevent followers from starting elections:
+Key points:
+- Client proposals (`MsgProp`) are appended locally and broadcast
+- On success responses, the leader updates progress and attempts to advance the commit index
+- On rejections, the leader decrements `nextIndex` and retries
+
+### The maybeCommit Function
 
 ```go
-func (r *raft) tickHeartbeat() {
-    r.heartbeatElapsed++
-    r.electionElapsed++
-
-    if r.state != StateLeader {
-        return
-    }
-    if r.heartbeatElapsed >= r.heartbeatTimeout {
-        r.heartbeatElapsed = 0
-        r.Step(pb.Message{From: r.id, Type: pb.MsgBeat})
-    }
+// https://github.com/etcd-io/raft/blob/main/raft.go
+func (r *raft) maybeCommit() bool {
+    mci := r.prs.Committed()
+    return r.raftLog.maybeCommit(mci, r.Term)
 }
 ```
 
-Here is the complete lifecycle of a single write flowing through the system:
+This checks: "What is the highest index replicated to a majority?" If that index has the current leader's term, it can be committed. (Why the term check matters is explained in the next section.)
+
+## Safety: The Election Restriction
+
+A critical safety property of Raft is: **a leader for any given term contains all entries committed in previous terms.** This is enforced during elections.
+
+### The "Up-to-Date" Check
+
+When a server receives a RequestVote, it compares the candidate's log to its own:
 
 ```
-                         +----------------------------+
-                         |     Client sends write     |
-                         +-------------+--------------+
-                                       |
-                                       v
-                         +----------------------------+
-                         | Leader appends to its log  |
-                         | (stepLeader -> appendEntry)|
-                         +-------------+--------------+
-                                       |
-                                       v
-                         +----------------------------+
-                         | Leader sends AppendEntries |
-                         | to all followers           |
-                         | (bcastAppend)              |
-                         +-------------+--------------+
-                                       |
-                          +------------+-------------+
-                          |                          |
-                          v                          v
-                   +-------------+           +-------------+
-                   | Follower 2  |           | Follower 3  |
-                   | checks      |           | checks      |
-                   | prevLog,    |           | prevLog,    |
-                   | appends     |           | appends     |
-                   | entry,      |           | entry,      |
-                   | replies ok  |           | replies ok  |
-                   +------+------+           +------+------+
-                          |                          |
-                          +------------+-------------+
-                                       |
-                                       v
-                         +----------------------------+
-                         | Leader sees majority ack   |
-                         | => advances commitIndex    |
-                         +-------------+--------------+
-                                       |
-                                       v
-                         +----------------------------+
-                         | Leader applies entry to    |
-                         | state machine, replies     |
-                         | to client                  |
-                         +----------------------------+
-                                       |
-                                       v
-                         +----------------------------+
-                         | Next heartbeat carries new |
-                         | commitIndex to followers   |
-                         | => they apply too          |
-                         +----------------------------+
+Candidate's log is "at least as up-to-date" if:
+  1. Its last entry has a HIGHER term than the voter's last entry, OR
+  2. Same last term but EQUAL or LONGER log
 ```
 
-## Membership Changes
-
-Real clusters are not static — you add nodes for capacity, remove failed nodes, or migrate to new hardware. Changing the cluster membership is tricky because during a transition, two different configurations could each independently form a majority, leading to two leaders.
-
-Raft's solution is to make membership changes go through the log itself. The simplest approach (used by etcd) is **single-server changes**: add or remove one node at a time. This works because any two majorities of adjacent configurations (differing by one node) must overlap:
-
 ```
-  Old config: {A, B, C}         majority = 2
-  New config: {A, B, C, D}      majority = 3
+  Candidate A: [1:t1] [2:t1] [3:t2]         last=(idx=3, term=2)
+  Server B:    [1:t1] [2:t1] [3:t1] [4:t1]  last=(idx=4, term=1)
 
-  Any 3-of-4 subset must include at least 2 from {A,B,C}.
-  Any 2-of-3 subset of old config overlaps with any 3-of-4 of new.
-  => No two disjoint majorities can form.
+  A's last term (2) > B's last term (1) => A is more up-to-date
+  B votes for A even though A has fewer entries!
 ```
 
-The process:
+This makes intuitive sense: the entry with the higher term must have been created by a more recent leader, who (by induction) already had all committed entries.
 
-1. Leader receives a config change request (add/remove node).
-2. Leader appends a special `ConfChange` entry to the log.
-3. Each node applies the new configuration as soon as it persists the entry.
-4. Once committed, the change is permanent.
+### Why This Matters
 
-For adding a node, the leader first replicates the current log to the new node (catching it up) before proposing the config change. For removing a node, the leader steps down if it is the one being removed.
+Without this restriction, a server with a stale log could become leader and overwrite committed entries -- violating the core safety guarantee. The election restriction ensures that only servers with complete information can lead.
 
-The more general **joint consensus** approach (from the original paper) handles arbitrary config changes by introducing a transitional configuration that requires agreement from majorities of *both* old and new configs. Most production systems stick to single-server changes for simplicity.
+## Commit Rules: The Figure 8 Problem
 
-In etcd/raft:
+There is a subtle but critical rule: **a leader only counts replicas of entries from its own term when advancing the commit index.**
+
+### The Dangerous Scenario
+
+Consider this sequence (from Figure 8 of the Raft paper):
+
+```
+Time -->  (a)      (b)       (c)        (d)        (e)
+
+S1:      [1:t1]   [1:t1]    [1:t1]     [1:t1]     [1:t1]
+         [2:t2]   [2:t2]    [2:t2]     [2:t2]     [2:t2]
+                             [3:t4]     [3:t4]     [3:t4]
+                                                   [4:t4]
+
+S2:      [1:t1]   [1:t1]    [1:t1]     [1:t1]     [1:t1]
+         [2:t2]   [2:t2]    [2:t2]     [2:t2]     [2:t2]
+                                                   [3:t4]
+                                                   [4:t4]
+
+S3:      [1:t1]   [1:t1]    [1:t1]     [1:t1]     [1:t1]
+         [2:t2]   [2:t2]    [2:t2]     [2:t2]     [2:t2]
+                                                   [3:t4]
+                                                   [4:t4]
+
+S4:      [1:t1]   [1:t1]    [1:t1]     [1:t1]
+                   [2:t3]    [2:t3]     [2:t3]
+
+S5:      [1:t1]   [1:t1]    [1:t1]     [1:t1]
+                   [2:t3]    [2:t3]     [2:t3]
+                             [3:t5]     [3:t5]
+```
+
+Step by step:
+- **(a)**: S1 is leader in term 2, replicates entry [2:t2] only to S2
+- **(b)**: S1 crashes. S5 wins election in term 3 (votes from S3, S4, self), accepts entry [2:t3]
+- **(c)**: S5 crashes. S1 wins term 4, replicates [2:t2] to S3 (now on majority: S1, S2, S3)
+- **(d)**: If S1 commits [2:t2] based on majority replication and then crashes, S5 could win term 5 (its log [1:t1][2:t3] has last term 3 > 2, so it is "more up-to-date" than S2/S3 who have last term 2). S5 would overwrite the committed entry!
+
+The solution: **S1 in term 4 must NOT commit entry [2:t2] based on replication count alone.** Instead, it must commit a new entry [3:t4] from its own term. Once [3:t4] is committed (replicated to majority), all preceding entries are implicitly committed too. Now S5 cannot win because any majority voter will have entries with term >= 4.
+
+This is why `maybeCommit` checks `r.Term`:
 
 ```go
-// raft.go — etcd-io/raft
-func (r *raft) applyConfChange(cc pb.ConfChangeV2) pb.ConfState {
-    cfg, trk, err := func() (tracker.Config, tracker.ProgressMap, error) {
-        changer := confchange.Changer{
-            Tracker:   r.trk,
-            LastIndex: r.raftLog.lastIndex(),
-        }
-        if cc.LeaveJoint() {
-            return changer.LeaveJoint()
-        }
-        // ... handle add/remove ...
-    }()
-    // apply new config
-    return r.switchToConfig(cfg, trk)
+func (l *raftLog) maybeCommit(maxIndex, term uint64) bool {
+    if maxIndex > l.committed &&
+        l.zeroTermOnOutOfBounds(l.term(maxIndex)) == term {
+        l.commitTo(maxIndex)
+        return true
+    }
+    return false
 }
 ```
 
-## Raft in Practice
+## Log Compaction (Snapshotting)
 
-Raft is not just a paper — it runs in some of the most critical infrastructure in production:
+### The Problem
 
-| System       | What it uses Raft for                                      |
-|--------------|------------------------------------------------------------|
-| **etcd**     | Replicating the key-value store that backs Kubernetes      |
-| **TiKV**     | Each Region (data shard) is a Raft group for replication   |
-| **CockroachDB** | Each Range (data shard) uses Raft for consensus        |
-| **Consul**   | Replicating service discovery and configuration data       |
-| **Kafka (KRaft)** | Replacing ZooKeeper for metadata consensus            |
+A Raft log grows without bound. A server that has been running for months might have millions of entries. This causes:
+- Disk usage grows forever
+- Replaying the entire log on restart takes too long
+- Sending the full log to a new server is prohibitive
 
-The etcd/raft library itself is designed as a **library, not a framework**. It does not manage networking, disk I/O, or timers. Instead, the application drives it: you call `tick()` to advance the clock, call `Step()` to feed in messages, and read from `Ready()` to get entries that need to be persisted and messages that need to be sent. This design gives applications full control over I/O, making etcd/raft one of the most flexible Raft implementations available.
+### The Solution: Snapshots
+
+Each server independently takes a snapshot of its state machine at some committed index, then discards all log entries up to that index:
 
 ```
-  Your Application
-  +---------------------------------------------------+
-  |                                                   |
-  |  for {                                            |
-  |      select {                                     |
-  |      case <-ticker.C:                             |
-  |          node.Tick()      // advance logical clock|
-  |                                                   |
-  |      case msg := <-network:                       |
-  |          node.Step(msg)   // feed in messages     |
-  |                                                   |
-  |      case rd := <-node.Ready():                   |
-  |          // 1. persist rd.Entries to disk          |
-  |          // 2. send rd.Messages over network      |
-  |          // 3. apply rd.CommittedEntries to        |
-  |          //    state machine                       |
-  |          node.Advance()                           |
-  |      }                                            |
-  |  }                                                |
-  |                                                   |
-  +---------------------------------------------------+
+Before snapshot:
+  Log: [1:t1] [2:t1] [3:t2] [4:t2] [5:t3] [6:t3] [7:t3]
+  State machine: {x=3, y=2, z=5}
+  Last applied: 7
+
+After snapshot at index 5:
+  Snapshot: {x=3, y=2}  (state at index 5)
+  Log: [6:t3] [7:t3]
+  Metadata: lastIncludedIndex=5, lastIncludedTerm=t3
 ```
+
+### InstallSnapshot RPC
+
+When the leader needs to bring a very slow follower up to date, it may find that the required entries have already been discarded. In this case, it sends an `InstallSnapshot` RPC:
+
+```
+  Leader                             Slow Follower
+    |                                     |
+    | nextIndex[follower] = 3             |
+    | but log starts at index 100         |
+    | (entries 1-99 are snapshotted)      |
+    |                                     |
+    |---InstallSnapshot(snapshot)-------->|
+    |   lastIncludedIndex=99              |
+    |   lastIncludedTerm=t5               |
+    |   data=[full state machine state]   |
+    |                                     |
+    |                                     | discard entire log
+    |                                     | load snapshot as state
+    |                                     | set lastApplied=99
+    |                                     |
+    |<--Success---------------------------|
+    |                                     |
+    | nextIndex[follower] = 100           |
+    | resume normal AppendEntries         |
+```
+
+In etcd/raft, the application is responsible for snapshot management via the `Storage` interface:
+
+```go
+// https://github.com/etcd-io/raft/blob/main/storage.go
+type Storage interface {
+    InitialState() (pb.HardState, pb.ConfState, error)
+    Entries(lo, hi, maxSize uint64) ([]pb.Entry, error)
+    Term(i uint64) (uint64, error)
+    LastIndex() (uint64, error)
+    FirstIndex() (uint64, error)
+    Snapshot() (pb.Snapshot, error)
+}
+```
+
+## Membership Changes (Joint Consensus)
+
+### The Problem
+
+Adding or removing servers from a Raft cluster is dangerous. If we simply switch from a 3-node to a 4-node configuration, there might be a moment where two different majorities can form under the old and new configs simultaneously -- yielding two leaders.
+
+```
+Old config: {A, B, C}        Majority = 2
+New config: {A, B, C, D, E}  Majority = 3
+
+Dangerous moment:
+  Old majority: {A, B} elects leader (2/3)
+  New majority: {C, D, E} elects leader (3/5)
+  Two leaders exist simultaneously!
+```
+
+### Joint Consensus
+
+Raft's original solution uses a transitional **joint configuration** where both old and new configs must agree:
+
+```
+  Phase 1:            Phase 2:             Phase 3:
+  C_old               C_old,new            C_new
+  (old config)        (joint consensus)    (new config)
+
+  +----------+     +-----------------+     +----------+
+  | {A,B,C}  | --> | {A,B,C}+{A,B,  | --> | {A,B,C,  |
+  |          |     |  C,D,E}         |     |  D,E}    |
+  +----------+     +-----------------+     +----------+
+
+  Majority of       Must get majority     Majority of
+  {A,B,C}           of BOTH {A,B,C}       {A,B,C,D,E}
+                    AND {A,B,C,D,E}
+```
+
+During joint consensus, any decision (election or commit) requires approval from a majority of *both* the old and new configurations. This guarantees no "split brain".
+
+### Single-Server Changes (Simpler Approach)
+
+In practice, most implementations (including etcd/raft) use a simpler approach: add or remove **one server at a time**. With single-server changes, the old and new configurations always overlap in their majorities, so no joint consensus is needed.
+
+```go
+// https://github.com/etcd-io/raft/blob/main/confchange/confchange.go
+// ConfChange represents a configuration change: adding/removing a node
+type ConfChangeV2 struct {
+    Transition ConfChangeTransition
+    Changes    []ConfChangeSingle
+    Context    []byte
+}
+```
+
+The configuration change is proposed as a special log entry. Once committed, all servers apply the new configuration. The key safety property: **no two configurations that disagree on a majority can both be active at the same time** when changing one server at a time.
+
+## How Raft Fits into Real Systems
+
+Raft is not just a paper algorithm -- it runs in production at enormous scale:
+
+| System | Use of Raft | Notes |
+|--------|------------|-------|
+| **etcd** | Metadata storage for Kubernetes | Single Raft group, typically 3-5 nodes |
+| **TiKV** | Distributed key-value store under TiDB | Multi-Raft: thousands of independent Raft groups (one per Region) |
+| **CockroachDB** | Distributed SQL database | Multi-Raft with range-based sharding |
+| **Consul** | Service discovery and KV store | Single Raft group for consistent data |
+| **HashiCorp Vault** | Secrets management | Uses Raft for integrated storage backend |
+
+### Multi-Raft: Scaling Beyond One Group
+
+A single Raft group is limited by its leader's throughput. Systems like TiKV solve this by partitioning data into **regions**, each managed by its own independent Raft group. This allows:
+- Different leaders on different machines (load spreading)
+- Parallel replication across regions
+- Independent failure domains
+
+```
+  +---Node 1---+    +---Node 2---+    +---Node 3---+
+  |            |    |            |    |            |
+  | Region A   |    | Region A   |    | Region A   |
+  | (Leader)   |    | (Follower) |    | (Follower) |
+  |            |    |            |    |            |
+  | Region B   |    | Region B   |    | Region B   |
+  | (Follower) |    | (Leader)   |    | (Follower) |
+  |            |    |            |    |            |
+  | Region C   |    | Region C   |    | Region C   |
+  | (Follower) |    | (Follower) |    | (Leader)   |
+  +------------+    +------------+    +------------+
+```
+
+## Putting It All Together
+
+If you are starting a distributed systems career, Raft is the single best algorithm to study in depth. Here is a summary of the guarantees it provides:
+
+1. **Election Safety**: At most one leader per term
+2. **Leader Append-Only**: A leader never overwrites or deletes entries in its log
+3. **Log Matching**: If two logs contain an entry with the same index and term, the logs are identical through that index
+4. **Leader Completeness**: If an entry is committed in a given term, it will be present in the logs of all leaders in higher terms
+5. **State Machine Safety**: If a server has applied a log entry at a given index, no other server will ever apply a different entry for that index
+
+These five properties, enforced by the mechanisms we discussed (election restriction, commit rules, log matching via prevLogIndex/prevLogTerm), make Raft a **safe** and **understandable** foundation for replicated state machines.
 
 ## References
 
-1. Ongaro, D. and Ousterhout, J. *In Search of an Understandable Consensus Algorithm* (2014) [paper](https://raft.github.io/raft.pdf)
-2. The Raft Consensus Algorithm — interactive visualization [site](https://raft.github.io/)
-3. etcd-io/raft — the Go implementation [`raft.go`](https://github.com/etcd-io/raft/blob/main/raft.go)
-4. etcd-io/raft — log management [`log.go`](https://github.com/etcd-io/raft/blob/main/log.go)
-5. Lamport, L. *The Part-Time Parliament* (Paxos, 1989) [paper](https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf)
-6. TiKV Raft documentation [doc](https://tikv.org/deep-dive/consensus-algorithm/raft/)
-7. etcd documentation — Raft internals [doc](https://etcd.io/docs/v3.5/learning/api/)
-8. Kafka KRaft documentation [doc](https://kafka.apache.org/documentation/#kraft)
+1. Ongaro, Diego and Ousterhout, John. "In Search of an Understandable Consensus Algorithm." USENIX ATC 2014. [Paper](https://raft.github.io/raft.pdf)
+2. Ongaro, Diego. "Consensus: Bridging Theory and Practice." Stanford PhD Dissertation, 2014. [Dissertation](https://web.stanford.edu/~ouster/cgi-bin/papers/OngaroPhD.pdf)
+3. etcd/raft implementation. [GitHub](https://github.com/etcd-io/raft)
+4. Raft Visualization. [raft.github.io](https://raft.github.io/)
+5. Lamport, Leslie. "The Part-Time Parliament." ACM TOCS 16(2), 1998.
+6. Howard, Heidi. "Distributed Consensus Revised." Cambridge PhD Thesis, 2019.
