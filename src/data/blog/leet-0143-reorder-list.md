@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-11T06:23:00Z
 modDatetime: 2026-05-11T06:23:00Z
 title: LeetCode 143 Reorder List
-featured: true
+featured: false
 tags:
   - a-linkedlist
   - a-two-pointer
