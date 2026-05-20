@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-14T10:06:00Z
 modDatetime: 2026-05-14T10:06:00Z
 title: LeetCode 121 Best Time to Buy and Sell Stock
-featured: true
+featured: false
 tags:
   - a-array
   - a-dp
