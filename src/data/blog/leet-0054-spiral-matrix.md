@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-16T10:07:00Z
 modDatetime: 2026-05-16T10:07:00Z
 title: LeetCode 54 Spiral Matrix
-featured: true
+featured: false
 tags:
   - a-array
   - a-matrix
