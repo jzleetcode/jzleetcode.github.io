@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-17T10:13:00Z
 modDatetime: 2026-05-17T10:13:00Z
 title: LeetCode 46 Permutations
-featured: true
+featured: false
 tags:
   - a-array
   - a-backtracking
