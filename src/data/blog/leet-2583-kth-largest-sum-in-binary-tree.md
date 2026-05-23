@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-18T06:00:00Z
 modDatetime: 2026-05-18T06:00:00Z
 title: LeetCode 2583 Kth Largest Sum in a Binary Tree
-featured: true
+featured: false
 tags:
   - a-tree
   - a-bfs
