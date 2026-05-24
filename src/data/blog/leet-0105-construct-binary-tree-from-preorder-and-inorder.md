@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-19T06:00:00Z
 modDatetime: 2026-05-19T06:00:00Z
 title: LeetCode 105 Construct Binary Tree from Preorder and Inorder Traversal
-featured: true
+featured: false
 tags:
   - a-tree
   - a-divide-and-conquer
