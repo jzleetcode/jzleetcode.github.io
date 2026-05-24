@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-18T06:23:00Z
 modDatetime: 2026-05-18T06:23:00Z
 title: LeetCode 424 Longest Repeating Character Replacement
-featured: true
+featured: false
 tags:
   - a-sliding-window
   - a-binary-search
