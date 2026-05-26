@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-21T06:00:00Z
 modDatetime: 2026-05-21T06:00:00Z
 title: LeetCode 2462 Total Cost to Hire K Workers
-featured: true
+featured: false
 tags:
   - a-heap
   - a-two-pointers
