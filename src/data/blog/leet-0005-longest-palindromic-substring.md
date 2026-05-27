@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-21T10:37:00Z
 modDatetime: 2026-05-21T10:37:00Z
 title: LeetCode 5 Longest Palindromic Substring
-featured: true
+featured: false
 tags:
   - a-string
   - a-dp
