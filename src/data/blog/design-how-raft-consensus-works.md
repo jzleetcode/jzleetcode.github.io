@@ -1,7 +1,7 @@
 ---
 author: JZ
-pubDatetime: 2026-05-18T06:23:00Z
-modDatetime: 2026-05-18T06:23:00Z
+pubDatetime: 2026-05-28T06:23:00Z
+modDatetime: 2026-05-28T06:23:00Z
 title: System Design - How the Raft Consensus Algorithm Works
 tags:
   - design-system
@@ -564,6 +564,129 @@ A single Raft group is limited by its leader's throughput. Systems like TiKV sol
   | (Follower) |    | (Follower) |    | (Leader)   |
   +------------+    +------------+    +------------+
 ```
+
+## How Raft is Used in TiKV (TiDB's Storage Layer)
+
+TiKV is the distributed key-value storage engine that powers TiDB, a MySQL-compatible distributed SQL database. It provides one of the largest production deployments of Raft, running thousands of Raft groups simultaneously on each node.
+
+### Architecture: Multi-Raft
+
+TiKV splits the entire key space into contiguous ranges called **Regions** (default 96 MB each). Each Region is an independent Raft group with its own leader, followers, and log:
+
+```
+  Key space:   [a------g)  [g------m)  [m------t)  [t------z)
+                Region 1    Region 2    Region 3    Region 4
+
+  TiKV Node 1:  R1(Leader)  R2(Follow)  R3(Follow)  R4(Leader)
+  TiKV Node 2:  R1(Follow)  R2(Leader)  R3(Follow)  R4(Follow)
+  TiKV Node 3:  R1(Follow)  R2(Follow)  R3(Leader)  R4(Follow)
+```
+
+This design means:
+- **Parallelism**: Different regions replicate independently, saturating network bandwidth
+- **Load balancing**: The PD (Placement Driver) scheduler moves region leaders across nodes to spread CPU and I/O
+- **Fault isolation**: A slow Raft group in one region does not block others
+
+### Write Path Through Raft
+
+When a TiDB SQL layer sends a write to TiKV:
+
+```
+  TiDB SQL        TiKV (Region Leader)       TiKV Followers
+    |                    |                        |
+    |--Prewrite(k,v)---->|                        |
+    |                    |                        |
+    |                    | 1. Encode as Raft      |
+    |                    |    log entry           |
+    |                    |                        |
+    |                    | 2. Propose to          |
+    |                    |    Raft group          |
+    |                    |--AppendEntries-------->|
+    |                    |                        |
+    |                    |<--ACK------------------|
+    |                    |                        |
+    |                    | 3. Committed!          |
+    |                    |    Apply to RocksDB    |
+    |                    |                        |
+    |<--OK---------------|                        |
+```
+
+TiKV uses **RocksDB** as the local storage engine on each node. The Raft log itself is stored in a separate RocksDB instance (raftdb), while applied state goes into the main kvdb:
+
+```
+  +--- TiKV Node ---+
+  |                  |
+  |  +-----------+   |    Raft log entries written here first
+  |  | Raft DB   |   |    (WAL for Raft consensus)
+  |  | (RocksDB) |   |
+  |  +-----------+   |
+  |                  |
+  |  +-----------+   |    Applied state machine data
+  |  |  KV DB    |   |    (user key-value pairs)
+  |  | (RocksDB) |   |
+  |  +-----------+   |
+  |                  |
+  +------------------+
+```
+
+### Region Split and Merge
+
+When a Region grows beyond 96 MB, TiKV splits it into two Regions. This is itself a Raft-replicated operation:
+
+```
+  Before split:
+    Region 1: [a ------------------- m)  (120 MB, too large)
+    Peers: Node1(Leader), Node2, Node3
+
+  Split point chosen: key "g"
+
+  After split:
+    Region 1: [a ------- g)  (55 MB)
+    Peers: Node1(Leader), Node2, Node3
+
+    Region 5: [g ------- m)  (65 MB)   <-- new Region, new Raft group
+    Peers: Node1(Leader), Node2, Node3
+```
+
+The split is proposed as a special admin command through the Raft log of Region 1, ensuring all replicas split at exactly the same key.
+
+### Lease Read Optimization
+
+Reading through Raft (proposing a read as a log entry) is safe but expensive. TiKV implements **lease-based reads**: the leader holds a lease (typically the election timeout duration) during which it can serve reads locally without going through Raft:
+
+```
+  Client          Region Leader         Followers
+    |                  |                    |
+    |--Read(key)------>|                    |
+    |                  |                    |
+    |                  | check: am I still  |
+    |                  | within lease?       |
+    |                  | YES -> serve from   |
+    |                  |        local state  |
+    |                  |                    |
+    |<--value----------|                    |
+    |                  |                    |
+    (no Raft round-trip needed!)
+```
+
+The lease is renewed every time the leader successfully sends a heartbeat to a majority. This is safe because if the leader is partitioned, its lease will expire before any new leader can be elected (due to the election timeout being longer than the lease).
+
+### Source: tikv/raft-rs
+
+TiKV maintains its own Raft implementation in Rust, forked and diverged from the etcd/raft design:
+
+```
+  https://github.com/tikv/raft-rs
+
+  src/
+  ├── raft.rs          -- core Raft state machine
+  ├── raft_log.rs      -- log management
+  ├── progress.rs      -- tracks follower replication state
+  ├── raw_node.rs      -- user-facing API (propose, step, ready)
+  └── storage.rs       -- trait for persistent storage
+```
+
+The `RawNode` API pattern is the same as etcd/raft: the application calls `propose()` to submit entries, then periodically calls `ready()` to get messages to send and entries to persist.
 
 ## Putting It All Together
 
