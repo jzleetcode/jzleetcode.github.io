@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-23T06:00:00Z
 modDatetime: 2026-05-23T06:00:00Z
 title: LeetCode 621 Task Scheduler
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-hash
