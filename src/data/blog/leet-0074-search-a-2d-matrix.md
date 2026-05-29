@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-24T10:36:00Z
 modDatetime: 2026-05-24T10:36:00Z
 title: LeetCode 74 Search a 2D Matrix
-featured: true
+featured: false
 tags:
   - a-array
   - a-binary-search
