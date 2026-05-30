@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-25T06:00:00Z
 modDatetime: 2026-05-25T06:00:00Z
 title: LeetCode 763 Partition Labels
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-hash-table
