@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-26T10:06:00Z
 modDatetime: 2026-05-26T10:06:00Z
 title: LeetCode 287 Find the Duplicate Number
-featured: true
+featured: false
 tags:
   - a-array
   - a-two-pointers
