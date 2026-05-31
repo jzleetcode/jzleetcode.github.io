@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-26T06:00:00Z
 modDatetime: 2026-05-26T06:00:00Z
 title: LeetCode 743 Network Delay Time
-featured: true
+featured: false
 tags:
   - a-graph
   - a-heap
