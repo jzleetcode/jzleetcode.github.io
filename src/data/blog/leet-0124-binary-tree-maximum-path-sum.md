@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-28T06:00:00Z
 modDatetime: 2026-05-28T06:00:00Z
 title: LeetCode 124 Binary Tree Maximum Path Sum
-featured: true
+featured: false
 tags:
   - a-tree
   - a-depth-first-search
