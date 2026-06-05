@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-30T10:06:00Z
 modDatetime: 2026-05-30T10:06:00Z
 title: LeetCode 647 Palindromic Substrings
-featured: true
+featured: false
 tags:
   - a-string
   - a-dp
