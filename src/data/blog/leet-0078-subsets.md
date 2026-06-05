@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-30T10:36:00Z
 modDatetime: 2026-05-30T10:36:00Z
 title: LeetCode 78 Subsets
-featured: true
+featured: false
 tags:
   - a-backtracking
   - a-bit
