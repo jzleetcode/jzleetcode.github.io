@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-31T06:00:00Z
 modDatetime: 2026-05-31T06:00:00Z
 title: LeetCode 239 Sliding Window Maximum
-featured: true
+featured: false
 tags:
   - a-array
   - a-queue
