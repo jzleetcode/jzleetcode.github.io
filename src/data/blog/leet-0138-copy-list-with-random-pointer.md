@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-05-31T10:06:00Z
 modDatetime: 2026-05-31T10:06:00Z
 title: LeetCode 138 Copy List with Random Pointer
-featured: true
+featured: false
 tags:
   - a-linkedlist
   - a-hashtable
