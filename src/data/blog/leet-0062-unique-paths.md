@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-01T10:36:00Z
 modDatetime: 2026-06-01T10:36:00Z
 title: LeetCode 62 Unique Paths
-featured: true
+featured: false
 tags:
   - a-dp
   - a-math
