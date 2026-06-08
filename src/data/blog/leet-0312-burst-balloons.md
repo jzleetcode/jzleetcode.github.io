@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-03T06:00:00Z
 modDatetime: 2026-06-03T06:00:00Z
 title: LeetCode 312 Burst Balloons
-featured: true
+featured: false
 tags:
   - a-dynamic-programming
   - a-array
