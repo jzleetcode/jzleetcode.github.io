@@ -1,7 +1,7 @@
 ---
 author: JZ
-pubDatetime: 2026-06-09T06:00:00Z
-modDatetime: 2026-06-09T06:00:00Z
+pubDatetime: 2026-06-10T06:00:00Z
+modDatetime: 2026-06-10T06:00:00Z
 title: System Design - How Raft Consensus Works
 tags:
   - design-system
