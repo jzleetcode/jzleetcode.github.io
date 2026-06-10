@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-04T10:41:00Z
 modDatetime: 2026-06-04T10:41:00Z
 title: LeetCode 114 Flatten Binary Tree to Linked List
-featured: true
+featured: false
 tags:
   - a-tree
   - a-dfs
