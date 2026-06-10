@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-04T08:00:00Z
 modDatetime: 2026-06-04T08:00:00Z
 title: LeetCode 236 Lowest Common Ancestor of a Binary Tree
-featured: true
+featured: false
 tags:
   - a-tree
   - a-dfs
