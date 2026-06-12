@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-06T06:00:00Z
 modDatetime: 2026-06-06T06:00:00Z
 title: LeetCode 438 Find All Anagrams in a String
-featured: true
+featured: false
 tags:
   - a-sliding-window
   - a-hash-table
