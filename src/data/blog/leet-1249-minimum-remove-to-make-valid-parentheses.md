@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-06T10:36:00Z
 modDatetime: 2026-06-06T10:36:00Z
 title: LeetCode 1249 Minimum Remove to Make Valid Parentheses
-featured: true
+featured: false
 tags:
   - a-stack
   - a-string
