@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-07T10:06:00Z
 modDatetime: 2026-06-07T10:06:00Z
 title: LeetCode 525 Contiguous Array
-featured: true
+featured: false
 tags:
   - a-hash
   - a-prefix-sum
