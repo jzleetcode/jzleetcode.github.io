@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-08T06:00:00Z
 modDatetime: 2026-06-08T06:00:00Z
 title: LeetCode 684 Redundant Connection
-featured: true
+featured: false
 tags:
   - a-union-find
   - a-graph
