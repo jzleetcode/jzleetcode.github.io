@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-10T06:00:00Z
 modDatetime: 2026-06-10T06:00:00Z
 title: LeetCode 102 Binary Tree Level Order Traversal
-featured: true
+featured: false
 tags:
   - a-bfs
   - a-dfs
