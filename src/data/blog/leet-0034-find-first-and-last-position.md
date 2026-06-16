@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-10T10:00:00Z
 modDatetime: 2026-06-10T10:00:00Z
 title: LeetCode 34 Find First and Last Position of Element in Sorted Array
-featured: true
+featured: false
 tags:
   - a-array
   - a-binary-search
