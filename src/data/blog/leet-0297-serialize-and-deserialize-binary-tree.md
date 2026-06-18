@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-11T10:06:00Z
 modDatetime: 2026-06-11T10:06:00Z
 title: LeetCode 297 Serialize and Deserialize Binary Tree
-featured: true
+featured: false
 tags:
   - a-tree
   - a-dfs
