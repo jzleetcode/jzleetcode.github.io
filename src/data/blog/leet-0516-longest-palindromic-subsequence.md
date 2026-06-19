@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-12T10:36:00Z
 modDatetime: 2026-06-12T10:36:00Z
 title: LeetCode 516 Longest Palindromic Subsequence
-featured: true
+featured: false
 tags:
   - a-dp
   - a-string
