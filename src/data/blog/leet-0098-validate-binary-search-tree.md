@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-13T06:00:00Z
 modDatetime: 2026-06-13T06:00:00Z
 title: LeetCode 98 Validate Binary Search Tree
-featured: true
+featured: false
 tags:
   - a-binary-search-tree
   - a-dfs
