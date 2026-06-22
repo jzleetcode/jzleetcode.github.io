@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-15T10:06:00Z
 modDatetime: 2026-06-15T10:06:00Z
 title: LeetCode 57 Insert Interval
-featured: true
+featured: false
 tags:
   - a-array
 description:
