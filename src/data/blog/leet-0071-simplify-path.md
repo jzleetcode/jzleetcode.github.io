@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-16T06:00:00Z
 modDatetime: 2026-06-16T06:00:00Z
 title: LeetCode 71 Simplify Path
-featured: true
+featured: false
 tags:
   - a-string
   - a-stack
