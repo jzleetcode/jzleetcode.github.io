@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-18T11:40:00Z
 modDatetime: 2026-06-18T11:40:00Z
 title: LeetCode 55 Jump Game
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-dp
