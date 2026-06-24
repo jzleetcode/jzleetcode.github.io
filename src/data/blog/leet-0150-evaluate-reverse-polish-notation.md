@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-19T10:07:00Z
 modDatetime: 2026-06-19T10:07:00Z
 title: LeetCode 150 Evaluate Reverse Polish Notation
-featured: true
+featured: false
 tags:
   - a-array
   - a-math
