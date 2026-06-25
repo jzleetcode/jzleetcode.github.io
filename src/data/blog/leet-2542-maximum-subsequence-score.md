@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-19T10:37:00Z
 modDatetime: 2026-06-19T10:37:00Z
 title: LeetCode 2542 Maximum Subsequence Score
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-heap
