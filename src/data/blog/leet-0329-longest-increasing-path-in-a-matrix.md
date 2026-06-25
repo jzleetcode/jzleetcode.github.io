@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-20T06:00:00Z
 modDatetime: 2026-06-20T06:00:00Z
 title: LeetCode 329 Longest Increasing Path in a Matrix
-featured: true
+featured: false
 tags:
   - a-dfs
   - a-bfs
