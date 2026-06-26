@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-21T10:06:00Z
 modDatetime: 2026-06-21T10:06:00Z
 title: LeetCode 36 Valid Sudoku
-featured: true
+featured: false
 tags:
   - a-array
   - a-hash-table
