@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-22T06:23:00Z
 modDatetime: 2026-06-22T06:23:00Z
 title: LeetCode 1631 Path With Minimum Effort
-featured: true
+featured: false
 tags:
   - a-graph
   - a-binary-search
