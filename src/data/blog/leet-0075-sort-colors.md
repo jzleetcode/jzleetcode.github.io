@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-22T10:06:00Z
 modDatetime: 2026-06-22T10:06:00Z
 title: LeetCode 75 Sort Colors
-featured: true
+featured: false
 tags:
   - a-array
   - a-two-pointer
