@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-24T10:00:00Z
 modDatetime: 2026-06-24T10:00:00Z
 title: LeetCode 494 Target Sum
-featured: true
+featured: false
 tags:
   - a-dynamic-programming
 description:
