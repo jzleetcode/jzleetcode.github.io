@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-25T10:07:00Z
 modDatetime: 2026-06-25T10:07:00Z
 title: LeetCode 547 Number of Provinces
-featured: true
+featured: false
 tags:
   - a-union-find
   - a-dfs
