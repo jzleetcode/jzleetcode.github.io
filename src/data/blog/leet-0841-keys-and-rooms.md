@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-25T10:36:00Z
 modDatetime: 2026-06-25T10:36:00Z
 title: LeetCode 841 Keys and Rooms
-featured: true
+featured: false
 tags:
   - a-dfs
   - a-bfs
