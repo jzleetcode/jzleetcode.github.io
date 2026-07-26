@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-26T06:00:00Z
 modDatetime: 2026-06-26T06:00:00Z
 title: LeetCode 752 Open the Lock
-featured: true
+featured: false
 tags:
   - a-bfs
   - a-graph
