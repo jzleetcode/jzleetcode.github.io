@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-26T10:36:00Z
 modDatetime: 2026-06-26T10:36:00Z
 title: LeetCode 4 Median of Two Sorted Arrays
-featured: true
+featured: false
 tags:
   - a-array
   - a-binary-search
