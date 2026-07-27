@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-28T06:00:00Z
 modDatetime: 2026-06-28T06:00:00Z
 title: LeetCode 210 Course Schedule II
-featured: true
+featured: false
 tags:
   - a-graph
   - a-depth-first-search
