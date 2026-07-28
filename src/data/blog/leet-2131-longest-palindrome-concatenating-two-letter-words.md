@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-29T06:00:00Z
 modDatetime: 2026-06-29T06:00:00Z
 title: LeetCode 2131 Longest Palindrome by Concatenating Two Letter Words
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-hash
