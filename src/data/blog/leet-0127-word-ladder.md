@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-06-29T06:00:00Z
 modDatetime: 2026-06-29T06:00:00Z
 title: LeetCode 127 Word Ladder
-featured: true
+featured: false
 tags:
   - a-bfs
   - a-hash-table
