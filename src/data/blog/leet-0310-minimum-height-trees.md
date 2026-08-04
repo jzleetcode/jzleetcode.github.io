@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-07-22T10:39:00Z
 modDatetime: 2026-07-22T10:39:00Z
 title: LeetCode 310 Minimum Height Trees
-featured: true
+featured: false
 tags:
   - a-graph
   - a-topological-sort
