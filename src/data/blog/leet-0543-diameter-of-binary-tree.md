@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-07-20T06:00:00Z
 modDatetime: 2026-07-20T06:00:00Z
 title: LeetCode 543 Diameter of Binary Tree
-featured: true
+featured: false
 tags:
   - a-dfs
   - a-tree
