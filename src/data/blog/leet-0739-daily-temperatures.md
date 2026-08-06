@@ -1,13 +1,13 @@
 ---
 author: JZ
-pubDatetime: 2026-04-10T06:00:00Z
-modDatetime: 2026-04-10T06:00:00Z
+pubDatetime: 2026-08-06T08:00:00Z
+modDatetime: 2026-08-06T08:00:00Z
 title: LeetCode 739 Daily Temperatures
-featured: false
+featured: true
 tags:
-  - a-array
   - a-stack
   - a-monotonic-stack
+  - a-array
 description:
   "Solutions for LeetCode 739, medium, tags: array, stack, monotonic stack."
 ---
@@ -46,28 +46,28 @@ Constraints:
 
 ### Idea
 
-We use a **monotonic decreasing stack** that stores indices. As we iterate through the array, for each temperature, we pop all indices from the stack whose temperatures are strictly less than the current temperature. For each popped index `j`, the answer is `i - j` (the distance to the next warmer day). Then we push the current index.
+Use a **monotonic decreasing stack** of indices. We iterate through the temperatures array; for each day `i`, we pop all indices from the stack whose temperature is less than `temperatures[i]` — those days have found their next warmer day. The answer for popped index `j` is `i - j`.
 
-Each index is pushed and popped at most once, so the total work across all iterations is $O(n)$.
-
-Let's trace Example 1: `temperatures = [73,74,75,71,69,72,76,73]`
+Each index is pushed and popped at most once, so the total work is linear.
 
 ```
-i=0: t=73, stack=[]         → push 0.        stack=[0]
-i=1: t=74, stack=[0]        → 74>73, pop 0 → ans[0]=1-0=1. push 1. stack=[1]
-i=2: t=75, stack=[1]        → 75>74, pop 1 → ans[1]=2-1=1. push 2. stack=[2]
-i=3: t=71, stack=[2]        → 71<75, push 3.  stack=[2,3]
-i=4: t=69, stack=[2,3]      → 69<71, push 4.  stack=[2,3,4]
-i=5: t=72, stack=[2,3,4]    → 72>69, pop 4 → ans[4]=5-4=1.
-                               72>71, pop 3 → ans[3]=5-3=2.
-                               72<75, push 5.  stack=[2,5]
-i=6: t=76, stack=[2,5]      → 76>72, pop 5 → ans[5]=6-5=1.
-                               76>75, pop 2 → ans[2]=6-2=4.
-                               push 6.         stack=[6]
-i=7: t=73, stack=[6]        → 73<76, push 7.  stack=[6,7]
+temperatures: [73, 74, 75, 71, 69, 72, 76, 73]
 
-Remaining in stack: indices 6,7 → ans[6]=0, ans[7]=0
-Result: [1,1,4,2,1,1,0,0]
+Stack trace (stores indices, shown as temp[idx]):
+i=0: push 73[0]           stack: [73]
+i=1: pop 73[0] → ans[0]=1, push 74[1]   stack: [74]
+i=2: pop 74[1] → ans[1]=1, push 75[2]   stack: [75]
+i=3: push 71[3]           stack: [75, 71]
+i=4: push 69[4]           stack: [75, 71, 69]
+i=5: pop 69[4] → ans[4]=1
+     pop 71[3] → ans[3]=2
+     push 72[5]            stack: [75, 72]
+i=6: pop 72[5] → ans[5]=1
+     pop 75[2] → ans[2]=4
+     push 76[6]            stack: [76]
+i=7: push 73[7]           stack: [76, 73]
+
+Result: [1, 1, 4, 2, 1, 1, 0, 0]
 ```
 
 Complexity: Time $O(n)$, Space $O(n)$.
@@ -75,6 +75,7 @@ Complexity: Time $O(n)$, Space $O(n)$.
 #### Java
 
 ```java []
+// see algorithm-java src/main/java/stack/DailyTemperatures.java for the full source.
 public static int[] dailyTemperatures(int[] temperatures) {
     int n = temperatures.length;
     int[] res = new int[n];
@@ -90,64 +91,59 @@ public static int[] dailyTemperatures(int[] temperatures) {
 }
 ```
 
-#### Python
-
-```python []
-class Solution:
-    def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
-        n = len(temperatures)
-        res = [0] * n
-        stack = []  # monotonic decreasing stack of indices
-        for i, t in enumerate(temperatures):  # O(n)
-            while stack and temperatures[stack[-1]] < t:  # each index pushed/popped at most once, O(n) total
-                j = stack.pop()
-                res[j] = i - j
-            stack.append(i)
-        return res  # Time O(n), Space O(n)
-```
-
 #### C++
 
 ```cpp []
-class Solution739 {
-public:
-    vector<int> dailyTemperatures(vector<int> &temperatures) {
-        int n = static_cast<int>(temperatures.size());
-        vector<int> res(n, 0);
-        stack<int> st; // monotonic decreasing stack of indices
-        for (int i = 0; i < n; i++) { // O(n)
-            while (!st.empty() && temperatures[st.top()] < temperatures[i]) { // O(n) total
-                int j = st.top();
-                st.pop();
-                res[j] = i - j;
-            }
-            st.push(i);
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+    int n = temperatures.size();
+    vector<int> res(n, 0); // O(n) space
+    stack<int> st; // monotonic decreasing stack of indices, O(n) space
+    for (int i = 0; i < n; i++) { // O(n)
+        while (!st.empty() && temperatures[st.top()] < temperatures[i]) { // O(n) total pops
+            int j = st.top();
+            st.pop();
+            res[j] = i - j;
         }
-        return res; // Time O(n), Space O(n)
+        st.push(i);
     }
-};
+    return res; // Time O(n), Space O(n)
+}
+```
+
+#### Python
+
+```python []
+def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
+    n = len(temperatures)
+    res = [0] * n  # O(n) space
+    stack = []  # monotonic decreasing stack of indices, O(n) space
+    for i in range(n):  # O(n)
+        while stack and temperatures[stack[-1]] < temperatures[i]:  # O(n) total pops
+            j = stack.pop()
+            res[j] = i - j
+        stack.append(i)
+    return res  # Time O(n), Space O(n)
 ```
 
 #### Rust
 
 ```rust []
-impl Solution {
-    pub fn daily_temperatures(temperatures: Vec<i32>) -> Vec<i32> {
-        let n = temperatures.len();
-        let mut res = vec![0i32; n];
-        let mut stack: Vec<usize> = Vec::new(); // monotonic decreasing stack of indices
-        for i in 0..n { // O(n)
-            while let Some(&j) = stack.last() { // each index pushed/popped at most once, O(n) total
-                if temperatures[j] < temperatures[i] {
-                    stack.pop();
-                    res[j] = (i - j) as i32;
-                } else {
-                    break;
-                }
+// see crates/leet/src/stack/daily_temperatures.rs for the full source.
+pub fn daily_temperatures(temperatures: Vec<i32>) -> Vec<i32> {
+    let n = temperatures.len();
+    let mut res = vec![0i32; n]; // O(n) space
+    let mut stack: Vec<usize> = Vec::new(); // monotonic decreasing stack of indices, O(n) space
+    for i in 0..n { // O(n)
+        while let Some(&j) = stack.last() { // O(n) total pops
+            if temperatures[j] < temperatures[i] {
+                stack.pop();
+                res[j] = (i - j) as i32;
+            } else {
+                break;
             }
-            stack.push(i);
         }
-        res // Time O(n), Space O(n)
+        stack.push(i);
     }
+    res // Time O(n), Space O(n)
 }
 ```
