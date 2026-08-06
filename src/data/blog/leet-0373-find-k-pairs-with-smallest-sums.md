@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-07-26T06:00:00Z
 modDatetime: 2026-07-26T06:00:00Z
 title: LeetCode 373 Find K Pairs with Smallest Sums
-featured: true
+featured: false
 tags:
   - a-array
   - a-heap
