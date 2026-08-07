@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-07-27T10:36:00Z
 modDatetime: 2026-07-27T10:36:00Z
 title: LeetCode 1584 Min Cost to Connect All Points
-featured: true
+featured: false
 tags:
   - a-graph
   - a-heap
