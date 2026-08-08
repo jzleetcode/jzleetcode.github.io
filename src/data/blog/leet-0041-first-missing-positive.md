@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-07-28T10:37:00Z
 modDatetime: 2026-07-28T10:37:00Z
 title: LeetCode 41 First Missing Positive
-featured: true
+featured: false
 tags:
   - a-array
   - a-hash-table
