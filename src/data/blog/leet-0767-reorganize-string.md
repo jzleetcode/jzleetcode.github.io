@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-07-28T10:06:00Z
 modDatetime: 2026-07-28T10:06:00Z
 title: LeetCode 767 Reorganize String
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-heap
