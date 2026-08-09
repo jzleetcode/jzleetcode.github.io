@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-04T12:00:00Z
 modDatetime: 2026-08-04T12:00:00Z
 title: LeetCode 678 Valid Parenthesis String
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-string
