@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-05T06:00:00Z
 modDatetime: 2026-08-05T06:00:00Z
 title: LeetCode 778 Swim in Rising Water
-featured: true
+featured: false
 tags:
   - a-binary-search
   - a-bfs
