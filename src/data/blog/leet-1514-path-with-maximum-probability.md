@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-06T10:00:00Z
 modDatetime: 2026-08-06T10:00:00Z
 title: LeetCode 1514 Path with Maximum Probability
-featured: true
+featured: false
 tags:
   - a-graph
   - a-heap
