@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-07T06:00:00Z
 modDatetime: 2026-08-07T06:00:00Z
 title: LeetCode 131 Palindrome Partitioning
-featured: true
+featured: false
 tags:
   - a-backtracking
   - a-dynamic-programming
