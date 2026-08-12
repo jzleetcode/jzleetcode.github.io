@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-07T06:23:00Z
 modDatetime: 2026-08-07T06:23:00Z
 title: LeetCode 19 Remove Nth Node From End of List
-featured: true
+featured: false
 tags:
   - a-linkedlist
   - a-two-pointer
