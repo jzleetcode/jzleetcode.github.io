@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-08T10:07:00Z
 modDatetime: 2026-08-08T10:07:00Z
 title: LeetCode 452 Minimum Number of Arrows to Burst Balloons
-featured: true
+featured: false
 tags:
   - a-array
   - a-greedy
