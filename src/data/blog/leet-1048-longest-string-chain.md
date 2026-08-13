@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-08T10:36:00Z
 modDatetime: 2026-08-08T10:36:00Z
 title: LeetCode 1048 Longest String Chain
-featured: true
+featured: false
 tags:
   - a-dp
   - a-hash
