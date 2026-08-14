@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-09T10:10:00Z
 modDatetime: 2026-08-09T10:10:00Z
 title: LeetCode 410 Split Array Largest Sum
-featured: true
+featured: false
 tags:
   - a-binary-search
   - a-array
