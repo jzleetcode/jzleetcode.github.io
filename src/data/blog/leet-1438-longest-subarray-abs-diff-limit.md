@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-09T06:00:00Z
 modDatetime: 2026-08-09T06:00:00Z
 title: LeetCode 1438 Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit
-featured: true
+featured: false
 tags:
   - a-sliding-window
   - a-monotonic-queue
