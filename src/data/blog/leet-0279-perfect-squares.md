@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-10T10:00:00Z
 modDatetime: 2026-08-10T10:00:00Z
 title: LeetCode 279 Perfect Squares
-featured: true
+featured: false
 tags:
   - a-dynamic-programming
   - a-math
