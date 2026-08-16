@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-11T06:00:00Z
 modDatetime: 2026-08-11T06:00:00Z
 title: LeetCode 934 Shortest Bridge
-featured: true
+featured: false
 tags:
   - a-bfs
   - a-dfs
