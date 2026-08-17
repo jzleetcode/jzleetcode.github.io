@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-12T10:36:00Z
 modDatetime: 2026-08-12T10:36:00Z
 title: LeetCode 2616 Minimize the Maximum Difference of Pairs
-featured: true
+featured: false
 tags:
   - a-binary-search
   - a-array
