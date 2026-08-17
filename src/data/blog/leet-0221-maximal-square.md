@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-12T08:00:00Z
 modDatetime: 2026-08-12T08:00:00Z
 title: LeetCode 221 Maximal Square
-featured: true
+featured: false
 tags:
   - a-dp
   - a-matrix
