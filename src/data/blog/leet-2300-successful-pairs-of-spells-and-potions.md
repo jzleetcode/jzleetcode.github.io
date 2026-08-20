@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-14T10:06:00Z
 modDatetime: 2026-08-14T10:06:00Z
 title: LeetCode 2300 Successful Pairs of Spells and Potions
-featured: true
+featured: false
 tags:
   - a-binary-search
   - a-array
