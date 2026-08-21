@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-15T10:30:00Z
 modDatetime: 2026-08-15T10:30:00Z
 title: LeetCode 1482 Minimum Number of Days to Make m Bouquets
-featured: true
+featured: false
 tags:
   - a-binary-search
   - a-array
