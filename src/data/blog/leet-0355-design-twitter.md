@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-16T06:00:00Z
 modDatetime: 2026-08-16T06:00:00Z
 title: LeetCode 355 Design Twitter
-featured: true
+featured: false
 tags:
   - a-heap
   - a-design
