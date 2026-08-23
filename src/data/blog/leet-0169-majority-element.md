@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-17T10:36:00Z
 modDatetime: 2026-08-17T10:36:00Z
 title: LeetCode 169 Majority Element
-featured: true
+featured: false
 tags:
   - a-array
 description:
