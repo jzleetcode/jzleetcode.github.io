@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-19T10:00:00Z
 modDatetime: 2026-08-19T10:00:00Z
 title: LeetCode 45 Jump Game II
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-array
