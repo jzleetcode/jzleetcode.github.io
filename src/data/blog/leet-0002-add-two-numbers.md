@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-19T10:36:00Z
 modDatetime: 2026-08-19T10:36:00Z
 title: LeetCode 2 Add Two Numbers
-featured: true
+featured: false
 tags:
   - a-linked-list
   - a-math
