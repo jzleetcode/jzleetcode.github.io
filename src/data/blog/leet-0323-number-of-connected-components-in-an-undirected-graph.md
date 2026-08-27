@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-21T10:36:00Z
 modDatetime: 2026-08-21T10:36:00Z
 title: LeetCode 323 Number of Connected Components in an Undirected Graph
-featured: true
+featured: false
 tags:
   - a-union-find
   - a-dfs
