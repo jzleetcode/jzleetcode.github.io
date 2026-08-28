@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-22T06:00:00Z
 modDatetime: 2026-08-22T06:00:00Z
 title: LeetCode 528 Random Pick with Weight
-featured: true
+featured: false
 tags:
   - a-binary-search
   - a-prefix-sum
