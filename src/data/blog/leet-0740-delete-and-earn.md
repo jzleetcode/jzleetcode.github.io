@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-23T06:00:00Z
 modDatetime: 2026-08-23T06:00:00Z
 title: LeetCode 740 Delete and Earn
-featured: true
+featured: false
 tags:
   - a-dynamic-programming
 description:
