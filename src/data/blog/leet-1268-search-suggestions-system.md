@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-27T08:00:00Z
 modDatetime: 2026-08-27T08:00:00Z
 title: LeetCode 1268 Search Suggestions System
-featured: true
+featured: false
 tags:
   - a-binary-search
   - a-trie
