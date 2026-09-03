@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-28T06:00:00Z
 modDatetime: 2026-08-28T06:00:00Z
 title: LeetCode 2251 Number of Flowers in Full Bloom
-featured: true
+featured: false
 tags:
   - a-array
   - a-binary-search
