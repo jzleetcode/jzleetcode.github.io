@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-08-31T06:00:00Z
 modDatetime: 2026-08-31T06:00:00Z
 title: LeetCode 50 Pow(x, n)
-featured: true
+featured: false
 tags:
   - a-math
   - a-recursion
