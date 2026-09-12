@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-01T10:07:00Z
 modDatetime: 2026-09-01T10:07:00Z
 title: LeetCode 64 Minimum Path Sum
-featured: true
+featured: false
 tags:
   - a-dp
   - a-matrix
