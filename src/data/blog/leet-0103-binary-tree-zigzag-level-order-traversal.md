@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-02T06:00:00Z
 modDatetime: 2026-09-02T06:00:00Z
 title: LeetCode 103 Binary Tree Zigzag Level Order Traversal
-featured: true
+featured: false
 tags:
   - a-bfs
   - a-dfs
