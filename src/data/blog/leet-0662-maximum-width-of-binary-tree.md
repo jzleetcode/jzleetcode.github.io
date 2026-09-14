@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-03T10:37:00Z
 modDatetime: 2026-09-03T10:37:00Z
 title: LeetCode 662 Maximum Width of Binary Tree
-featured: true
+featured: false
 tags:
   - a-bfs
   - a-dfs
