@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-08T06:00:00Z
 modDatetime: 2026-09-08T06:00:00Z
 title: LeetCode 1004 Max Consecutive Ones III
-featured: true
+featured: false
 tags:
   - a-sliding-window
   - a-binary-search
