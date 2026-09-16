@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-10T06:00:00Z
 modDatetime: 2026-09-10T06:00:00Z
 title: LeetCode 802 Find Eventual Safe States
-featured: true
+featured: false
 tags:
   - a-dfs
   - a-bfs
