@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-10T10:37:00Z
 modDatetime: 2026-09-10T10:37:00Z
 title: LeetCode 1679 Max Number of K-Sum Pairs
-featured: true
+featured: false
 tags:
   - a-hash
   - a-two-pointer
