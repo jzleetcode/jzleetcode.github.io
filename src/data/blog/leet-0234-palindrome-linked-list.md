@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-12T10:07:00Z
 modDatetime: 2026-09-12T10:07:00Z
 title: LeetCode 234 Palindrome Linked List
-featured: true
+featured: false
 tags:
   - a-linkedlist
   - a-two-pointer
