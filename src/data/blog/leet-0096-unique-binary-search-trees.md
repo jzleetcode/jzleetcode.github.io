@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-11T06:00:00Z
 modDatetime: 2026-09-11T06:00:00Z
 title: LeetCode 96 Unique Binary Search Trees
-featured: true
+featured: false
 tags:
   - a-dp
   - a-math
