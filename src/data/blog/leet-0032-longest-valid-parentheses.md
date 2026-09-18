@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-12T12:00:00Z
 modDatetime: 2026-09-12T12:00:00Z
 title: LeetCode 32 Longest Valid Parentheses
-featured: true
+featured: false
 tags:
   - a-string
   - a-stack
