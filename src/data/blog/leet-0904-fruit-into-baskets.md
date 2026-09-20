@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-14T10:00:00Z
 modDatetime: 2026-09-14T10:00:00Z
 title: LeetCode 904 Fruit Into Baskets
-featured: true
+featured: false
 tags:
   - a-sliding-window
   - a-hash
