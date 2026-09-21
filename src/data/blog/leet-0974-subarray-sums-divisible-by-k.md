@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-15T10:08:00Z
 modDatetime: 2026-09-15T10:08:00Z
 title: LeetCode 974 Subarray Sums Divisible by K
-featured: true
+featured: false
 tags:
   - a-hash
   - a-prefix-sum
