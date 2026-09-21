@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-14T11:00:00Z
 modDatetime: 2026-09-14T11:00:00Z
 title: LeetCode 572 Subtree of Another Tree
-featured: true
+featured: false
 tags:
   - a-tree
   - a-dfs
