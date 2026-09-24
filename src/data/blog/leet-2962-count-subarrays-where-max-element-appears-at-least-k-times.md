@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-16T10:37:00Z
 modDatetime: 2026-09-16T10:37:00Z
 title: LeetCode 2962 Count Subarrays Where Max Element Appears at Least K Times
-featured: true
+featured: false
 tags:
   - a-sliding-window
   - a-array
