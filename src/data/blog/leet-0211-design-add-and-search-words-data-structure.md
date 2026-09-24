@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-15T10:38:00Z
 modDatetime: 2026-09-15T10:38:00Z
 title: LeetCode 211 Design Add and Search Words Data Structure
-featured: true
+featured: false
 tags:
   - a-trie
   - a-dfs
