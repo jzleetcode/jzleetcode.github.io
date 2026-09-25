@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-17T10:08:00Z
 modDatetime: 2026-09-17T10:08:00Z
 title: LeetCode 930 Binary Subarrays With Sum
-featured: true
+featured: false
 tags:
   - a-hash
   - a-prefix-sum
