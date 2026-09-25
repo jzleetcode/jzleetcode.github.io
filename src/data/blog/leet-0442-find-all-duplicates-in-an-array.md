@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-17T10:37:00Z
 modDatetime: 2026-09-17T10:37:00Z
 title: LeetCode 442 Find All Duplicates in an Array
-featured: true
+featured: false
 tags:
   - a-array
   - a-hash
