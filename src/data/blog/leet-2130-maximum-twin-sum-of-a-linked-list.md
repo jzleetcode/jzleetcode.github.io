@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-18T06:00:00Z
 modDatetime: 2026-09-18T06:00:00Z
 title: LeetCode 2130 Maximum Twin Sum of a Linked List
-featured: true
+featured: false
 tags:
   - a-linked-list
   - a-two-pointers
