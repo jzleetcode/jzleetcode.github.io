@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-21T10:07:00Z
 modDatetime: 2026-09-21T10:07:00Z
 title: LeetCode 2439 Minimize Maximum of Array
-featured: true
+featured: false
 tags:
   - a-array
   - a-binary-search
