@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-20T10:37:00Z
 modDatetime: 2026-09-20T10:37:00Z
 title: LeetCode 226 Invert Binary Tree
-featured: true
+featured: false
 tags:
   - a-dfs
   - a-bfs
