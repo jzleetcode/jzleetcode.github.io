@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2025-01-02T06:23:00Z
 modDatetime: 2025-01-02T06:23:00Z
-title:  and GeeksForGeeks Minimum Replacements/Substitutions to Make Adjacent Characters Unequal
+title: GeeksForGeeks Minimum Replacements/Substitutions to Make Adjacent Characters Unequal
 tags:
   - a-sliding-window
   - a-array

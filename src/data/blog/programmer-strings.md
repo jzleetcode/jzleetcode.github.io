@@ -2,12 +2,12 @@
 author: JZ
 pubDatetime: 2024-12-29T06:23:00Z
 modDatetime: 2024-12-29T06:23:00Z
-title:  Programmer Strings
+title: Programmer Strings
 tags:
   - a-hash
   - a-string
 description:
-  "Solutions for  Programmer Strings, hard, tags: string, hash table."
+  "Solutions for Programmer Strings, hard, tags: string, hash table."
 ---
 
 ## Table of contents

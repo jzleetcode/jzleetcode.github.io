@@ -26,16 +26,15 @@ How to check the Python version in a Python shell? We can check it with `sys` li
 import sys
 print(sys.version)
 
-# 
+# hosted environment
 3.12.4 (main, Aug  2 2024, 14:40:51) [GCC 10.2.1 20210110]
 ```
 
 Platform document page for coding environments:
 
 1. [LeetCode](https://support.leetcode.com/hc/en-us/articles/360011833974-What-are-the-environments-for-the-programming-languages), `sortedcontainers` included.
-2. [](https://candidatesupport..com/hc/en-us/articles/4402913877523-Execution-Environment), `sortedcontainers` not available, cannot install.
-3. [CoderPad](https://coderpad.io/languages/), `sortedcontainers` included.
-4. [CodeInterview](https://codeinterview.io/languages/),`sortedcontainers` not included, can install.
+2. [CoderPad](https://coderpad.io/languages/), `sortedcontainers` included.
+3. [CodeInterview](https://codeinterview.io/languages/),`sortedcontainers` not included, can install.
 
 ## How to Install `sortedcontainers` in a Python Shell or With a Python Script
 

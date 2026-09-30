@@ -13,7 +13,7 @@ description:
 
 ## Math Drawing and Algorithm Simulation
 
-In article [" Robot Walks and Project Euler 208 Solutions"](../-robot-walks-project-euler-208/) I drew the robot trajectory (circles and arcs) with [math10](https://www.math10.com/en/geometry/geogebra/geogebra.html). The tool is pretty nice, however not as flexible and customizable as a specialized drawing library.
+I drew the robot trajectory (circles and arcs) with [math10](https://www.math10.com/en/geometry/geogebra/geogebra.html). The tool is pretty nice, however not as flexible and customizable as a specialized drawing library.
 
 Python's [matplotlib](https://matplotlib.org/stable/) and [StdDraw](https://algs4.cs.princeton.edu/code/javadoc/edu/princeton/cs/algs4/StdDraw.html) from Princeton's Algorithm 4th Edition are great tools for scientific drawing and algorithm simulations.
 

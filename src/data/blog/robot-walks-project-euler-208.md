@@ -2,19 +2,19 @@
 author: JZ
 pubDatetime: 2024-12-03T06:23:00Z
 modDatetime: 2024-12-03T06:23:00Z
-title:  Robot Walks and Project Euler 208 Solutions
+title: Robot Walks and Project Euler 208 Solutions
 tags:
   - a-simulation
   - a-math
 description:
-  "Solutions for project euler 208 and  question robot walks, hard, tags: math, simulation."
+  "Solutions for Project Euler 208 and robot walks, hard, tags: math, simulation."
 ---
 
 ## Table of contents
 
 ## Context
 
-For a related but much simpler question, see [leetcode 1041](../leet-1041--gfg-robot-bounded-in-circle/).
+For a related but much simpler question, see [LeetCode 1041](../leet-1041-robot-bounded-in-circle/).
 
 ## Project Euler 208
 
@@ -56,9 +56,7 @@ let m=70; // number of moves
 
 Complexity: Time $O(n\cdot 2^m)$, Space $O(2^m)$.
 
-##  Robot Walks Question
-
- [Question](https://www..com/contests/projecteuler/challenges/euler208/problem).
+## Robot Walks Question
 
 This problem is a programming version of [Problem 208](https://projecteuler.net/problem=208) from [projecteuler.net](https://projecteuler.net/)
 

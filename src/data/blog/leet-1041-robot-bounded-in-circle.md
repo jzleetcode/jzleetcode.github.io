@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-30T07:23:00Z
 modDatetime: 2025-05-01T07:23:00Z
-title: LeetCode 1041 LintCode 1345 Robot Bounded in Circle (GeeksForGeeks,  EnCircular)
+title: LeetCode 1041 LintCode 1345 Robot Bounded in Circle
 tags:
   - a-math
   - a-string
@@ -10,18 +10,18 @@ tags:
   - c-linkedin
   - c-salesforce
 description:
-  "Solutions for LeetCode 1041 LintCode 1345 GFG , medium, tags: math, string, simulation, companies: linkedin, salesforce."
+  "Solutions for LeetCode 1041 LintCode 1345 GFG, medium, tags: math, string, simulation, companies: linkedin, salesforce."
 ---
 
 ## Table of contents
 
 ## Context
 
-Question Links: [LeetCode 1041](https://leetcode.com/problems/robot-bounded-in-circle/description/), [LintCode 1345](https://www.lintcode.com/problem/1345/), [GeeksForGeeks](https://www.geeksforgeeks.org/robot-bounded-in-circle/), [](https://www..com/challenges/encircular)
+Question Links: [LeetCode 1041](https://leetcode.com/problems/robot-bounded-in-circle/description/), [LintCode 1345](https://www.lintcode.com/problem/1345/), [GeeksForGeeks](https://www.geeksforgeeks.org/robot-bounded-in-circle/)
 
-This is a popular question seen on LeetCode, LintCode, GeeksForGeeks, and .
+This is a popular question seen on LeetCode, LintCode, and GeeksForGeeks.
 
-For a related but much harder question, see [project euler 208 and  robot walks](../-robot-walks-project-euler-208/).
+For a related but much harder question, see [Project Euler 208 robot walks](../robot-walks-project-euler-208/).
 
 ## LeetCode, GeeksForGeeks, and LintCode Question
 
@@ -217,7 +217,7 @@ impl Solution {
 }
 ```
 
-##  EnCircular Question
+## EnCircular Question
 
 Build a computer simulation of a mobile robot.
 The robot moves on an infinite plane, starting from position (0, 0).

@@ -2,13 +2,13 @@
 author: JZ
 pubDatetime: 2024-11-27T08:23:00Z
 modDatetime: 2024-11-27T08:23:00Z
-title:  Bitwise Xor Operations
+title: Bitwise Xor Operations
 tags:
   - a-bit
   - a-sliding-window
   - c-salesforce
 description:
-  "Solutions for  bitwise xor operations, medium, tags: bit, companies: salesforce."
+  "Solutions for bitwise xor operations, medium, tags: bit, companies: salesforce."
 ---
 
 ## Table of contents

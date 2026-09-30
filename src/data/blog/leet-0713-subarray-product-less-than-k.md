@@ -19,8 +19,6 @@ description:
 
 Question links: [GFG](https://www.geeksforgeeks.org/number-subarrays-product-less-k/), [LeetCode 713](https://leetcode.com/problems/subarray-product-less-than-k/description/), [LintCode 1075](https://www.lintcode.com/problem/1075/).
 
-The question is on  too.
-
 Given an array of integers `nums` and an integer `k`, return _the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than_ `k`.
 
 ```
@@ -47,20 +45,6 @@ Output: 0
 Hint 1
 
 For each j, let opt(j) be the smallest i so that nums[i] * nums[i+1] * ... * nums[j] is less than k. `opt` is an increasing function.
-
-##  Question Description
-
-Returns: long int: the number of subarrays whose product is less than or equal to k.
-
-Constraints
-
-- $1 \le n \le 5 \times 10^5$
-- $1 \le numbers(i] \le 100$
-- $1 \le k \le 10^6$
-
-One variation is that the product can be equal to `k`. And there is some difference in the constraints.
-
-We can solve these questions with the same algorithm.
 
 ## Idea1
 

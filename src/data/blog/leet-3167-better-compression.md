@@ -2,7 +2,7 @@
 author: JZ
 pubDatetime: 2024-11-26T07:23:00Z
 modDatetime: 2025-05-01T06:23:00Z
-title: LeetCode 3167  Better Compression
+title: LeetCode 3167 Better Compression
 tags:
   - a-string
   - a-hash
@@ -11,14 +11,14 @@ tags:
   - leetcode-locked
   - c-salesforce
 description:
-  "Solutions for LeetCode 3167  Better Compression, tags: string, hash table, companies: salesforce."
+  "Solutions for LeetCode 3167 Better Compression, tags: string, hash table, companies: salesforce."
 ---
 
 ## Table of contents
 
 ## Description
 
-Question Links: [LeetCode 3167](https://leetcode.com/problems/better-compression-of-string/description/), [](https://www..com/challenges/better-compression)
+Question Link: [LeetCode 3167](https://leetcode.com/problems/better-compression-of-string/description/)
 
 Consider a string, S, that is a series of characters each followed by its frequency as an integer. The string is not compressed correctly, so there may be multiple occurrences of the same character. A properly compressed string will consist of one instance of each character in alphabetical order followed by the total count of that character within the string.
 
@@ -57,12 +57,6 @@ S: a compressed string
 Returns:
 
 string: the properly compressed string
-
-** Constraints:**
-
-* 1 ≤ size of S ≤ 100000
-* 'a' <= characters in S <= 'z'
-* 1 ≤ frequency of each character in S ≤ 1000
 
 **LeetCode Constraints:**
 
@@ -136,7 +130,7 @@ class Solution {
 #### C++
 
 ```cpp []
-// leet 3167  Better Compression. O(n) time, O(1) space.
+// LeetCode 3167 Better Compression. O(n) time, O(1) space.
 class Solution3167 {
 public:
     string betterCompression(const string &s) {
