@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-24T06:00:00Z
 modDatetime: 2026-09-24T06:00:00Z
 title: LeetCode 503 Next Greater Element II
-featured: true
+featured: false
 tags:
   - a-array
   - a-stack
