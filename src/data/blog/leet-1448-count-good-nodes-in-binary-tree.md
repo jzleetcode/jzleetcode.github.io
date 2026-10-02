@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-24T10:07:00Z
 modDatetime: 2026-09-24T10:07:00Z
 title: LeetCode 1448 Count Good Nodes in Binary Tree
-featured: true
+featured: false
 tags:
   - a-dfs
   - a-bfs
