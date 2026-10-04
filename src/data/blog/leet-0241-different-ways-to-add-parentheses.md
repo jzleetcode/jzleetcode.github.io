@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-25T10:08:00Z
 modDatetime: 2026-09-25T10:08:00Z
 title: LeetCode 241 Different Ways to Add Parentheses
-featured: true
+featured: false
 tags:
   - a-dynamic-programming
   - a-recursion
