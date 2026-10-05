@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-25T10:38:00Z
 modDatetime: 2026-09-25T10:38:00Z
 title: LeetCode 395 Longest Substring with At Least K Repeating Characters
-featured: true
+featured: false
 tags:
   - a-divide-and-conquer
   - a-sliding-window
