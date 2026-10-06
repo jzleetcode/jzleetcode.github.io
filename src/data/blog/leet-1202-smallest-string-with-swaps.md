@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-27T10:07:00Z
 modDatetime: 2026-09-27T10:07:00Z
 title: LeetCode 1202 Smallest String With Swaps
-featured: true
+featured: false
 tags:
   - a-graph
   - a-union-find
