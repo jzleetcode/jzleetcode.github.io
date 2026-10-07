@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-27T10:37:00Z
 modDatetime: 2026-09-27T10:37:00Z
 title: LeetCode 189 Rotate Array
-featured: true
+featured: false
 tags:
   - a-array
   - a-math
