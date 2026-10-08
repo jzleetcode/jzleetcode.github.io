@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-28T10:00:00Z
 modDatetime: 2026-09-28T10:00:00Z
 title: LeetCode 983 Minimum Cost For Tickets
-featured: true
+featured: false
 tags:
   - a-dp
 description:
