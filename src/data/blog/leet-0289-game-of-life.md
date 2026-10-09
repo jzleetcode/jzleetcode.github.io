@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-28T12:00:00Z
 modDatetime: 2026-09-28T12:00:00Z
 title: LeetCode 289 Game of Life
-featured: true
+featured: false
 tags:
   - a-array
   - a-matrix
