@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-29T10:07:00Z
 modDatetime: 2026-09-29T10:07:00Z
 title: LeetCode 1094 Car Pooling
-featured: true
+featured: false
 tags:
   - a-array
   - a-sorting
