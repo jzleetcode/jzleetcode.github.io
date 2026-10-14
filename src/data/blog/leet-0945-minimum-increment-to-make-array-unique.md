@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-09-29T10:36:00Z
 modDatetime: 2026-09-29T10:36:00Z
 title: LeetCode 945 Minimum Increment to Make Array Unique
-featured: true
+featured: false
 tags:
   - a-array
   - a-greedy
