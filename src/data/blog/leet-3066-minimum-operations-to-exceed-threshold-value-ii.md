@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-01T00:15:26Z
 modDatetime: 2026-10-01T00:15:26Z
 title: LeetCode 3066 Minimum Operations to Exceed Threshold Value II
-featured: true
+featured: false
 tags:
   - a-heap
   - a-greedy
