@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-02T19:30:39Z
 modDatetime: 2026-10-02T19:30:39Z
 title: LeetCode 2730 Find the Longest Semi-Repetitive Substring
-featured: true
+featured: false
 tags:
   - a-sliding-window
 description: "Solutions for LeetCode 2730, medium, tags: string, sliding window, two pointers."
