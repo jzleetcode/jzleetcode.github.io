@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-04T12:00:00Z
 modDatetime: 2026-10-04T12:00:00Z
 title: LeetCode 2602 Minimum Operations to Make All Array Elements Equal
-featured: true
+featured: false
 tags:
   - a-array
   - a-binary-search
