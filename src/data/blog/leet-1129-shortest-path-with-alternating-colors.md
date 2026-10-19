@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-05T19:41:35Z
 modDatetime: 2026-10-05T19:41:35Z
 title: LeetCode 1129 Shortest Path with Alternating Colors
-featured: true
+featured: false
 tags:
   - a-bfs
   - a-graph
