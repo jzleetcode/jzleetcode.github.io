@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-06T19:21:57Z
 modDatetime: 2026-10-06T19:21:57Z
 title: LeetCode 2530 Maximal Score After Applying K Operations
-featured: true
+featured: false
 tags:
   - a-greedy
   - a-heap
