@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-07T19:11:05Z
 modDatetime: 2026-10-07T19:11:05Z
 title: LeetCode 1827 Minimum Operations to Make the Array Increasing
-featured: true
+featured: false
 tags:
   - a-array
   - a-greedy
