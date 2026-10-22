@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-08T19:15:40Z
 modDatetime: 2026-10-08T19:15:40Z
 title: LeetCode 2352 Equal Row and Column Pairs
-featured: true
+featured: false
 tags:
   - a-array
   - a-hash-table
