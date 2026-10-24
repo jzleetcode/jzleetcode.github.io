@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-11T19:17:38Z
 modDatetime: 2026-10-11T19:17:38Z
 title: "LeetCode 1493 Longest Subarray of 1's After Deleting One Element"
-featured: true
+featured: false
 tags:
   - a-array
   - a-sliding-window
