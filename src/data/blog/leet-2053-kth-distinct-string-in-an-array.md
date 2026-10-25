@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-14T19:05:00Z
 modDatetime: 2026-10-14T19:05:00Z
 title: LeetCode 2053 Kth Distinct String in an Array
-featured: true
+featured: false
 tags:
   - a-array
   - a-hash
