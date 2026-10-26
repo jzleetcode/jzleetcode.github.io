@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-16T19:02:03Z
 modDatetime: 2026-10-16T19:02:03Z
 title: LeetCode 1480 Running Sum of 1d Array
-featured: true
+featured: false
 tags:
   - a-array
   - a-prefix-sum
