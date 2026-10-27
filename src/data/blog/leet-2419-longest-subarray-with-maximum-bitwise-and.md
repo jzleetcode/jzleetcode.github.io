@@ -3,7 +3,6 @@ author: JZ
 pubDatetime: 2026-10-17T18:56:12Z
 modDatetime: 2026-10-17T18:56:12Z
 title: LeetCode 2419 Longest Subarray With Maximum Bitwise AND
-featured: true
 tags:
   - a-array
   - a-bit
