@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-18T19:45:21Z
 modDatetime: 2026-10-18T19:45:21Z
 title: LeetCode 1696 Jump Game VI
-featured: true
+featured: false
 tags:
   - a-array
   - a-dynamic-programming
