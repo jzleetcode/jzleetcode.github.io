@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-21T18:54:05Z
 modDatetime: 2026-10-21T18:54:05Z
 title: LeetCode 946 Validate Stack Sequences
-featured: true
+featured: false
 tags:
   - a-array
   - a-stack
