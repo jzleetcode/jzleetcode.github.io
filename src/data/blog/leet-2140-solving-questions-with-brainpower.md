@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-19T19:02:19Z
 modDatetime: 2026-10-19T19:02:19Z
 title: LeetCode 2140 Solving Questions With Brainpower
-featured: true
+featured: false
 tags:
   - a-array
   - a-dynamic-programming
