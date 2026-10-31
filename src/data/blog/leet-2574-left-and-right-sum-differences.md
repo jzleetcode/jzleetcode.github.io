@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-20T18:53:47Z
 modDatetime: 2026-10-20T18:53:47Z
 title: LeetCode 2574 Left and Right Sum Differences
-featured: true
+featured: false
 tags:
   - a-array
   - a-prefix-sum
