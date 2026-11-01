@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-22T18:55:32Z
 modDatetime: 2026-10-22T18:55:32Z
 title: LeetCode 1657 Determine if Two Strings Are Close
-featured: true
+featured: false
 tags:
   - a-hash-table
   - a-string
