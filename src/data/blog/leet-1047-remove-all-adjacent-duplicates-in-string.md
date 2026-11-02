@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-23T18:48:09Z
 modDatetime: 2026-10-23T18:48:09Z
 title: LeetCode 1047 Remove All Adjacent Duplicates In String
-featured: true
+featured: false
 tags:
   - a-stack
   - a-string
