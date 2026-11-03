@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-24T18:47:33Z
 modDatetime: 2026-10-24T18:47:33Z
 title: LeetCode 2485 Find the Pivot Integer
-featured: true
+featured: false
 tags:
   - a-math
   - a-prefix-sum
