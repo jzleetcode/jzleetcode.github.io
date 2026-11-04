@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-25T18:47:58Z
 modDatetime: 2026-10-25T18:47:58Z
 title: "LeetCode 1034 Coloring A Border"
-featured: true
+featured: false
 tags:
   - a-array
   - a-bfs
