@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-26T18:48:10Z
 modDatetime: 2026-10-26T18:48:10Z
 title: LeetCode 2000 Reverse Prefix of Word
-featured: true
+featured: false
 tags:
   - a-string
   - a-two-pointers
