@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-27T19:01:37Z
 modDatetime: 2026-10-27T19:01:37Z
 title: LeetCode 2215 Find the Difference of Two Arrays
-featured: true
+featured: false
 tags:
   - a-array
   - a-hash
