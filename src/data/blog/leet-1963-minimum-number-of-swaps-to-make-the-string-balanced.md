@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-28T19:09:11Z
 modDatetime: 2026-10-28T19:09:11Z
 title: LeetCode 1963 Minimum Number of Swaps to Make the String Balanced
-featured: true
+featured: false
 tags:
   - a-string
   - a-stack
