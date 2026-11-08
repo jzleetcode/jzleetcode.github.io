@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-29T11:32:29Z
 modDatetime: 2026-10-29T11:32:29Z
 title: LeetCode 1700 Number of Students Unable to Eat Lunch
-featured: true
+featured: false
 tags:
   - a-array
   - a-queue
