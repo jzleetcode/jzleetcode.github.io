@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-30T18:40:00Z
 modDatetime: 2026-10-30T18:40:00Z
 title: LeetCode 1768 Merge Strings Alternately
-featured: true
+featured: false
 tags:
   - a-string
   - a-two-pointers
