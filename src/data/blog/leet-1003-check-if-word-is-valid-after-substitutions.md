@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-10-31T18:45:00Z
 modDatetime: 2026-10-31T18:45:00Z
 title: LeetCode 1003 Check If Word Is Valid After Substitutions
-featured: true
+featured: false
 tags:
   - a-string
   - a-stack
