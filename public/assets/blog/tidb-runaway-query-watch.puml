@@ -1,0 +1,53 @@
+@startuml
+
+title How a TiDB Runaway Query Watch Reaches a Query
+hide footbox
+skinparam backgroundColor #ffffff
+skinparam sequence {
+  ArrowColor #24428b
+  ArrowFontSize 12
+  ParticipantBackgroundColor #eef1fb
+  ParticipantBorderColor #5c6bc0
+  ParticipantFontColor #0b2147
+  ParticipantFontSize 13
+  ParticipantPadding 18
+  LifeLineBorderColor #777777
+  LifeLineBackgroundColor #ffffff
+}
+
+participant "SQL adapter" as Adapter
+participant "Runaway Manager" as Manager
+participant "Runaway Checker" as Checker
+database "Watch system tables" as WatchTables
+participant "Coprocessor path\n(TiDB + TiKV)" as Copr
+
+loop every 1 second
+  Manager -> WatchTables: Sync new and removed watches
+  WatchTables --> Manager: Watch rows
+  Manager -> Manager: Update local TTL cache
+end
+
+Adapter -> Manager: Derive checker from resource group + digests
+Manager --> Adapter: Checker + group limits
+Adapter -> Checker: BeforeExecutor()
+Checker -> Manager: Match SQL / plan signatures
+Manager --> Checker: Match + action
+
+alt Watch action is KILL
+  Checker --> Adapter: Error before execution
+else Continue: DRYRUN, COOLDOWN, or SWITCH_GROUP
+  Checker --> Adapter: Continue or change statement group
+  Adapter -> Copr: Dispatch plan
+  loop each coprocessor request
+    Copr -> Checker: BeforeCopRequest(req)
+    Checker --> Copr: Allow or adjust request
+    Copr -> Copr: Send to TiKV; receive RU + key counts
+    Copr -> Checker: CheckThresholds(RU, keys)
+    opt QUERY_LIMIT threshold exceeded
+      Checker -> Manager: Mark runaway; enqueue record / watch
+      Manager -> WatchTables: Batch persist watch state
+    end
+  end
+end
+
+@enduml
