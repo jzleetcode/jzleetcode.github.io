@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-01T11:31:31Z
 modDatetime: 2026-11-01T11:31:31Z
 title: LeetCode 1013 Partition Array Into Three Parts With Equal Sum
-featured: true
+featured: false
 tags:
   - a-array
   - a-greedy
