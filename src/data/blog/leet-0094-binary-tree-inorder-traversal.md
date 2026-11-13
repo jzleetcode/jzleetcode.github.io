@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-02T19:35:00Z
 modDatetime: 2026-11-02T19:35:00Z
 title: LeetCode 94 Binary Tree Inorder Traversal
-featured: true
+featured: false
 tags:
   - a-tree
   - a-depth-first-search
