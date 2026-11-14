@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-03T19:31:06Z
 modDatetime: 2026-11-03T19:31:06Z
 title: LeetCode 1624 Largest Substring Between Two Equal Characters
-featured: true
+featured: false
 tags:
   - a-string
   - a-hash-table
