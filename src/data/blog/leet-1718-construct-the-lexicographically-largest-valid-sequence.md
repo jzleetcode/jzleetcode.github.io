@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-04T19:50:30Z
 modDatetime: 2026-11-04T19:50:30Z
 title: LeetCode 1718 Construct the Lexicographically Largest Valid Sequence
-featured: true
+featured: false
 tags:
   - a-array
   - a-backtracking
