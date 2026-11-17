@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-05T19:48:00Z
 modDatetime: 2026-11-05T19:48:00Z
 title: LeetCode 70 Climbing Stairs
-featured: true
+featured: false
 tags:
   - a-dynamic-programming
   - a-math
