@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-06T19:47:03Z
 modDatetime: 2026-11-06T19:47:03Z
 title: LeetCode 274 H-Index
-featured: true
+featured: false
 tags:
   - a-array
   - a-counting-sort
