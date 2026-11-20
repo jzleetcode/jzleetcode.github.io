@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-08T19:49:14Z
 modDatetime: 2026-11-08T19:49:14Z
 title: LeetCode 1248 Count Number of Nice Subarrays
-featured: true
+featured: false
 tags:
   - a-hash
   - a-prefix-sum
