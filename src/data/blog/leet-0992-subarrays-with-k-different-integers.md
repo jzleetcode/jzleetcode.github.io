@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-09T19:57:17Z
 modDatetime: 2026-11-09T19:57:17Z
 title: LeetCode 992 Subarrays with K Different Integers
-featured: true
+featured: false
 tags:
   - a-array
   - a-hash-table
