@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-11T19:00:00Z
 modDatetime: 2026-11-11T19:00:00Z
 title: LeetCode 2012 Sum of Beauty in the Array
-featured: true
+featured: false
 tags:
   - a-array
 description: "Solutions for LeetCode 2012, medium, tags: array, prefix maximum, suffix minimum."
