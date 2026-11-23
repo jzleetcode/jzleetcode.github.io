@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-12T20:09:42Z
 modDatetime: 2026-11-12T20:09:42Z
 title: LeetCode 2736 Maximum Sum Queries
-featured: true
+featured: false
 tags:
   - a-array
   - a-line-sweep
