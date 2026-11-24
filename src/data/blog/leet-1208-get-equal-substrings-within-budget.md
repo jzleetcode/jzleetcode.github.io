@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-13T19:46:32Z
 modDatetime: 2026-11-13T19:46:32Z
 title: LeetCode 1208 Get Equal Substrings Within Budget
-featured: true
+featured: false
 tags:
   - a-string
   - a-sliding-window
