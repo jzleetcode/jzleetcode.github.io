@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-14T19:44:16Z
 modDatetime: 2026-11-14T19:44:16Z
 title: LeetCode 1658 Minimum Operations to Reduce X to Zero
-featured: true
+featured: false
 tags:
   - a-array
   - a-sliding-window
