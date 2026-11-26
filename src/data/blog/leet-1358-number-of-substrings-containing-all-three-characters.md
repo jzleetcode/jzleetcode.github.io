@@ -3,7 +3,7 @@ author: JZ
 pubDatetime: 2026-11-16T19:47:57Z
 modDatetime: 2026-11-16T19:47:57Z
 title: LeetCode 1358 Number of Substrings Containing All Three Characters
-featured: true
+featured: false
 tags:
   - a-sliding-window
   - a-string
